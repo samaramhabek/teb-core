@@ -50,7 +50,7 @@ class DoctorController extends Controller
 
         $totalData = Doctor::count();
 
-        $query = Doctor::with('category_parent','category_child','service','insurances','treatments','cases','city')
+        $query = Doctor::with('service','insurances','treatments','cases','city')
             ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
 
         if (!empty($search)) {

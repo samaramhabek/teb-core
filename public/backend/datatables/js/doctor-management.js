@@ -369,8 +369,8 @@ $(function () {
                     text: '<i class="ti ti-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">' + addNewTranslation + '</span>',
                     className: 'add-new btn btn-primary',
                     attr: {
-                        'data-bs-toggle': 'offcanvas',
-                        'data-bs-target': '#offcanvasAddDoctor'
+                        // 'onClick': 'add()',
+                        'id':'add-new-doctor'
                     }
                 }
             ],
@@ -489,6 +489,13 @@ $(function () {
     $('.add-new').on('click', function () {
         $('#doctor_id').val(''); //reseting input field
         $('#offcanvasAddDoctorLabel').html(addNewTranslation);
+    });
+    $('#add-new-doctor').on('click', function () {
+        // $('#doctor_id').val(''); //reseting input field
+        // $('#offcanvasAddDoctorLabel').html(addNewTranslation);
+        console.log('aaa')
+        document.location.href ='http://localhost:8000/modal-example'
+
     });
 
     // Filter form control to default size
@@ -620,3 +627,4 @@ $(function () {
         });
     }
 });
+

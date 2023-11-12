@@ -14,9 +14,9 @@ class TreatmentsController extends Controller
     public function index()
     {
       //  $categories = Category::latest()->get();
-        $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+        // $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+        $parent_categories = Category::all();
         $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
-
         return view('backend.treatments.index', compact('parent_categories', 'child_categories'));
     }
 

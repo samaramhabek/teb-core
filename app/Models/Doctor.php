@@ -5,8 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+
+use Illuminate\Contracts\Support\Arrayable;
 use App\Models\Service;
-class Doctor extends Model
+class Doctor extends Model implements  Arrayable
 {
     use HasFactory ,HasTranslations;
     protected $guarded=[];

@@ -48,6 +48,7 @@
                                <label class="form-label" for="category_id">{{__('cp.maincategory')}}</label>
                                <select id="category_id" name="category_id" class="select2 form-select">
                                    <option value="">Select</option>
+
                                    @foreach($parent_categories as $category)
                                        <option value="{{$category->id}}">{{$category->name}}</option>
                                    @endforeach
@@ -113,6 +114,7 @@
     </script>
 
     <script>
+        console.log({{$parent_categories}})
         $(document).ready(function () {
 
             $('#category_id').on('change', function () {
