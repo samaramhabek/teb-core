@@ -11,4 +11,8 @@ class Service extends Model
     use HasFactory, HasTranslations;
     protected $guarded = [];
     public $translatable = ['name'];
+    public function doctors()
+    {
+        return $this->belongsToMany(Doctor::class);
+    }
 }

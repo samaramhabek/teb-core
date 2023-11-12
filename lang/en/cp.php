@@ -218,6 +218,10 @@ return [
     'edit_password' => 'Edit Password ',
     'name_en' => 'Name English ',
     'name_ar' => 'Name Arabic ',
+    'first_name' => 'First Name',
+    'last_name' => 'Last Name',
+
+
     'title_en' => 'English Title',
     'title_ar' => 'Arabic Title',
     'description_en' => 'English Description',
@@ -985,6 +989,7 @@ return [
     'add_area' => 'Add New Area',
     'treatments' => 'Treatments',
     'add_treatments' => 'Add New Treatments',
+    'add_doctors' => 'Add New Doctors',
     'add_cases' => 'Add New Cases',
     'cases' => 'Cases',
     'add_insurance' => 'Add New Insurance',

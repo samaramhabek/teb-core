@@ -24,4 +24,8 @@ class Treatment extends Model
             'name' => '-'
         ]);
     }
+    public function doctors()
+    {
+        return $this->belongsToMany(Doctor::class);
+    }
 }

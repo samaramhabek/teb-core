@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('currencies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('country_id')->constrained();
-            $table->string('name');
+          
+            $table->string('currency_name');
+            $table->string('currency_code', 3)->unique();
+            $table->string('symbol')->nullable();
             $table->timestamps();
         });
     }

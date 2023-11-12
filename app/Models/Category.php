@@ -47,4 +47,8 @@ class Category extends Model
     {
         return $this->belongsToMany(Country::class);
     }
+    public function doctors()
+    {
+        return $this->belongsToMany(Doctor::class);
+    }
 }

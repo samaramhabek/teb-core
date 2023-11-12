@@ -68,6 +68,29 @@
                     </a>
                 </li>
             </ul>
+            <!--    doctor -->
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Shop</span>
+            </li>
+            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/doctors/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-id"></i>
+                    <div>{{__('cp.doctors')}}</div>
+                    <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/doctors/index') ? 'active' : '' }}">
+                        <a href="{{route('admin.tables')}}" class="menu-link">
+                            <div>{{__('cp.doctors')}}</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/sub-categories*') ? 'active' : '' }}">
+                        <a href="{{route('admin.sub-categories.index')}}" class="menu-link">
+                            <div>{{__('cp.sub_categories')}}</div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- end doctor-->
 
         <!-- Apps & Pages -->
         <li class="menu-header small text-uppercase">

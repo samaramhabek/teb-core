@@ -115,7 +115,7 @@ return [
     'sub_category' => 'التصنيف الفرعي',
 
     'sub_categories' => 'التصنيفات الفرعية',
-
+   'doctors'=>'الاطباء',
 
     'non' => 'لا',
 
@@ -598,6 +598,7 @@ return [
     'first_name' => 'الإسم الأول',
 
     'last_name' => 'الإسم الأخير',
+    'title'=>'لقب',
 
     'owner_id' => 'رقم المالك',
 
@@ -1163,6 +1164,7 @@ return [
     'add_area' => 'اضافة حي',
     'treatments' => 'العلاجات',
     'add_treatments' => 'اضافة علاج',
+    'add_doctors' => 'اضافة طبيب',
     'add_cases' => 'اضافة حالة',
     'cases' => 'الحالات',
     'add_insurance' => 'اضافة تأمين',

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
-@section('title', __('cp.treatments'))
-@section('admin')
+ @section('title', __('cp.treatments'))
+   @section('admin')
 
     <div class="container-xxl flex-grow-1 container-p-y">
        <div class="row">

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AreasController;
 use App\Http\Controllers\Admin\CasesController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\CitiesController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\CurrencyController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\Admin\TreatmentsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,21 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/modal-example',function(){
+return view('backend.doctors.form');
+})->name('form');
+Route::get('/modal-example/index',function(){
+    return view('index');
+    })->name('index');
+    Route::get('/modal-example/modal',function(){
+        return view('modal');
+        })->name('modal');
+        // Route::get('/doctors',function(){
+        //     return view('backend.doctors.tables');
+        //     })->name('tables');
+
+            
+ Route::get('/doctors', [DoctorController::class, 'index'])->name('tables');
 
 
 Route::middleware('auth')->group(function () {
@@ -71,6 +88,9 @@ Route::group(
 
         Route::resource('/treatments', TreatmentsController::class);
         Route::get('/api-treatments', [TreatmentsController::class, 'treatments_api'])->name('treatments.api');
+
+        Route::get('/doctors/index', [DoctorController::class, 'index2'])->name('tables');
+        Route::get('/api-doctors', [DoctorController::class, 'doctors_api'])->name('doctors.api');
 
         Route::resource('/cases', CasesController::class);
         Route::get('/api-cases', [CasesController::class, 'cases_api'])->name('cases.api');

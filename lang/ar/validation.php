@@ -115,6 +115,7 @@ return [
     */
 
     'attributes' => [
+        'first_name' => 'First Name',
                'status' => 'الحالة',
         'store_area_id' => 'منطقة المتجر',
         'minimum' => 'الحد الأدنى',
