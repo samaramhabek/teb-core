@@ -9,8 +9,10 @@ use App\Models\Category;
 
 use App\Models\Country;
 use App\Models\Doctor;
+use App\Models\Nationality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 
 class DoctorController extends Controller
 {
@@ -237,77 +239,106 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('form');
+        $nationalities=Nationality::get();
+        return view('backend.doctors.form',['nationalities'=>$nationalities]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+    //     $categoryId = $request->id;
+    //     $existingCategory = Category::find($categoryId);
+    //     $request->validate([
+    //         'name_ar' => 'required|unique:categories,name->ar,' . $categoryId,
+    //         'name_en' => 'required|unique:categories,name->en,' . $categoryId,
+    //         'country_id' => 'required|array',
+    //         //     'image' => 'required',
+    //         'country_id.*' => 'exists:countries,id',
+    //     ], [
+    //         'name_ar.required' => __('validation.required'),
+    //         'name_en.required' => __('validation.required'),
+    //         'name_ar.unique' => __('validation.unique'),
+    //         'name_en.unique' => __('validation.unique'),
+    //         'country_id.exists' => __('validation.exists'),
+    //     ]);
+
+
+  
+
+    //     $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
+    //     if ($categoryId) {
+    //         // update the value
+    //         $category = Category::whereId($categoryId)->firstOrFail();
+
+    //         $category->update($data);
+    //         if ($request->country_id) {
+    //             $category->countries()->sync($request->country_id);
+    //         }
+    //         // user updated
+    //         return response()->json(__('cp.update'));
+    //     } else {
+    //         // create new one if email is unique
+    //         $category = Category::where('id', $request->id)->first();
+
+    //         if (empty($category)) {
+    //             $category = Category::create($data);
+    //             if ($request->country_id) {
+    //                 $category->countries()->attach($request->country_id);
+    //             }
+    //             return response()->json(__('cp.create'));
+    //         } else {
+    //             // category Already exist
+    //             return response()->json(['message' => "Already exits"], 422);
+    //         }
+    //     }
+    // }
+
     public function store(Request $request)
     {
-        $categoryId = $request->id;
-        $existingCategory = Category::find($categoryId);
-        $request->validate([
-            'name_ar' => 'required|unique:categories,name->ar,' . $categoryId,
-            'name_en' => 'required|unique:categories,name->en,' . $categoryId,
-            'country_id' => 'required|array',
-            //     'image' => 'required',
-            'country_id.*' => 'exists:countries,id',
-        ], [
-            'name_ar.required' => __('validation.required'),
-            'name_en.required' => __('validation.required'),
-            'name_ar.unique' => __('validation.unique'),
-            'name_en.unique' => __('validation.unique'),
-            'country_id.exists' => __('validation.exists'),
-        ]);
-//        $commonRules = [
-//            'name_ar' => 'required|unique:categories,name->ar,'. $categoryId,
-//            'name_en' => 'required|unique:categories,name->en,'. $categoryId,
-//            'country_id' => 'required|array',
-//            'country_id.*' => 'exists:countries,id',
-//        ];
+        log::info($request->all());
+        $doctorId = $request->id;
 
-        // Add the 'required' rule for 'image' for store operation
-//        $storeRules = $commonRules + [
-//                //      'image' => 'required',
-//            ];
+        // $request->validate([
+        //     'name_ar' => 'required|unique:treatments,name->ar,'. $treatmentId,
+        //     'name_en' => 'required|unique:treatments,name->en,'. $treatmentId,
+        //     'category_id' => 'required|exists:categories,id',
+        //     'child_category_id' => 'nullable|exists:categories,id',
+        // ]);
 
-        // Apply the appropriate validation rules based on the operation
-        // $request->validate($categoryId ? $commonRules : $storeRules);
+        $data['first_name'] = ['en' => $request->first_name_en, 'ar' => $request->first_name_ar];
+        $data['last_name'] = ['en' => $request->last_name_en, 'ar' => $request->last_name_ar];
+        $data['description'] = ['en' => $request->description_en, 'ar' => $request->description_ar];
+        $data['title'] = ['en' => $request->title_en, 'ar' => $request->title_ar];
+        $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];
+        $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
+        $data['email'] = $request->email;
+        $data['gender'] = $request->gender;
+        $data['nationality_id'] = $request->nationality_id;
+        $data['is_trainer'] = $request->is_trainer;
+        $data['city_id'] = $request->city_id;
+        $data['Phone'] = $request->Phone;
 
-        $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
-//        if ($request->hasFile('image')) {
-//            $newImagePath = $request->file('image')->store('categories', 'public');
-//
-//            $oldCategoryPath = $existingCategory->image;
-//            if ($oldCategoryPath !== null && Storage::disk('public')->exists($oldCategoryPath)) {
-//                Storage::disk('public')->delete($oldCategoryPath);
-//            }
-//            $data['image'] = $newImagePath;
-//        }
-        if ($categoryId) {
+        if ($doctorId) {
             // update the value
-            $category = Category::whereId($categoryId)->firstOrFail();
+            $doctor = Doctor::whereId($doctorId)->firstOrFail();
+            $doctor->update($data);
 
-            $category->update($data);
-            if ($request->country_id) {
-                $category->countries()->sync($request->country_id);
-            }
             // user updated
             return response()->json(__('cp.update'));
         } else {
             // create new one if email is unique
-            $category = Category::where('id', $request->id)->first();
+            $doctor = Doctor::where('id', $request->id)->first();
 
-            if (empty($category)) {
-                $category = Category::create($data);
-                if ($request->country_id) {
-                    $category->countries()->attach($request->country_id);
-                }
+            if (empty($doctor)) {
+                $doctor = Doctor::create($data);
+
+                // category created
                 return response()->json(__('cp.create'));
             } else {
-                // category Already exist
-                return response()->json(['message' => "Already exits"], 422);
+                // category already exist
+                return response()->json(['message' => "already exits"], 422);
             }
         }
     }

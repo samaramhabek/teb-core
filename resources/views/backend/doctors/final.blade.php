@@ -315,7 +315,7 @@
                         <th>description</th>
                         <th>is trainer</th>
                       
-                        <th>Action</th>
+                        <th data-priority="1">Action</th>
                       </tr>
                     </thead>
                     <tfoot>
@@ -336,7 +336,7 @@
                         <th>description</th>
                         <th>is trainer</th>
                     
-                        <th>Action</th>
+                        <th data-priority="1">Action</th>
                       </tr>
                     </tfoot>
                   </table>

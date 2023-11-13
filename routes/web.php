@@ -17,6 +17,13 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Models\Nationality;
+use App\Models\Treatment;
+use App\Models\Cases;
+use App\Models\Category;
+use App\Models\Insurance;
+use App\Models\City;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +36,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 |
 */
 Route::get('/modal-example',function(){
-return view('backend.doctors.form');
+return view('backend.doctors.form',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
+                                    'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get()]);
 })->name('form');
 Route::get('/modal-example/index',function(){
     return view('index');
@@ -91,6 +99,7 @@ Route::group(
 
         Route::get('/doctors/index', [DoctorController::class, 'index2'])->name('tables');
         Route::get('/api-doctors', [DoctorController::class, 'doctors_api'])->name('doctors.api');
+        Route::get('/api-createDoctor', [DoctorController::class, 'store'])->name('createDoctor');
 
         Route::resource('/cases', CasesController::class);
         Route::get('/api-cases', [CasesController::class, 'cases_api'])->name('cases.api');

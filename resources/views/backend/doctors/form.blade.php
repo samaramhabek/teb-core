@@ -694,8 +694,8 @@
                                     </div>
                                 </div>
                                 <div class="bs-stepper-content  multi-step-form">
-                                    <form action="#" method="post">
-
+                                    <form action="{{ route('admin.createDoctor') }}" method="post">
+                                        @csrf
                                         <fieldset aria-label="Step One" id="step-1">
                                             <div class="title-step">
                                                 <h3>الاسم واللقب</h3>
@@ -706,7 +706,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
-                                                            placeholder="الاسم الاول ( باللغه العربيه )" name="fname"
+                                                            placeholder="الاسم الاول ( باللغه العربيه )" name="first_name_ar"
                                                             required />
                                                     </div>
                                                 </div>
@@ -717,7 +717,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="الاسم الاول ( باللغه الانجليزيه)"
-                                                            name="fnameEn" required />
+                                                            name="first_name_en" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -726,7 +726,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
-                                                            placeholder="الاسم الثاني ( باللغه العربيه )" name="sname"
+                                                            placeholder="الاسم الثاني ( باللغه العربيه )" name="last_name_ar"
                                                             required />
                                                     </div>
                                                 </div>
@@ -737,7 +737,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="الاسم الثاني ( باللغه الانجليزيه)"
-                                                            name="snameEn" required />
+                                                            name="last_name_en" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -747,7 +747,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="لقب الدكتور ( باللغه العربيه ) مثال : استشاري نسائيه ، اخصائي طب نفسي"
-                                                            name="nickname" required />
+                                                            name="title_ar" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -757,7 +757,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="لقب الدكتور ( باللغه الانجليزيه)"
-                                                            name="nicknameEn" required />
+                                                            name="title_en" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -774,7 +774,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
-                                                            placeholder="الخبره المهنيه ( باللغه العربيه )" name="exper"
+                                                            placeholder="الخبره المهنيه ( باللغه العربيه )" name="description_ar"
                                                             required />
                                                     </div>
                                                 </div>
@@ -785,7 +785,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="الخبره المهنيه ( باللغه الانجليزيه)"
-                                                            name="experEn" required />
+                                                            name="description_en" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -833,8 +833,8 @@
                                                     <div class="form-group">
                                                         <select class="form-control" name="type" required>
                                                             <option value="" disabled>الجنس</option>
-                                                            <option value="female">انثي</option>
-                                                            <option value="male">ذكر</option>
+                                                            <option value="0">انثي</option>
+                                                            <option value="1">ذكر</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -845,8 +845,9 @@
                                                     <div class="form-group">
                                                         <select class="form-control" name="ent" required>
                                                             <option value="" disabled>الجنسيه</option>
-                                                            <option value="1">الجنسيه </option>
-                                                            <option value="2">الجنسيه </option>
+                                                            @foreach($nationalities as $nationality)
+                                                            <option value="{{$nationality->id}}">{{$nationality->name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -856,7 +857,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control phone"
-                                                            placeholder="رقم الهاتف" name="phone" required />
+                                                            placeholder="رقم الهاتف" name="Phone" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -870,21 +871,22 @@
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" placeholder="بحث"
                                                             name="specialSearch" required />
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="special" required>
+                                                        <select class="form-control" name="categories[]" required multiple>
                                                             <option value="" disabled>التخصصات الرئيسيه</option>
-                                                            <option value="1">التخصصات الرئيسيه </option>
-                                                            <option value="2">التخصصات الرئيسيه </option>
+                                                            @foreach($categories as $category)
+                                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -899,21 +901,22 @@
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" placeholder="بحث"
                                                             name="treatSearch" required />
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="treat" required>
+                                                        <select class="form-control" name="treatments[]" required multiple>
                                                             <option value="" disabled>اختيار العلاج</option>
-                                                            <option value="1">اختيار العلاج</option>
-                                                            <option value="2">اختيار العلاج</option>
+                                                            @foreach($treatments as $treatment)
+                                                            <option value="{{$treatment->id}}">{{$treatment->name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -928,21 +931,22 @@
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" placeholder="بحث"
                                                             name="StatuSearch" required />
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="Statu" required>
-                                                            <option value="" disabled>اختيار الحاله</option>
-                                                            <option value="1">اختيار الحاله</option>
-                                                            <option value="2">اختيار الحاله</option>
+                                                        <select class="form-control" name="cases[]" required multiple>
+                                                            <option value="disabled">اختيار الحاله</option>
+                                                            @foreach($cases as $case)
+                                                            <option value="{{$case->id}}">{{$case->name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -957,21 +961,22 @@
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" placeholder="بحث"
                                                             name="InsuranSearch" required />
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="Insuran" required>
-                                                            <option value="" disabled>اختيار التأمين</option>
-                                                            <option value="1">اختيار التأمين</option>
-                                                            <option value="2">اختيار التأمين</option>
+                                                        <select class="form-control" name="insurances[]" required multiple>
+                                                            <option value="disabled">اختيار التأمين</option>
+                                                            @foreach($insurances as $insurance)
+                                                             <option value="{{$insurance->id}}">{{$insurance->name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -1001,21 +1006,30 @@
                                                     <div class="form-group">
                                                         <select class="form-control" name="City" required>
                                                             <option value="" disabled>اختيار المدينه</option>
-                                                            <option value="female">المدينه</option>
-                                                            <option value="male">المدينه</option>
+                                                            @foreach($cities as $city)
+                                                             <option value="{{$city->id}}">{{$city->name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="Region" required>
-                                                            <option value="" disabled>اختيار المنطقة</option>
-                                                            <option value="1">المنطقة </option>
-                                                            <option value="2">المنطقة </option>
-                                                        </select>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="المنطقة  ( بالغه العربيه )"
+                                                            name="region_ar" required />
+                                                    </div>
+                                                </div>
+                                                <!-- /Col -->
+
+                                                <!-- Col -->
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="المنطقة  ( بالغه الانجليزيه )"
+                                                            name="region_en" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -1026,7 +1040,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="العنوان التفصيلي ( بالغه العربيه )"
-                                                            name="address" required />
+                                                            name="address_ar" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -1036,19 +1050,19 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="العنوان التفصيلي ( بالغه الانجليزيه )"
-                                                            name="addressEn" required />
+                                                            name="address_en" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-12">
+                                                {{-- <div class="col-md-12">
                                                     <div class="form-group">
                                                         <input id="pac-input" class="form-control" type="text"
                                                             placeholder="Search Box">
                                                         <div id="map-canvas"></div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
@@ -1060,28 +1074,28 @@
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="date" placeholder="التاريخ" class="form-control" />
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="time" placeholder="الوقت" class="form-control" />
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
-                                                <div class="col-md-23">
+                                                {{-- <div class="col-md-23">
                                                     <div class="form-group">
                                                         <input type="text" placeholder="كشفيه العياده"
                                                             class="form-control" />
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
@@ -1108,7 +1122,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <input type="file" class="form-control"
-                                                            placeholder="تحميل شهاده مزاولة" name="upload-1" required />
+                                                            placeholder="تحميل شهاده مزاولة" name="upload-1"  />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -1118,7 +1132,7 @@
                                                     <div class="form-group">
                                                         <input type="file" class="form-control"
                                                             placeholder="تحميل شهاده الجامعة" name="upload-2"
-                                                            required />
+                                                             />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -1128,7 +1142,7 @@
                                                     <div class="form-group">
                                                         <input type="file" class="form-control"
                                                             placeholder="تحميل الهويه الشخصيه" name="upload-3"
-                                                            required />
+                                                             />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
