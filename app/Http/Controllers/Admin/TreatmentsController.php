@@ -79,7 +79,7 @@ class TreatmentsController extends Controller
                 $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
                 $nestedData['category'] = $treatment->category_parent ? $treatment->category_parent->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
                 $nestedData['sub_category'] = $treatment->category_child ? $treatment->category_child->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
-                $nestedData['created_at'] = $treatment->created_at->format('M Y');
+                // $nestedData['created_at'] = $treatment->created_at->format('M Y');
                 $data[] = $nestedData;
             }
         }

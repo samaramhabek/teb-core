@@ -990,6 +990,7 @@ return [
     'treatments' => 'Treatments',
     'add_treatments' => 'Add New Treatments',
     'add_doctors' => 'Add New Doctors',
+    'doctors' => 'Doctors',
     'add_cases' => 'Add New Cases',
     'cases' => 'Cases',
     'add_insurance' => 'Add New Insurance',

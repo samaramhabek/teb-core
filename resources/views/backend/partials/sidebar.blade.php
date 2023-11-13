@@ -70,7 +70,7 @@
             </ul>
             <!--    doctor -->
             <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Shop</span>
+                <span class="menu-header-text">Doctors</span>
             </li>
             <li class="menu-item {{ request()->is(app()->getLocale().'/admin/doctors/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -84,11 +84,11 @@
                             <div>{{__('cp.doctors')}}</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/sub-categories*') ? 'active' : '' }}">
+                    {{-- <li class="menu-item {{ request()->is(app()->getLocale().'/admin/sub-categories*') ? 'active' : '' }}">
                         <a href="{{route('admin.sub-categories.index')}}" class="menu-link">
                             <div>{{__('cp.sub_categories')}}</div>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
                 <!-- end doctor-->
 

@@ -19,7 +19,7 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="py-3 mb-4"><span class="text-muted fw-light">DataTables /</span> Basic</h4>
+              {{-- <h4 class="py-3 mb-4"><span class="text-muted fw-light">DataTables /</span> Basic</h4> --}}
 
               <!-- DataTable with Buttons -->
               {{-- <div class="card">
@@ -132,7 +132,7 @@
               </div> --}}
               <!--/ DataTable with Buttons -->
 
-              <hr class="my-5" />
+              {{-- <hr class="my-5" /> --}}
 
               <!-- Complex Headers -->
               {{-- <div class="card">
@@ -159,7 +159,7 @@
               </div> --}}
               <!--/ Complex Headers -->
 
-              <hr class="my-5" />
+              {{-- <hr class="my-5" /> --}}
                <!-- Modal to add new record -->
               {{-- <div class="offcanvas offcanvas-end" id="add-new-record">
                 <div class="offcanvas-header border-bottom">
@@ -305,14 +305,14 @@
                         <th></th>
                         <th>id</th>
                         <th>{{__('cp.first_name')}}</th>
-                        <th>last name</th>
+                        <th>{{__('cp.last_name')}}</th>
                         <th>Email</th>
                         <th>City</th>
                         <th>phone</th>
                         <th>gender</th>
-                        <th>title</th>
+                        <th>{{__('cp.title')}}</th>
                         <th>region</th>
-                        <th>description</th>
+                        {{-- <th>description</th> --}}
                         <th>is trainer</th>
                       
                         <th>Action</th>
@@ -333,7 +333,7 @@
                         <th>{{__('cp.title')}}</th>
                         {{-- <th>title</th> --}}
                         <th>region</th>
-                        <th>description</th>
+                        {{-- <th>description</th> --}}
                         <th>is trainer</th>
                     
                         <th>Action</th>
