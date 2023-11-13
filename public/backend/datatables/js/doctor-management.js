@@ -3,6 +3,7 @@
  */
 
 'use strict';
+var list_nationalities = $("#list_nationalities").data('nationalities');
 var list_countries = $("#list_countries").data('countries');
 const validationMessages = $('#validation-messages');
 const addNewTranslation = validationMessages.data('add-new');
@@ -627,4 +628,3 @@ $(function () {
         });
     }
 });
-

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('title')->nullable();
             $table->string('email')->nullable();
-            $table->enum('gender',['feminine','male'])->nullable();
+            $table->boolean('gender')->nullable();
             $table->foreignId('nationality_id')->nullable()->constrained('nationalities', 'id')->nullOnDelete();
             // $table->foreignId('category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
             // $table->foreignId('child_category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
@@ -32,6 +32,7 @@ return new class extends Migration
             
             $table->foreignId('city_id')->constrained();
             $table->string('region')->nullable();
+            $table->string('address')->nullable();
            $table->bigInteger('Phone')->nullable();
 
 
