@@ -9,6 +9,7 @@ use App\Models\Category;
 
 use App\Models\Country;
 use App\Models\Doctor;
+use App\Models\DoctorInsurance;
 use App\Models\Nationality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
