@@ -371,9 +371,12 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
-    {
-        $category->delete();
-        return 'Category deleted';
+    public function deletedoctor($id)
+
+    {  
+        // dd($id);
+          Doctor::where('id', $id)->delete();
+       
+        return 'Doctor deleted';
     }
 }

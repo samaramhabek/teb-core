@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctor_services', function (Blueprint $table) {
+        Schema::create('doctor_insurance', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('insurance_id')->nullable()->constrained('insurances', 'id')->nullOnDelete();
             $table->foreignId('doctor_id')->nullable()->constrained('doctors', 'id')->nullOnDelete();
-            $table->foreignId('service_id')->nullable()->constrained('services', 'id')->nullOnDelete();
-            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctor_services');
+        Schema::dropIfExists('doctor_insurances');
     }
 };

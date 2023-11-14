@@ -312,7 +312,7 @@
                         <th>gender</th>
                         <th>{{__('cp.title')}}</th>
                         <th>region</th>
-                        {{-- <th>description</th> --}}
+                        <th>description</th>
                         <th>is trainer</th>
                       
                         <th>Action</th>
@@ -333,7 +333,7 @@
                         <th>{{__('cp.title')}}</th>
                         {{-- <th>title</th> --}}
                         <th>region</th>
-                        {{-- <th>description</th> --}}
+                        <th>description</th>
                         <th>is trainer</th>
                     
                         <th>Action</th>

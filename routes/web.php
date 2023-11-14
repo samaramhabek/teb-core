@@ -35,6 +35,7 @@ use App\Models\City;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/modal-example',function(){
 return view('backend.doctors.form',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
                                     'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get()]);
@@ -99,8 +100,8 @@ Route::group(
 
         Route::get('/doctors/index', [DoctorController::class, 'index2'])->name('tables');
         Route::get('/api-doctors', [DoctorController::class, 'doctors_api'])->name('doctors.api');
-        Route::get('/api-createDoctor', [DoctorController::class, 'store'])->name('createDoctor');
-
+        Route::post('/api-createDoctor', [DoctorController::class, 'store'])->name('createDoctor');
+        Route::Delete('/doctors/{id}', [DoctorController::class, 'deletedoctor'])->name('deletedoctor');
         Route::resource('/cases', CasesController::class);
         Route::get('/api-cases', [CasesController::class, 'cases_api'])->name('cases.api');
 

@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
-use Illuminate\Contracts\Support\Arrayable;
+
+
 use App\Models\Service;
-class Doctor extends Model implements  Arrayable
+class Doctor extends Model 
 {
     use HasFactory ,HasTranslations;
     protected $guarded=[];
@@ -21,30 +20,30 @@ class Doctor extends Model implements  Arrayable
       }
       public function category_parent()
     {
-        return $this->belongsTo(Category::class, 'category_id')->withDefault();
+        return $this->belongsToMany(Category::class, 'category_id')->withDefault();
     }
 
     public function category_child()
     {
-        return $this->belongsTo(Category::class, 'child_category_id')->withDefault([
+        return $this->belongsToMany(Category::class, 'child_category_id')->withDefault([
             'name' => '-'
         ]);
     }
     public function insurances()
     {
-        return $this->belongsTo(Insurance::class)->withDefault();
+        return $this->belongsToMany(Insurance::class);
     }
     public function service()
     {
-        return $this->belongsTo(Service::class)->withDefault();
+        return $this->belongsToMany(Service::class);
     }
     public function cases()
     {
-        return $this->belongsTo(Cases::class)->withDefault();
+        return $this->belongsToMany(Cases::class, 'doctor_case','case_id','doctor_id');
     }
     public function treatments()
     {
-        return $this->belongsTo(Treatment::class)->withDefault();
+        return $this->belongsToMany(Treatment::class);
     }
 
 }
