@@ -77,7 +77,7 @@ $(function () {
                 { data: 'email'},
                 { data: 'city_id'},
                
-                { data: 'phone'},
+                { data: 'Phone'},
                 { data: 'gender'},
                 
                 { data: 'title'},
@@ -118,7 +118,8 @@ $(function () {
                     //     return '<span class="category-name">' + $name + '</span>';
                     // }
                     render: function (data, type, full, meta) {
-                        var $name = full['name'],
+                        var $first_name = full['first_name'],
+                        
                             $id = full['id'],
                             $image = full['image'];
                         // if ($image) {
@@ -136,7 +137,8 @@ $(function () {
                             '</div>' +
                             '<div class="d-flex flex-column">' +
                             '<h6 class="text-body text-nowrap mb-0">' +
-                            $name +
+                            $first_name +
+                            // $last_name +
                             '</h6>' +
                             '</div>' +
                             '</div>';
@@ -146,29 +148,49 @@ $(function () {
                 {
                     // Slug
                     targets: 3,
-                    render: function (data, type, full, meta) {
-                        var $category = full['category'];
-
-                        return '<span class="category-slug">' + $category + '</span>';
-                    }
+                    // render: function (data, type, full, meta) {
+                    //     $last_name = full['last_name']
+                    //     $id = full['id'],
+                    //     $image = full['image'];
+                    //     var $row_output =
+                    //     '<div class="d-flex justify-content-start align-items-center product-name">' +
+                    //     '<div class="avatar-wrapper">' +
+                    //     // '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
+                    //     // $output +
+                    //     // '</div>' +
+                    //     '</div>' +
+                    //     '<div class="d-flex flex-column">' +
+                    //     '<h6 class="text-body text-nowrap mb-0">' +
+                    //     $last_name +
+                    //     // $last_name +
+                    //     '</h6>' +
+                    //     '</div>' +
+                    //     '</div>';
+                    // return $row_output;
+                    // }
                 },
                 {
                     // Slug
-                    targets: 4,
+                    targets: 5,
                     render: function (data, type, full, meta) {
-                        var $sub_category = full['sub_category'];
+                        var $city = full['city_id'];
 
-                        return '<span class="category-slug">' + $sub_category + '</span>';
+                        return '<span class="category-slug">' + $city + '</span>';
                     }
+                    // render: function (data, type, full, meta) {
+                    //     var $sub_category = full['sub_category'];
+
+                    //     return '<span class="category-slug">' + $sub_category + '</span>';
+                    // }
                 },
                 {
                     // Created at
                     targets: 5,
-                    render: function (data, type, full, meta) {
-                        var $created_at = full['created_at'];
+                    // render: function (data, type, full, meta) {
+                    //     var $created_at = full['created_at'];
 
-                        return '<span class="category-created_at">' + $created_at + '</span>';
-                    }
+                    //     return '<span class="category-created_at">' + $created_at + '</span>';
+                    // }
                 },
                 {
                     // Actions

@@ -28,9 +28,9 @@ return new class extends Migration
             $table->string('license_certificate_file')->nullable();
             $table->string('university_certificate_file')->nullable();
             $table->string('personal_id_file')->nullable();
-            $table->boolean('is_trainer')->default('0');
+            $table->boolean('is_trainer')->nullable()->default('0');
             
-            $table->foreignId('city_id')->constrained();
+            $table->foreignId('city_id')->nullable()->constrained();
             $table->string('region')->nullable();
             $table->string('address')->nullable();
            $table->bigInteger('Phone')->nullable();

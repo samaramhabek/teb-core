@@ -218,7 +218,7 @@ return [
     'edit_password' => 'Edit Password ',
     'name_en' => 'Name English ',
     'name_ar' => 'Name Arabic ',
-    'first_name' => 'First Name',
+    // 'first_name' => 'First Name',
     'last_name' => 'Last Name',
 
 
@@ -450,7 +450,7 @@ return [
     'cancel' => 'CANCEL',
     'owner_id' => 'Owner Id',
     'first_name' => 'First Name',
-    'last_name' => 'Last Name',
+    // 'last_name' => 'Last Name',
 
 //SIDE MENU
     'dashboard' => 'Dashboard',

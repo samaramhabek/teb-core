@@ -55,37 +55,37 @@ class DoctorController extends Controller
         $query = Doctor::with('service','insurances','treatments','cases','city')
             ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
 
-        if (!empty($search)) {
-            $query->where(function ($query) use ($search) {
-                $query->where('id', 'LIKE', "%{$search}%")
-                    ->orWhere('first_name->ar', 'LIKE', "%{$search}%")
-                    ->orWhere('first_name->en', 'LIKE', "%{$search}%")
-                    ->orWhere('last_name->en', 'LIKE', "%{$search}%")
-                    ->orWhere('last_name->ar', 'LIKE', "%{$search}%")
-                    ->orWhere('title->ar', 'LIKE', "%{$search}%")
-                    ->orWhere('title->en', 'LIKE', "%{$search}%")
-                    ->orWhereHas('category_parent', function ($query) use ($search) {
-                        $query->where('name->ar', 'LIKE', "%{$search}%")
-                            ->orWhere('name->en', 'LIKE', "%{$search}%");
-                    })
-                    ->orWhereHas('category_child', function ($query) use ($search) {
-                        $query->where('name->ar', 'LIKE', "%{$search}%")
-                            ->orWhere('name->en', 'LIKE', "%{$search}%");
-                    })
-                    ->orWhereHas('treatments', function ($query) use ($search) {
-                        $query->where('name->ar', 'LIKE', "%{$search}%")
-                            ->orWhere('name->en', 'LIKE', "%{$search}%");
-                    })
-                    ->orWhereHas('cases', function ($query) use ($search) {
-                        $query->where('name->ar', 'LIKE', "%{$search}%")
-                            ->orWhere('name->en', 'LIKE', "%{$search}%");
-                    })
-                    ->orWhereHas('services', function ($query) use ($search) {
-                        $query->where('name->ar', 'LIKE', "%{$search}%")
-                            ->orWhere('name->en', 'LIKE', "%{$search}%");
-                    });
-            });
-        }
+        // if (!empty($search)) {
+        //     $query->where(function ($query) use ($search) {
+        //         $query->where('id', 'LIKE', "%{$search}%")
+        //             ->orWhere('first_name->ar', 'LIKE', "%{$search}%")
+        //             ->orWhere('first_name->en', 'LIKE', "%{$search}%")
+        //             ->orWhere('last_name->en', 'LIKE', "%{$search}%")
+        //             ->orWhere('last_name->ar', 'LIKE', "%{$search}%")
+        //             ->orWhere('title->ar', 'LIKE', "%{$search}%")
+        //             ->orWhere('title->en', 'LIKE', "%{$search}%")
+        //             ->orWhereHas('category_parent', function ($query) use ($search) {
+        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
+        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
+        //             })
+        //             ->orWhereHas('category_child', function ($query) use ($search) {
+        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
+        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
+        //             })
+        //             ->orWhereHas('treatments', function ($query) use ($search) {
+        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
+        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
+        //             })
+        //             ->orWhereHas('cases', function ($query) use ($search) {
+        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
+        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
+        //             })
+        //             ->orWhereHas('services', function ($query) use ($search) {
+        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
+        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
+        //             });
+        //     });
+        // }
 
         // Filter by category if a category ID is provided
         if (!empty($categoryId)) {
@@ -102,20 +102,24 @@ class DoctorController extends Controller
         if (!empty($doctors)) {
             $ids = $start;
 
+            log::info($doctors);
             foreach ($doctors as $doctor) {
                 $nestedData['id'] = $doctor->id;
                 $nestedData['fake_id'] = ++$ids;
-                $nestedData['first_name'] = $doctor->getTranslation('first_name', app()->getLocale(Config::get('app.locale')));
+                $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
+                $nestedData['first_name'] = $doctor->first_name;
                 $nestedData['last_name'] = $doctor->getTranslation('last_name', app()->getLocale(Config::get('app.locale')));
                 $nestedData['title'] = $doctor->getTranslation('title', app()->getLocale(Config::get('app.locale')));
-                $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
                 $nestedData['email'] = $doctor->email;
                 $nestedData['gender'] = $doctor->gender;
-                $nestedData['phone'] = $doctor->phone;
+                $nestedData['Phone'] = $doctor->Phone;
                 $nestedData['description'] = $doctor->description;
                 $nestedData['is_trainer'] = $doctor->is_trainer;
                 $nestedData['region'] = $doctor->region;
-                $nestedData['city_id'] = $doctor->city_id;
+                // $nestedData['city_id'] = $doctor->city->name;
+                $nestedData['city_id'] = $doctor->city ? $doctor->city->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
+             // dd( $nestedData['city_id']);
+                // $nestedData['nationality_id'] = $doctor->nationality_id;
                 // $nestedData['category'] = $doctor->category_parent ? $doctor->category_parent->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
                 // $nestedData['sub_category'] = $doctor->category_child ? $doctor->category_child->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
                 // $nestedData['created_at'] = $doctor->created_at->format('M Y');
@@ -299,7 +303,7 @@ class DoctorController extends Controller
     {
         log::info($request->all());
         $doctorId = $request->id;
-
+//  dd($request->all());
         // $request->validate([
         //     'name_ar' => 'required|unique:treatments,name->ar,'. $treatmentId,
         //     'name_en' => 'required|unique:treatments,name->en,'. $treatmentId,
@@ -313,34 +317,61 @@ class DoctorController extends Controller
         $data['title'] = ['en' => $request->title_en, 'ar' => $request->title_ar];
         $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];
         $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
-        $data['email'] = $request->email;
-        $data['gender'] = $request->gender;
-        $data['nationality_id'] = $request->nationality_id;
-        $data['is_trainer'] = $request->is_trainer;
-        $data['city_id'] = $request->city_id;
-        $data['Phone'] = $request->Phone;
+        // $data['email'] = "ss@dd.com";
+        // $data['gender'] = $request->gender;
+        // $data['nationality_id'] = $request->nationality_id;
+        // $data['is_trainer'] = $request->is_trainer;
+        // $data['city_id'] = $request->city_id;
+        // $data['Phone'] = $request->Phone;
+      
 
-        if ($doctorId) {
+        // if ($doctorId) {
             // update the value
-            $doctor = Doctor::whereId($doctorId)->firstOrFail();
-            $doctor->update($data);
+            // $doctor = Doctor::whereId($doctorId)->firstOrFail();
+            // if($request->images){
+            //     $doctor->clearMediaCollection('room_images');
+            //     foreach($request->images as $image ){
+                
+    
+            //      $doctor->addMedia($image)->toMediaCollection('room_images');
+            //     }
+    
+            //  }
+            //  if($request->image ){
+            //     $doctor->clearMediaCollection('doctor_image');
+    
+            //     $doctor->addMedia($request->file('image'))->toMediaCollection('doctor_image');
+    
+            //  }
+            // $doctor->update($data);
 
             // user updated
-            return response()->json(__('cp.update'));
-        } else {
+            // return response()->json(__('cp.update'));
+        // } else {
             // create new one if email is unique
-            $doctor = Doctor::where('id', $request->id)->first();
+            // $doctor = Doctor::where('id', $request->id)->first();
 
-            if (empty($doctor)) {
+            // if (empty($doctor)) {
                 $doctor = Doctor::create($data);
 
+                // if($request->images){
+
+                //     foreach($request->images as $image ){
+                //      $doctor->addMedia($image)->toMediaCollection('room_images');
+                //     }
+        
+                //  }
+                if ($request->hasFile('image')) {
+                    $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
+                }
                 // category created
                 return response()->json(__('cp.create'));
-            } else {
-                // category already exist
-                return response()->json(['message' => "already exits"], 422);
-            }
-        }
+            // }
+        //      else {
+        //         // category already exist
+        //         return response()->json(['message' => "already exits"], 422);
+        //     }
+        // }
     }
 
     /**

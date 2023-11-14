@@ -694,7 +694,7 @@
                                     </div>
                                 </div>
                                 <div class="bs-stepper-content  multi-step-form">
-                                    <form action="{{ route('admin.createDoctor') }}" method="post">
+                                    <form action="{{ route('admin.createDoctor') }}" method="post"  enctype="multipart/form-data">
                                         @csrf
                                         <fieldset aria-label="Step One" id="step-1">
                                             <div class="title-step">
@@ -815,13 +815,18 @@
                                                         <div class="avatar-upload">
                                                             <div class="avatar-edit">
                                                                 <input type='file' id="imageUpload"
-                                                                    accept=".png, .jpg, .jpeg" />
+                                                                    accept=".png, .jpg, .jpeg" name="image" />
                                                                 <label for="imageUpload"></label>
                                                             </div>
                                                             <div class="avatar-preview">
                                                                 <div id="imagePreview"
                                                                     style="background-image: url(assets/img/avatar.jpg);">
                                                                 </div>
+                                                                {{-- @if($item->hasMedia())
+                                                    <img src="{{ $item->getFirstMediaUrl() }}" alt="Image">
+                                                                  @else
+                                                                   <p>No image available</p >
+                                                                       @endif --}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -831,7 +836,7 @@
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="type" required>
+                                                        <select class="form-control" name="gender" required>
                                                             <option value="" disabled>الجنس</option>
                                                             <option value="0">انثي</option>
                                                             <option value="1">ذكر</option>
@@ -843,7 +848,7 @@
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="ent" required>
+                                                        <select class="form-control" name="nationality_id">
                                                             <option value="" disabled>الجنسيه</option>
                                                             @foreach($nationalities as $nationality)
                                                             <option value="{{$nationality->id}}">{{$nationality->name}}</option>
@@ -882,7 +887,7 @@
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="categories[]" required multiple>
+                                                        <select class="form-control" name="categories[]"  multiple>
                                                             <option value="" disabled>التخصصات الرئيسيه</option>
                                                             @foreach($categories as $category)
                                                             <option value="{{$category->id}}">{{$category->name}}</option>
@@ -912,7 +917,7 @@
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="treatments[]" required multiple>
+                                                        <select class="form-control" name="treatments[]"  multiple>
                                                             <option value="" disabled>اختيار العلاج</option>
                                                             @foreach($treatments as $treatment)
                                                             <option value="{{$treatment->id}}">{{$treatment->name}}</option>
@@ -942,7 +947,7 @@
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="cases[]" required multiple>
+                                                        <select class="form-control" name="cases[]"  multiple>
                                                             <option value="disabled">اختيار الحاله</option>
                                                             @foreach($cases as $case)
                                                             <option value="{{$case->id}}">{{$case->name}}</option>
@@ -972,7 +977,7 @@
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="insurances[]" required multiple>
+                                                        <select class="form-control" name="insurances[]"  multiple>
                                                             <option value="disabled">اختيار التأمين</option>
                                                             @foreach($insurances as $insurance)
                                                              <option value="{{$insurance->id}}">{{$insurance->name}}</option>
@@ -1004,7 +1009,7 @@
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <select class="form-control" name="City" required>
+                                                        <select class="form-control" name="city_id">
                                                             <option value="" disabled>اختيار المدينه</option>
                                                             @foreach($cities as $city)
                                                              <option value="{{$city->id}}">{{$city->name}}</option>

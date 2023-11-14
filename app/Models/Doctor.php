@@ -6,18 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 use App\Models\Service;
-class Doctor extends Model 
+class Doctor extends Model implements HasMedia 
 {
-    use HasFactory ,HasTranslations;
+    use HasFactory ,HasTranslations ,  InteractsWithMedia;
     protected $guarded=[];
-    public $translatable = ['first_name','last_name','title'];
+    public $translatable = ['first_name','last_name','title','description','region','address'];
       public function city(){
 
-        return $this->belongsTo(City::class);
-      }
+        return $this->belongsTo(City::class)->withDefault([
+            'name' => '-'
+        ]);
+    }
       public function category_parent()
     {
         return $this->belongsToMany(Category::class, 'category_id')->withDefault();
