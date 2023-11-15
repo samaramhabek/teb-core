@@ -711,15 +711,15 @@
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
-
-                                                <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
-                                                            placeholder="الاسم الاول ( باللغه الانجليزيه)"
-                                                            value="{{session('first_name.en')}}"  name="first_name_en" required />
+                                                            placeholder="الاسم الاول ( باللغه العربيه )" name="first_name_ar"
+                                                            value="{{session('first_name.ar')}}" id="doctor-name-ar"  required />
                                                     </div>
                                                 </div>
+                                                <!-- Col -->
+                                               
                                                 <!-- /Col -->
 
                                                 <!-- Col -->
@@ -845,7 +845,39 @@
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
-
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                       
+                                                           
+                                                        
+                                                                    <input type=text  placeholder=" Enter Email"  class="form-control"
+                                                                      
+                                                                        value="{{session('email')}}"  name="email" required />
+                                                             
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                <div class="form-group">
+                                                       
+                                                           
+                                                        
+                                                    <input type=number  placeholder=" Enter lat"  class="form-control"
+                                                      
+                                                        value="{{session('lat')}}"  name="lat" required />
+                                             
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                                       
+                                                           
+                                                        
+                                    <input type=number  placeholder=" Enter lang"  class="form-control"
+                                      
+                                        value="{{session('lang')}}"  name="lang" required />
+                             
+                    </div>
+                </div>
                                                 <!-- Col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -864,6 +896,11 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control phone"
                                                             placeholder="رقم الهاتف" name="Phone" required />
+                                                           <h3>is trainer:
+                                                                    <input type=checkbox  style="width:50px size-box=300px" 
+                                                                      
+                                                                        value="{{session('is_trainer')}}"  name="is_trainer" required /></h3>
+                                                             
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->

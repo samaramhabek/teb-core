@@ -85,6 +85,8 @@ $(function () {
                 { data: 'description'},
               
                 { data: 'is_trainer'},
+                { data: 'lat'},
+                { data: 'lang'},
                 // { data: 'created_at'},
                 { data: 'action' },
                
@@ -183,6 +185,8 @@ $(function () {
                     //     return '<span class="category-slug">' + $sub_category + '</span>';
                     // }
                 },
+
+             
                 {
                     // Created at
                     targets: 7,

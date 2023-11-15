@@ -29,11 +29,14 @@ return new class extends Migration
             $table->string('university_certificate_file')->nullable();
             $table->string('personal_id_file')->nullable();
             $table->boolean('is_trainer')->nullable()->default('0');
+            $table->bigInteger('lat')->nullable();
+            $table->bigInteger('lang')->nullable();
+
             
             $table->foreignId('city_id')->nullable()->constrained();
             $table->string('region')->nullable();
             $table->string('address')->nullable();
-           $table->bigInteger('Phone')->nullable();
+           $table->string('Phone')->nullable();
 
 
             $table->timestamps();

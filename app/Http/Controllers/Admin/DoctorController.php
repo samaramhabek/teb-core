@@ -49,6 +49,8 @@ class DoctorController extends Controller
             9=>'city_id',
             10=>'region',
             11=>'title',
+            12=>'lat',
+            13=>'lang',
             // 12 => 'created_at',
         ];
 
@@ -123,6 +125,8 @@ class DoctorController extends Controller
                 $nestedData['description'] = $doctor->description;
                 $nestedData['is_trainer'] = $doctor->is_trainer;
                 $nestedData['region'] = $doctor->region;
+                $nestedData['lat'] = $doctor->lat;
+                $nestedData['lang'] = $doctor->lang;
                 // $nestedData['city_id'] = $doctor->city->name;
                 $nestedData['city_id'] = $doctor->city ? $doctor->city->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
              // dd( $nestedData['city_id']);
@@ -326,12 +330,15 @@ class DoctorController extends Controller
         $data['title'] = ['en' => $request->title_en, 'ar' => $request->title_ar];
         $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];
         $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
-        // $data['email'] = "ss@dd.com";
-        // $data['gender'] = $request->gender;
-        // $data['nationality_id'] = $request->nationality_id;
-        // $data['is_trainer'] = $request->is_trainer;
+         $data['email'] = "ss@dd.com";
+         $data['gender'] = $request->gender;
+         $data['nationality_id'] = $request->nationality_id;
+        //  $data['treatment_id'] = $request->treatment_id;
+        //  $data['case_id'] = $request->case_id;
+        //  $data['service_id'] = $request->service_id;
+         $data['is_trainer'] = $request->is_trainer;
         $data['city_id'] = $request->city_id;
-        // $data['Phone'] = $request->Phone;
+         $data['Phone'] = $request->Phone;
       
 
         // if ($doctorId) {
@@ -406,12 +413,12 @@ class DoctorController extends Controller
             return $doctor;
         });
      $doctor=$doctors[0]->toArray();
-     $nationalities=Nationality::get();
-     $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+
+    
          // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
         //  return view('backend.doctors.form',['nationalities'=>$nationalities,'categories'=>$categories,'doctor'=>$doctor,'insurances'=>$insurances,'cases'=>$cases,'services'=>$services,'treatments'=>$treatments,'cities'=>$cities]);
 
-        return Redirect::route('form')->with($doctor);
+        return Redirect::route('form')->with($doctor,$categories,$nationalities,$cases,$treatments,$services,$cities,$insurances);
 
     //  return response()->json(['doctor'=>$doctor,'nationalities'=>$nationalities,
     //  'categories'=>$categories,

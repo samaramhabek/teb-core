@@ -314,7 +314,8 @@
                         <th>region</th>
                         <th>description</th>
                         <th data-priority="2">is trainer</th>
-                      
+                        <th>lat</th>
+                        <th>lang</th>
                         <th data-priority="1">{{__('cp.action')}}</th>
                       </tr>
                     </thead>
@@ -335,7 +336,8 @@
                         <th>region</th>
                         <th>description</th>
                         <th data-priority="2">is trainer</th>
-                    
+                        <th>lat</th>
+                        <th>lang</th>
                         <th data-priority="1">{{__('cp.action')}}</th>
                       </tr>
                     </tfoot>
