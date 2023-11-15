@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed" dir="ltr" data-theme="theme-default"
-    data-assets-path="assets/" data-template="vertical-menu-template">
+    data-assets-path="{{asset('assets/" data-template="vertical-menu-template')}}">
 
 <head>
     <meta charset="utf-8" />
@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/favicon.ico')}}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,33 +23,33 @@
         rel="stylesheet" />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="assets/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/fonts/fontawesome.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/fonts/tabler-icons.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/fonts/flag-icons.css')}}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="assets/css/demo.css" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/rtl/core.css')}}" class="template-customizer-core-css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/rtl/theme-default.css')}}" class="template-customizer-theme-css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="assets/vendor/libs/node-waves/node-waves.css" />
-    <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="assets/vendor/libs/bs-stepper/bs-stepper.css" />
-    <link rel="stylesheet" href="assets/vendor/libs/bootstrap-select/bootstrap-select.css" />
-    <link rel="stylesheet" href="assets/vendor/libs/select2/select2.css" />
-    <link rel="stylesheet" href="assets/vendor/libs/@form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/node-waves/node-waves.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/typeahead-js/typeahead.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/select2/select2.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css')}}" />
 
     <!-- Page CSS -->
 
     <!-- Helpers -->
-    <script src="assets/vendor/js/helpers.js"></script>
+    <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="assets/vendor/js/template-customizer.js"></script>
+    <script src="{{asset('assets/vendor/js/template-customizer.js')}}"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="assets/js/config.js"></script>
+    <script src="{{asset('assets/js/config.js')}}"></script>
 </head>
 
 <body>
@@ -58,7 +58,7 @@
         <div class="layout-container">
             <!-- Menu -->
 
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            {{-- <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
                     <a href="{{route('index')}}" class="app-brand-link">
                         <span class="app-brand-logo demo">
@@ -132,7 +132,7 @@
                         </a>
                     </li>
                 </ul>
-            </aside>
+            </aside> --}}
             <!-- / Menu -->
 
             <!-- Layout container -->
@@ -329,7 +329,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="assets/img/avatars/1.png" alt
+                                                            <img src="{{asset('assets/img/avatars/1.png')}}" alt
                                                                 class="h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -377,7 +377,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="assets/img/avatars/2.png" alt
+                                                            <img src="{{asset('assets/img/avatars/2.png')}}" alt
                                                                 class="h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -426,7 +426,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="assets/img/avatars/9.png" alt
+                                                            <img src="{{asset('assets/img/avatars/9.png')}}" alt
                                                                 class="h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -476,7 +476,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="assets/img/avatars/5.png" alt
+                                                            <img src="{{asset('assets/img/avatars/5.png')}}" alt
                                                                 class="h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -500,7 +500,7 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar">
-                                                            <img src="assets/img/avatars/6.png" alt
+                                                            <img src="{{asset('assets/img/avatars/6.png')}}" alt
                                                                 class="h-auto rounded-circle" />
                                                         </div>
                                                     </div>
@@ -562,7 +562,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                                        <img src="{{asset('assets/img/avatars/1.png')}}" alt class="h-auto rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -571,7 +571,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="assets/img/avatars/1.png" alt
+                                                        <img src="{{asset('assets/img/avatars/1.png')}}" alt
                                                             class="h-auto rounded-circle" />
                                                     </div>
                                                 </div>
@@ -707,7 +707,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="الاسم الاول ( باللغه العربيه )" name="first_name_ar"
-                                                            value="{{session('first_name.ar')}}" id="doctor-name-ar"  required />
+                                                            required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -717,7 +717,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="الاسم الاول ( باللغه الانجليزيه)"
-                                                            value="{{session('first_name.en')}}"  name="first_name_en" required />
+                                                            name="first_name_en" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -727,7 +727,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="الاسم الثاني ( باللغه العربيه )" name="last_name_ar"
-                                                            value="{{session('last_name.ar')}}" required />
+                                                            required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -737,7 +737,7 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control"
                                                             placeholder="الاسم الثاني ( باللغه الانجليزيه)"
-                                                            value="{{session('last_name.en')}}" name="last_name_en" required />
+                                                            name="last_name_en" required />
                                                     </div>
                                                 </div>
                                                 <!-- /Col -->
@@ -821,7 +821,6 @@
                                                             <div class="avatar-preview">
                                                                 <div id="imagePreview"
                                                                     style="background-image: url(assets/img/avatar.jpg);">
-                                                                    {{-- style="background-image: url({{session('image->original_url')}});"> --}}
                                                                 </div>
                                                                 {{-- @if($item->hasMedia())
                                                     <img src="{{ $item->getFirstMediaUrl() }}" alt="Image">
@@ -1013,7 +1012,7 @@
                                                         <select class="form-control" name="city_id">
                                                             <option value="" disabled>اختيار المدينه</option>
                                                             @foreach($cities as $city)
-                                                             <option value="{{$city->id}}" @if(session('city_id') == $city->id) selected @endif>{{$city->name}} </option>
+                                                             <option value="{{$city->id}}">{{$city->name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -1222,40 +1221,36 @@
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
-    <script src="assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="assets/vendor/libs/popper/popper.js"></script>
-    <script src="assets/vendor/js/bootstrap.js"></script>
-    <script src="assets/vendor/libs/node-waves/node-waves.js"></script>
-    <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="assets/vendor/libs/typeahead-js/typeahead.js"></script>
-    <script src="assets/vendor/js/menu.js"></script>
+    <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
+    <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/node-waves/node-waves.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/hammer/hammer.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/i18n/i18n.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/typeahead-js/typeahead.js')}}"></script>
+    <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
-    <script src="assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
-    <script src="assets/vendor/libs/select2/select2.js"></script>
-    <script src="assets/vendor/libs/@form-validation/umd/bundle/popular.min.js"></script>
-    <script src="assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js"></script>
-    <script src="assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="{{asset('assets/vendor/libs/bs-stepper/bs-stepper.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/bootstrap-select/bootstrap-select.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/select2/select2.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/@form-validation/umd/bundle/popular.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js')}}"></script>
 
     <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
+    {{-- <script src="{{asset('assets/js/main.js')}}"></script> --}}
 
     <!-- Page JS -->
 
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="assets/js/jquery.validate.min.js"></script>
-    <script src="assets/js/wizard.js"></script>
-    {{-- @push('js')
-    <script src="{{asset('backend/datatables/js/doctor-management.js')}}"></script> --}}
+    <script src="js/jquery-1.11.0.min.js')}}"></script>
+    <script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
+    <script src="{{asset('assets/js/wizard.js')}}"></script>
     <script>
-  
         function readURL(input) {
-            console.log('input');
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
@@ -1267,11 +1262,9 @@
             }
         }
         $("#imageUpload").change(function () {
-            console.log('input');
             readURL(this);
         });
     </script>
-    {{-- @endpush --}}
 </body>
 
 </html>

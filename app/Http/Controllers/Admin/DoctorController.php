@@ -5,15 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
+use App\Models\Cases;
 use App\Models\Category;
-
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Doctor;
 use App\Models\DoctorInsurance;
+use App\Models\Insurance;
 use App\Models\Nationality;
+use App\Models\Service;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+
 
 class DoctorController extends Controller
 {
@@ -245,7 +251,9 @@ class DoctorController extends Controller
     public function create()
     {
         $nationalities=Nationality::get();
-        return view('backend.doctors.form',['nationalities'=>$nationalities]);
+    $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+        // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
+        return view('backend.doctors.form',['nationalities'=>$nationalities,'categories'=>$categories]);
     }
 
     /**
@@ -322,7 +330,7 @@ class DoctorController extends Controller
         // $data['gender'] = $request->gender;
         // $data['nationality_id'] = $request->nationality_id;
         // $data['is_trainer'] = $request->is_trainer;
-        // $data['city_id'] = $request->city_id;
+        $data['city_id'] = $request->city_id;
         // $data['Phone'] = $request->Phone;
       
 
@@ -366,8 +374,10 @@ class DoctorController extends Controller
                     $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
                 }
                 // category created
-                return response()->json(__('cp.create'));
-            // }
+                $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+                $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
+                 // dd($parent_categories);
+                return redirect()->route('admin.tables');            // }
         //      else {
         //         // category already exist
         //         return response()->json(['message' => "already exits"], 422);
@@ -378,9 +388,42 @@ class DoctorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function showdoctor($id)
     {
-        //
+       // dd($id);
+       $nationalities=Nationality::get();
+       $insurances=Insurance::get();
+       $services=Service::get();
+       $treatments=Treatment::get();
+       $cases= Cases::get();
+       $cities=City::get();
+   
+       $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+     $doctors=Doctor::with('media')->where('id',$id)->get();
+             $doctors->transform(function ($doctor) {
+            $doctor->setRelation('image', $doctor->media->where('collection_name', 'doctor_image')->first());
+            $doctor->unsetRelation('media');
+            return $doctor;
+        });
+     $doctor=$doctors[0]->toArray();
+     $nationalities=Nationality::get();
+     $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+         // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
+        //  return view('backend.doctors.form',['nationalities'=>$nationalities,'categories'=>$categories,'doctor'=>$doctor,'insurances'=>$insurances,'cases'=>$cases,'services'=>$services,'treatments'=>$treatments,'cities'=>$cities]);
+
+        return Redirect::route('form')->with($doctor);
+
+    //  return response()->json(['doctor'=>$doctor,'nationalities'=>$nationalities,
+    //  'categories'=>$categories,
+    //  'insurances'=>$insurances,
+    //  'cases'=>$cases,
+    //  'treatments'=>$treatments,
+    //  'services'=>$services,
+    //  'cities'=>$cities,
+
+    // ]);
+
+
     }
 
     /**

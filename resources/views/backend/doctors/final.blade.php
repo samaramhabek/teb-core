@@ -313,7 +313,7 @@
                         <th>{{__('cp.title')}}</th>
                         <th>region</th>
                         <th>description</th>
-                        <th>is trainer</th>
+                        <th data-priority="2">is trainer</th>
                       
                         <th data-priority="1">{{__('cp.action')}}</th>
                       </tr>
@@ -334,7 +334,7 @@
                         {{-- <th>title</th> --}}
                         <th>region</th>
                         <th>description</th>
-                        <th>is trainer</th>
+                        <th data-priority="2">is trainer</th>
                     
                         <th data-priority="1">{{__('cp.action')}}</th>
                       </tr>

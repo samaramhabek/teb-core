@@ -185,7 +185,43 @@ $(function () {
                 },
                 {
                     // Created at
-                    targets: 5,
+                    targets: 7,
+                    render: function (data, type, full, meta) {
+                        var $gender = full['gender'];
+                        if($gender == 0){
+                            return '<span class="category-slug">' + 'male' + '</span>'; 
+                        }
+                        else($gender == 1)
+                        
+
+                        return '<span class="category-slug">' + 'famle' + '</span>';
+                    
+                    },
+                }, 
+                {
+                    targets: 11,
+                    render: function (data, type, full, meta) {
+                        var $is_trainer = full['is_trainer'];
+                        // var stateNum = Math.floor(Math.random() * 6);
+                         var states = ['success', 'danger'];
+                        // var $state = states[stateNum],
+                        //     $name = full['username'],
+                        //     $initials = $name.match(/\b\w/g) || [],
+                        //     $output;
+                        // $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+                        if($is_trainer == 0 ){
+                            states='danger'
+                       return  '<span class="avatar-initial rounded-circle bg-label-'+states+'">' +  'NO'  + '</span>';
+
+                        }else{
+                            states='success'
+                            return  '<span class="avatar-initial rounded-circle bg-label-'+states+'">' +  'yes'  + '</span>';
+     
+                        }
+
+                        // return '<span class="category-slug">' + 'yes' + '</span>';
+                    
+                    }
                     // render: function (data, type, full, meta) {
                     //     var $created_at = full['created_at'];
 
@@ -196,12 +232,13 @@ $(function () {
                     // Actions
                     targets: -1,
                     title: actions,
+                    
                     searchable: false,
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return (
                             '<div class="d-inline-block text-nowrap">' +
-                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddDoctor"><i class="ti ti-edit"></i></button>` +
+                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" ><i class="ti ti-edit"></i></button>` +
                             `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
                             // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
                             // '<div class="dropdown-menu dropdown-menu-end m-0">' +
@@ -212,7 +249,8 @@ $(function () {
                             // '</div>' +
                             '</div>'
                         );
-                    }
+                    },
+                 
                 }
             ],
             order: [[2, 'desc']],
@@ -506,7 +544,11 @@ $(function () {
     });
 
     // edit record
-
+    // var doctor= $key1;
+    // if($doctor)
+    // {
+        // console.log(doctor)
+    // }
 
     // changing the title
     $('.add-new').on('click', function () {
@@ -520,6 +562,35 @@ $(function () {
         document.location.href ='http://localhost:8000/modal-example'
 
     });
+  // Using event delegation to handle click event for dynamically generated elements
+$(document).on('click', '#editButton', function () {
+    var doctor_id = $(this).data('id');
+    document.location.href ='http://localhost:8000/admin/api_doctors/edit/'+doctor_id
+
+   // document.location.href ='http://localhost:8000/modal-example/Edit'
+    // var doctor_id = $(this).data('id');
+    // $.ajax({
+    //     url: `${baseUrl}/admin/api_doctors/edit/${doctor_id}`,
+    //     type: 'get',
+    //     dataType: 'json',
+    //     contentType: false,
+    //     processData: false,
+        // success: function (response) {
+        //     // Your success handling logic her
+           
+        //    // document.location.href ='http://localhost:8000/modal-example'
+        //     console.log(response)
+        //     document.location.href ='http://localhost:8000/modal-example'
+        //     $('#doctor-name-ar').val(response.first_name);
+        //     console.log(response.first_name)
+          
+        // },
+        // error: function (error) {
+        //     console.error('Error:', error);
+        // }
+    // });
+});
+          
 
     // Filter form control to default size
     // ? setTimeout used for multilingual table initialization
