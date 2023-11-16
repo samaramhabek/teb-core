@@ -297,47 +297,44 @@
 
               <!-- Row grouping -->
               <div class="card">
-                <h5 class="card-header">Doctors</h5>
+                <h5 class="card-header">{{__('cp.doctors')}}</h5>
                 <div class="card-datatable table-responsive">
                   <table class="datatables-doctors table">
                     <thead>
                       <tr>
                         <th></th>
-                        <th>id</th>
+                        <th>{{__('cp.id')}}</th>
                         <th>{{__('cp.first_name')}}</th>
                         <th>{{__('cp.last_name')}}</th>
-                        <th>Email</th>
-                        <th>City</th>
-                        <th>phone</th>
-                        <th>gender</th>
+                        <th>{{__('cp.email')}}</th>
+                        <th>{{__('cp.city')}}</th>
+                        <th>{{__('cp.phone')}}</th>
+                        <th>{{__('cp.gender')}}</th>
                         <th>{{__('cp.title')}}</th>
-                        <th>region</th>
-                        <th>description</th>
-                        <th data-priority="2">is trainer</th>
-                        <th>lat</th>
-                        <th>lang</th>
+                        <th>{{__('cp.region')}}</th>
+                        <th>{{__('cp.description')}}</th>
+                        <th>{{__('cp.is_trainer')}}</th>
+                        <th>{{__('cp.lat')}}</th>
+                        <th>{{__('cp.lang')}}</th>
                         <th data-priority="1">{{__('cp.action')}}</th>
                       </tr>
                     </thead>
                     <tfoot>
                       <tr>
                         <th></th>
-                        <th>id</th>
+                        <th>{{__('cp.id')}}</th>
                         <th>{{__('cp.first_name')}}</th>
                         <th>{{__('cp.last_name')}}</th>
-                        {{-- <th>first Name</th> --}}
-                        {{-- <th>last name</th> --}}
-                        <th>Email</th>
-                        <th>City</th>
-                        <th>phone</th>
-                        <th>gender</th>
+                        <th>{{__('cp.email')}}</th>
+                        <th>{{__('cp.city')}}</th>
+                        <th>{{__('cp.phone')}}</th>
+                        <th>{{__('cp.gender')}}</th>
                         <th>{{__('cp.title')}}</th>
-                        {{-- <th>title</th> --}}
-                        <th>region</th>
-                        <th>description</th>
-                        <th data-priority="2">is trainer</th>
-                        <th>lat</th>
-                        <th>lang</th>
+                        <th>{{__('cp.region')}}</th>
+                        <th>{{__('cp.description')}}</th>
+                        <th>{{__('cp.is_trainer')}}</th>
+                        <th>{{__('cp.lat')}}</th>
+                        <th>{{__('cp.lang')}}</th>
                         <th data-priority="1">{{__('cp.action')}}</th>
                       </tr>
                     </tfoot>

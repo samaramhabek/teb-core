@@ -36,10 +36,6 @@ use App\Models\City;
 |
 */
 
-Route::get('/modal-example',function(){
-return view('backend.doctors.form',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
-                                    'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get()]);
-})->name('form');
 
 // Route::get('/modal-example/Edit',function(){
 //     return view('backend.doctors.formEdit',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
@@ -108,6 +104,11 @@ Route::group(
         Route::post('/api-createDoctor', [DoctorController::class, 'store'])->name('createDoctor');
         Route::Delete('/doctors/{id}', [DoctorController::class, 'deletedoctor'])->name('deletedoctor');
         Route::get('/api_doctors/edit/{id}', [DoctorController::class, 'showdoctor'])->name('showdoctor.api');
+        Route::get('/modal-example',function(){
+            return view('backend.doctors.form',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
+                                                'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get()]);
+            })->name('form');
+            
         Route::resource('/cases', CasesController::class);
         Route::get('/api-cases', [CasesController::class, 'cases_api'])->name('cases.api');
 

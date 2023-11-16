@@ -563,7 +563,14 @@ $(function () {
         // $('#doctor_id').val(''); //reseting input field
         // $('#offcanvasAddDoctorLabel').html(addNewTranslation);
         console.log('aaa')
-        document.location.href ='http://localhost:8000/modal-example'
+        // document.location.href ='http://localhost:8000//modal-example'
+//         window.locale = '{{ app()->getLocale() }}';
+
+//         const locale = window.locale;
+
+// // Now you can use the 'locale' variable in your JavaScript code
+const route = `/en/admin/modal-example`;
+        document.location.href =route;
 
     });
   // Using event delegation to handle click event for dynamically generated elements

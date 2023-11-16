@@ -1178,6 +1178,12 @@ return [
     'of' => 'من',
     'entries' => 'السجلات',
     'country_key' => 'مفتاح الدولة',
+    'region'=>'المنطقة',
+    'is_trainer'=>'متدرب',
+    'lat'=>'lat',
+    'lang'=>'lang',
+    'id'=>'المعرف',
+
 ];
 
 

@@ -1004,6 +1004,11 @@ return [
     'entries' => 'entries',
     'country_key' => 'Country Key',
 
+    'region'=>'Region',
+    'is_trainer'=>'Trainer',
+    'lat'=>'lat',
+    'lang'=>'lang',
+    'id'=>'Id',
 
 ];
 
