@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class DoctorCategory extends Model
 {
     use HasFactory;
+    protected $guarded=[];
+   protected $table='category_doctors';
 }

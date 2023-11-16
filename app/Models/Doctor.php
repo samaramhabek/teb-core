@@ -8,8 +8,10 @@ use Spatie\Translatable\HasTranslations;
 
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-
+use App\Models\Category;
 use App\Models\Service;
+use App\Models\Treatment;
+use App\Models\Insurance;
 class Doctor extends Model implements HasMedia 
 {
     use HasFactory ,HasTranslations ,  InteractsWithMedia;
@@ -32,6 +34,11 @@ class Doctor extends Model implements HasMedia
             'name' => '-'
         ]);
     }
+    // public function categories()
+    // {
+    //     // Assuming you want to get both parent and child categories
+    //     return $this->belongsToMany(Category::class, 'category_doctors')->withDefault([ 'name' => '-']);
+    // }
     public function insurances()
     {
         return $this->belongsToMany(Insurance::class);

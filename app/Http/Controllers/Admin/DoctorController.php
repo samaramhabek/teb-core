@@ -313,9 +313,18 @@ class DoctorController extends Controller
     // }
 
     public function store(Request $request)
-    {
+    {  
+      //  dd($request->all());
         log::info($request->all());
         $doctorId = $request->id;
+       // $data = $request->all();
+
+        // Check if 'treatments' key is set before accessing it
+       
+    
+        // Now you can work with the $treatments array
+      //  dd($treatments);
+    
 //  dd($request->all());
         // $request->validate([
         //     'name_ar' => 'required|unique:treatments,name->ar,'. $treatmentId,
@@ -369,7 +378,25 @@ class DoctorController extends Controller
 
             // if (empty($doctor)) {
                 $doctor = Doctor::create($data);
-
+           
+               // $doctor->categories()->attach($data['categories']);
+                         
+                // Attach Treatments to Doctor
+               $data['treatments']= $request->treatments;
+              // dd($data['treatments']);
+                $treatments = $data['treatments'];
+            //    // dd($treatments);
+            //     if (isset($data['treatments']) ? $data['treatments'] : []) {
+              $doctor->treatments()->attach($treatments);
+            //     }
+            //     // Attach Cases to Doctor
+            //     if (array_key_exists('cases', $data)) {
+            //     $doctor->cases()->attach($data['cases']);
+            //     }
+                // Handle other relationships as needed
+            
+                // Redirect or return response
+            
                 // if($request->images){
 
                 //     foreach($request->images as $image ){
