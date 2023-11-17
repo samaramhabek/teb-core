@@ -398,7 +398,8 @@ class DoctorController extends Controller
                 $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
                 $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
                  // dd($parent_categories);
-                return redirect()->route('admin.tables');            // }
+                // return redirect()->route('admin.tables');            // }
+                return response()->json(["message"=>"success"]);
      
     }
 

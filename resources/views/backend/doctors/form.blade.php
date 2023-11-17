@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="bs-stepper-content  multi-step-form">
-                        <form action="{{ route('admin.createDoctor') }}" method="post"  enctype="multipart/form-data">
+                        <form id="addNewDoctorForm" action="{{ route('admin.createDoctor') }}" method="post"  enctype="multipart/form-data">
                             @csrf
                             <fieldset aria-label="Step One" id="step-1">
                                 <div class="title-step">
@@ -606,6 +606,38 @@
             console.log('input');
             readURL(this);
         });
+
+        document.getElementById('addNewDoctorForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Create a FormData object to send the form data
+        const formData = new FormData(this);
+
+        // Submit the form using fetch
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the JSON response
+            console.log(data);
+
+            // You can perform actions based on the response here
+            if (data.message === 'success') {
+                // Do something on success, for example, show a success message
+                window.location.href = "{{ route('admin.tables') }}";
+            } else {
+                // Handle other cases if needed
+                alert('Form submission failed');
+            }
+        })
+        .catch(error => {
+            // Handle errors if any
+            console.error('Error:', error);
+        });
+    });
+
     </script>
     @endpush
 
