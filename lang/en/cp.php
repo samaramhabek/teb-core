@@ -1006,6 +1006,7 @@ return [
 
     'region'=>'Region',
     'is_trainer'=>'Trainer',
+    'description2'=>'exprince work',
     'lat'=>'lat',
     'lang'=>'lang',
     'id'=>'Id',

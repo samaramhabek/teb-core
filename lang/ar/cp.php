@@ -1180,6 +1180,7 @@ return [
     'country_key' => 'مفتاح الدولة',
     'region'=>'المنطقة',
     'is_trainer'=>'متدرب',
+    'description2'=>'الخبرة المهنية',
     'lat'=>'lat',
     'lang'=>'lang',
     'id'=>'المعرف',

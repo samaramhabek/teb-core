@@ -388,6 +388,22 @@ class DoctorController extends Controller
             //    // dd($treatments);
             //     if (isset($data['treatments']) ? $data['treatments'] : []) {
               $doctor->treatments()->attach($treatments);
+
+            //   $data['cases'] = $request->cases;
+
+            //   $cases = $data['cases'];
+              
+            //   // Detach existing cases if needed
+            //   $doctor->cases()->detach();
+              
+            //   // Attach new cases
+            //   $doctor->cases()->attach($cases);
+
+              $data['insurances']= $request->insurances;
+        
+                $insurances = $data['insurances'];
+        
+              $doctor->insurances()->attach($insurances);
             //     }
             //     // Attach Cases to Doctor
             //     if (array_key_exists('cases', $data)) {
