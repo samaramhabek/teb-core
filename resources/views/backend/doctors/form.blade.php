@@ -205,7 +205,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="gender" required>
-                                                <option value="" disabled>الجنس</option>
+                                                <option value="" >الجنس</option>
                                                 <option value="0">انثي</option>
                                                 <option value="1">ذكر</option>
                                             </select>
@@ -217,7 +217,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="nationality_id">
-                                                <option value="" disabled>الجنسيه</option>
+                                                <option value="" >الجنسيه</option>
                                                 @foreach($nationalities as $nationality)
                                                 <option value="{{$nationality->id}}">{{$nationality->name}}</option>
                                                 @endforeach
@@ -227,91 +227,92 @@
                                     <!-- /Col -->
 
                                     <!-- Col -->
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control phone"
                                                 placeholder="رقم الهاتف" name="Phone" required />
+                                              
                                         </div>
                                     </div>
+                                        <!-- Col -->
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                        <input type="text" class="form-control email"
+                                        placeholder="Email " name="email" required />
+                                        </div> 
+                                      
+                                    </div>
+
+
+
+                                    
+                                    
                                     <!-- /Col -->
 
-                                    <!-- Col -->
-                                    <div class="col-md-12">
-                                        <div class="title-step title-step-center">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control lat"
+                                                placeholder="lat " name="lat" required />
+                                              
+                                        </div>
+                                    </div>
+                                        <!-- Col -->
+                                        <div class="col-md-6">
+                                        <div class="form-group">
+                                        <input type="text" class="form-control lang"
+                                        placeholder="lang " name="lang" required />
+                                        </div> 
+                                      
+                                    </div>
+
+                                   
+                                    {{-- <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="title-step title-step-center">
+                                                <h3>التخصصات والعلاجات :</h3>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    
+                                    <div class="row">
+                                        <!-- Col for Categories -->
+                                        
+                                        <div class="col-md-6">
                                             <h3>التخصصات</h3>
+                                            <div class="form-group">
+                                                <label for="categories">التخصصات الرئيسية</label>
+                                                <select class="form-control" name="categories[]" multiple>
+                                                    @foreach($categories as $category)
+                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="بحث"
-                                                name="specialSearch" required />
-                                        </div>
-                                    </div> --}}
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <select class="form-control" name="categories[]"  multiple>
-                                                <option value="" disabled>التخصصات الرئيسيه</option>
-                                                @foreach($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
-                                    <div class="col-md-12">
-                                        <div class="title-step title-step-center">
+                                        
+                                        <!-- Col for Treatments -->
+                                        <div class="col-md-6">
                                             <h3>العلاجات</h3>
+                                            <div class="form-group">
+                                                <label for="treatments">العلاجات</label>
+                                                <select class="form-control" name="treatments[]" multiple>
+                                                    @foreach($treatments as $treatment)
+                                                        <option value="{{$treatment->id}}">{{$treatment->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- /Col -->
+                                    
 
                                     <!-- Col -->
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="بحث"
-                                                name="treatSearch" required />
-                                        </div>
-                                    </div> --}}
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <select class="form-control" name="treatments[]"  multiple>
-                                                <option value="" disabled>اختيار العلاج</option>
-                                                @foreach($treatments as $treatment)
-                                                <option value="{{$treatment->id}}">{{$treatment->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="title-step title-step-center">
                                             <h3>الحالات</h3>
                                         </div>
                                     </div>
                                     <!-- /Col -->
 
-                                    <!-- Col -->
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="بحث"
-                                                name="StatuSearch" required />
-                                        </div>
-                                    </div> --}}
-                                    <!-- /Col -->
-
+                         
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -343,7 +344,7 @@
                                     <!-- /Col -->
 
                                     <!-- Col -->
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="insurances[]"  multiple>
                                                 <option value="disabled">اختيار التأمين</option>
@@ -352,9 +353,40 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>  --}}
                                     <!-- /Col -->
-
+                                    <div class="row">
+                                        <!-- Col for Cases -->
+                                        <div class="col-md-6">
+                                            <div class="title-step title-step-center">
+                                                <h3>الحالات</h3>
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="form-control" name="cases[]" multiple>
+                                                    <option value="disabled">اختيار الحالة</option>
+                                                    @foreach($cases as $case)
+                                                    <option value="{{$case->id}}">{{$case->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Col for Insurances -->
+                                        <div class="col-md-6">
+                                            <div class="title-step title-step-center">
+                                                <h3>التأمينات</h3>
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="form-control" name="insurances[]" multiple>
+                                                    <option value="disabled">اختيار التأمين</option>
+                                                    @foreach($insurances as $insurance)
+                                                        <option value="{{$insurance->id}}">{{$insurance->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">

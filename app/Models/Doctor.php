@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Service;
 use App\Models\Treatment;
 use App\Models\Insurance;
+use App\Models\Case;
 class Doctor extends Model implements HasMedia 
 {
     use HasFactory ,HasTranslations ,  InteractsWithMedia;
@@ -23,11 +24,15 @@ class Doctor extends Model implements HasMedia
             'name' => '-'
         ]);
     }
-      public function category_parent()
-    {
-        return $this->belongsToMany(Category::class, 'category_id')->withDefault();
-    }
+    //   public function category_parent()
+    // {
+    //     return $this->belongsToMany(Category::class, 'category_id')->withDefault();
+    // }
 
+    public function category_parent()
+{
+    return $this->belongsToMany(Category::class, 'category_doctors')->withTimestamps();
+}
     public function category_child()
     {
         return $this->belongsToMany(Category::class, 'child_category_id')->withDefault([
@@ -49,7 +54,7 @@ class Doctor extends Model implements HasMedia
     }
     public function cases()
     {
-        return $this->belongsToMany(Cases::class, 'doctor_case','case_id','doctor_id');
+        return $this->belongsToMany(Cases::class, 'doctor_case','doctor_id','case_id');
     }
     public function treatments()
     {

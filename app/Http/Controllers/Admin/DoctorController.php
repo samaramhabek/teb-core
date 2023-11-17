@@ -341,98 +341,65 @@ class DoctorController extends Controller
         $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
          $data['email'] = "ss@dd.com";
          $data['gender'] = $request->gender;
+         $data['lat'] = $request->lat;
+         $data['lang'] = $request->lang;
          $data['nationality_id'] = $request->nationality_id;
         //  $data['treatment_id'] = $request->treatment_id;
         //  $data['case_id'] = $request->case_id;
         //  $data['service_id'] = $request->service_id;
+        if($request->is_trainer){
          $data['is_trainer'] = $request->is_trainer;
+        }
         $data['city_id'] = $request->city_id;
          $data['Phone'] = $request->Phone;
       
 
-        // if ($doctorId) {
-            // update the value
-            // $doctor = Doctor::whereId($doctorId)->firstOrFail();
-            // if($request->images){
-            //     $doctor->clearMediaCollection('room_images');
-            //     foreach($request->images as $image ){
-                
-    
-            //      $doctor->addMedia($image)->toMediaCollection('room_images');
-            //     }
-    
-            //  }
-            //  if($request->image ){
-            //     $doctor->clearMediaCollection('doctor_image');
-    
-            //     $doctor->addMedia($request->file('image'))->toMediaCollection('doctor_image');
-    
-            //  }
-            // $doctor->update($data);
-
-            // user updated
-            // return response()->json(__('cp.update'));
-        // } else {
-            // create new one if email is unique
-            // $doctor = Doctor::where('id', $request->id)->first();
-
-            // if (empty($doctor)) {
-                $doctor = Doctor::create($data);
+   
+                       
            
-               // $doctor->categories()->attach($data['categories']);
-                         
-                // Attach Treatments to Doctor
+                $doctor = Doctor::create($data);
+               
+                $categories = $request->categories;
+                $doctor->category_parent()->attach($categories);
+
                $data['treatments']= $request->treatments;
-              // dd($data['treatments']);
+            
                 $treatments = $data['treatments'];
-            //    // dd($treatments);
-            //     if (isset($data['treatments']) ? $data['treatments'] : []) {
+     
               $doctor->treatments()->attach($treatments);
 
-            //   $data['cases'] = $request->cases;
 
-            //   $cases = $data['cases'];
-              
-            //   // Detach existing cases if needed
-            //   $doctor->cases()->detach();
+
+               $data['cases'] = $request->cases;
+
+              $cases = $data['cases'];
+              $doctor->cases()->attach($cases);
+        
               
             //   // Attach new cases
-            //   $doctor->cases()->attach($cases);
+            
 
               $data['insurances']= $request->insurances;
         
                 $insurances = $data['insurances'];
         
               $doctor->insurances()->attach($insurances);
-            //     }
-            //     // Attach Cases to Doctor
-            //     if (array_key_exists('cases', $data)) {
-            //     $doctor->cases()->attach($data['cases']);
-            //     }
-                // Handle other relationships as needed
-            
-                // Redirect or return response
-            
-                // if($request->images){
-
-                //     foreach($request->images as $image ){
-                //      $doctor->addMedia($image)->toMediaCollection('room_images');
-                //     }
-        
-                //  }
+         
                 if ($request->hasFile('image')) {
                     $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
                 }
+                // if ($request->hasFile('image')) {
+                //     $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
+                // }
+                // if ($request->hasFile('image')) {
+                //     $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
+                // }
                 // category created
                 $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
                 $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
                  // dd($parent_categories);
                 return redirect()->route('admin.tables');            // }
-        //      else {
-        //         // category already exist
-        //         return response()->json(['message' => "already exits"], 422);
-        //     }
-        // }
+     
     }
 
     /**
