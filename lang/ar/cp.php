@@ -1184,6 +1184,8 @@ return [
     'lat'=>'lat',
     'lang'=>'lang',
     'id'=>'المعرف',
+    'hospitals'=>'المستشفيات',
+    'add_Hospitals'=>'اضف مشفى',
 
 ];
 

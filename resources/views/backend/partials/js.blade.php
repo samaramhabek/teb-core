@@ -55,7 +55,7 @@
 <script src="{{asset('assets/js/main.js')}}"></script>
 
 <!-- Page JS -->
-<script src="{{asset('assets/js/tables-datatables-basic.js')}}"></script> --}}
+<script src="{{asset('assets/js/tables-datatables-basic.js')}}"></script> 
 <!--form-->
 {{-- <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
 <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
@@ -90,5 +90,6 @@
 {{-- <script src="{{asset('js/jquery-1.11.0.min.js')}}"></script>
 <script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
 <script src="{{asset('assets/js/wizard.js')}}"></script>  --}}
+{{-- <script src="{{asset('assets/js/tables-datatables-basic.js')}}"></script>  --}}
 @stack('js')
 

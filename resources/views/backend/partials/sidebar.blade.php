@@ -92,6 +92,37 @@
                 </ul>
                 <!-- end doctor-->
 
+
+
+
+
+
+
+
+                  <!--    hospital -->
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Hospital</span>
+            </li>
+            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/hospitals/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-id"></i>
+                    <div>{{__('cp.hospitals')}}</div>
+                    <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/hospitals/index') ? 'active' : '' }}">
+                        <a href="{{route('admin.hospitals.index')}}" class="menu-link">
+                            <div>{{__('cp.hospitals')}}</div>
+                        </a>
+                    </li>
+                    {{-- <li class="menu-item {{ request()->is(app()->getLocale().'/admin/sub-categories*') ? 'active' : '' }}">
+                        <a href="{{route('admin.sub-categories.index')}}" class="menu-link">
+                            <div>{{__('cp.sub_categories')}}</div>
+                        </a>
+                    </li> --}}
+                </ul>
+                <!-- end hospital-->
+
         <!-- Apps & Pages -->
         <li class="menu-header small text-uppercase">
         <li class="menu-header small text-uppercase">

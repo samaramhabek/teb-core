@@ -1010,6 +1010,8 @@ return [
     'lat'=>'lat',
     'lang'=>'lang',
     'id'=>'Id',
+    'hospitals'=>'Hospitals',
+    'add_Hospitals'=>'Add Hospitals',
 
 ];
 

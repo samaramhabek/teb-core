@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TreatmentsController;
 use App\Http\Controllers\Admin\UserController;
+ use App\Http\Controllers\Admin\HospitalController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -108,7 +109,14 @@ Route::group(
             return view('backend.doctors.form',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
                                                 'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get()]);
             })->name('form');
-            
+
+            Route::get('/hospitals/index', [HospitalController::class, 'index'])->name('hospitals.index');
+            Route::get('/hospitals/{id}/edit', [HospitalController::class,'edit'] );
+            Route::Delete('/hospitals/{id}', [HospitalController::class,'destroy'] );
+              Route::post('/hospitals', [HospitalController::class, 'store'])->name('hospitals.store');
+             
+             Route::get('/api-hospitals', [HospitalController::class, 'hospitals_api'])->name('hospitals.api');
+
         Route::resource('/cases', CasesController::class);
         Route::get('/api-cases', [CasesController::class, 'cases_api'])->name('cases.api');
 

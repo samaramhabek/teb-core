@@ -9,6 +9,7 @@ const nameEnRequiredTranslation = validationMessages.data('name-en-required');
 const nameArRequiredTranslation = validationMessages.data('name-ar-required');
 const categoryIdRequiredTranslation = validationMessages.data('category-id-required');
 const childCategoryIdRequiredTranslation = validationMessages.data('child-category-id-required');
+
 const exportFile = validationMessages.data('export');
 const selectOption = validationMessages.data('select');
 const edit = validationMessages.data('edit');
@@ -28,12 +29,13 @@ const oky = validationMessages.data('oky');
 const delete_done = validationMessages.data('delete_done');
 // Datatable (jquery)
 $(function () {
+    console.log('gf')
     // Variable declaration for table
-    var dt_category_table = $('.datatables-cases'),
+    var dt_hospital_table = $('.datatables-hospitals'),
         select2 = $('.select2'),
         sub_select2 = $('.select2_sub'),
-        categoryView = baseUrl + '/admin/api-cases',
-        offCanvasForm = $('#offcanvasAddCases');
+        categoryView = baseUrl + '/admin/api-hospitals',
+        offCanvasForm = $('#offcanvasAddHospitals');
 
     if (select2.length) {
         var $this = select2;
@@ -58,21 +60,20 @@ $(function () {
     });
 
     // Categories datatable
-    if (dt_category_table.length) {
-        var dt_category = dt_category_table.DataTable({
+    if (dt_hospital_table.length) {
+        var dt_category = dt_hospital_table.DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseUrl + '/admin/api-cases'
+                url: baseUrl + '/admin/api-hospitals'
             },
             columns: [
                 // columns according to JSON
                 { data: '' },
                 { data: 'id' },
                 { data: 'name'},
-                { data: 'Category'},
-                { data: 'Sub-Category'},
-                { data: 'created_at'},
+             
+                // { data: 'created_at'},
                 { data: 'action' }
             ],
             columnDefs: [
@@ -129,33 +130,17 @@ $(function () {
                         return $row_output;
                     }
                 },
-                {
-                    // Slug
-                    targets: 3,
-                    render: function (data, type, full, meta) {
-                        var $category = full['category'];
+             
+           
+                // {
+                //     // Created at
+                //     targets: 5,
+                //     render: function (data, type, full, meta) {
+                //         var $created_at = full['created_at'];
 
-                        return '<span class="category-slug">' + $category + '</span>';
-                    }
-                },
-                {
-                    // Slug
-                    targets: 4,
-                    render: function (data, type, full, meta) {
-                        var $sub_category = full['sub_category'];
-
-                        return '<span class="category-slug">' + $sub_category + '</span>';
-                    }
-                },
-                {
-                    // Created at
-                    targets: 5,
-                    render: function (data, type, full, meta) {
-                        var $created_at = full['created_at'];
-
-                        return '<span class="category-created_at">' + $created_at + '</span>';
-                    }
-                },
+                //         return '<span class="category-created_at">' + $created_at + '</span>';
+                //     }
+                // },
                 {
                     // Actions
                     targets: -1,
@@ -165,7 +150,7 @@ $(function () {
                     render: function (data, type, full, meta) {
                         return (
                             '<div class="d-inline-block text-nowrap">' +
-                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddCases"><i class="ti ti-edit"></i></button>` +
+                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddHospitals"><i class="ti ti-edit"></i></button>` +
                             `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
                             // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
                             // '<div class="dropdown-menu dropdown-menu-end m-0">' +
@@ -209,7 +194,7 @@ $(function () {
                     buttons: [
                         {
                             extend: 'print',
-                            title: 'Cases',
+                            title: 'Hospitas;',
                             text: '<i class="ti ti-printer me-2" ></i>Print',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -248,7 +233,7 @@ $(function () {
                         },
                         {
                             extend: 'csv',
-                             title: 'Cases',
+                             title: 'Hospitals',
                             text: '<i class="ti ti-file-text me-2" ></i>Csv',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -274,7 +259,7 @@ $(function () {
                         },
                         {
                             extend: 'excel',
-                            title: 'Cases',
+                            title: 'Hospitals',
                             text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -300,7 +285,7 @@ $(function () {
                         },
                         {
                             extend: 'pdf',
-                            title: 'Cases',
+                            title: 'Hospitals',
                             text: '<i class="ti ti-file-text me-2"></i>Pdf',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -326,7 +311,7 @@ $(function () {
                         },
                         {
                             extend: 'copy',
-                             title: 'Cases',
+                             title: 'Hospitals',
                             text: '<i class="ti ti-copy me-1" ></i>Copy',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -357,7 +342,7 @@ $(function () {
                     className: 'add-new btn btn-primary',
                     attr: {
                         'data-bs-toggle': 'offcanvas',
-                        'data-bs-target': '#offcanvasAddCases'
+                        'data-bs-target': '#offcanvasAddHospitals'
                     }
                 }
             ],
@@ -412,7 +397,7 @@ $(function () {
 
     // Delete Record
     $(document).on('click', '.delete-record', function () {
-        var case_id = $(this).data('id'),
+        var hospital_id = $(this).data('id'),
             dtrModal = $('.dtr-bs-modal.show');
 
         // hide responsive modal in small screen
@@ -438,7 +423,7 @@ $(function () {
                 // delete the data
                 $.ajax({
                     type: 'DELETE',
-                    url: `${baseUrl}/admin/cases/${case_id}`,
+                    url: `${baseUrl}/admin/hospitals/${hospital_id}`,
                     success: function () {
                         dt_category.draw();
                     },
@@ -458,7 +443,7 @@ $(function () {
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire({
                     title: cancel,
-                    text: 'The Cases is not deleted!',
+                    text: 'The Hospital is not deleted!',
                     icon: 'error',
                     customClass: {
                         confirmButton: 'btn btn-success'
@@ -473,9 +458,9 @@ $(function () {
 
     // changing the title
     $('.add-new').on('click', function () {
-        console.log('jjj')
-        $('#case_id').val(''); //reseting input field
-        $('#offcanvasAddCasesLabel').html(addNewTranslation);
+console.log('l');
+        $('#hospital_id').val(''); //reseting input field
+        $('#offcanvasAddHospitalsLabel').html(addNewTranslation);
     });
 
     // Filter form control to default size
@@ -486,10 +471,10 @@ $(function () {
     }, 300);
 
     // validating form and updating categories data
-    const addNewCasesForm = document.getElementById('addNewCasesForm');
-
+    const addNewHospitalsForm = document.getElementById('addNewHospitalsForm');
+console.log('fdfd',addNewHospitalsForm);
     // category form validation
-    const fv = FormValidation.formValidation(addNewCasesForm, {
+    const fv = FormValidation.formValidation(addNewHospitalsForm, {
         fields: {
             name_en: {
                 validators: {
@@ -505,13 +490,7 @@ $(function () {
                     }
                 }
             },
-            category_id: {
-                validators: {
-                    notEmpty: {
-                        message: validationMessages.data('name-ar-required')
-                    }
-                }
-            },
+        
         },
         plugins: {
             trigger: new FormValidation.plugins.Trigger(),
@@ -528,12 +507,16 @@ $(function () {
             // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
             autoFocus: new FormValidation.plugins.AutoFocus()
         }
+
     }).on('core.form.valid', function () {
-        var formData = new FormData(addNewCasesForm);
+        console.log('ooo')
+        var formData = new FormData(addNewHospitalsForm);
+        console.log('kk');
         // adding or updating category when form successfully validate
         $.ajax({
+           
             // data: $('#addNewCategoryForm').serialize(),
-            url: `${baseUrl}/${lang}/admin/cases`,
+            url: `${baseUrl}/${lang}/admin/hospitals`,
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -543,7 +526,7 @@ $(function () {
                 dt_category.draw();
                 offCanvasForm.offcanvas('hide');
                 // Clear form inputs
-                $('#addNewCategoryForm').trigger('reset');
+                // $('#addNewCategoryForm').trigger('reset');
 
                 // sweetalert
                 Swal.fire({
