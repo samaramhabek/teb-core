@@ -61,7 +61,7 @@ $(function () {
 
     // Categories datatable
     if (dt_doctor_table.length) {
-        var dt_category = dt_doctor_table.DataTable({
+        var dt_doctor = dt_doctor_table.DataTable({
             processing: true,
             serverSide: true,
             ajax: {
@@ -71,6 +71,7 @@ $(function () {
                
                 // columns according to JSON
                 { data: '' },
+                // { data: 'fake_id' },
                 { data: 'id' },
                 { data: 'first_name'},
                 { data: 'last_name'},
@@ -519,7 +520,7 @@ $(function () {
                     type: 'DELETE',
                     url: `${baseUrl}/admin/doctors/${doctor_id}`,
                     success: function () {
-                        dt_category.draw();
+                        dt_doctor.draw();
                     },
                     error: function (error) {
                         console.log(error);
@@ -575,31 +576,11 @@ const route = `/en/admin/modal-example`;
     });
   // Using event delegation to handle click event for dynamically generated elements
 $(document).on('click', '#editButton', function () {
-    var doctor_id = $(this).data('id');
-    document.location.href ='http://localhost:8000/admin/api_doctors/edit/'+doctor_id
+    var doctorId = $(this).data('id');
 
-   // document.location.href ='http://localhost:8000/modal-example/Edit'
-    // var doctor_id = $(this).data('id');
-    // $.ajax({
-    //     url: `${baseUrl}/admin/api_doctors/edit/${doctor_id}`,
-    //     type: 'get',
-    //     dataType: 'json',
-    //     contentType: false,
-    //     processData: false,
-        // success: function (response) {
-        //     // Your success handling logic her
-           
-        //    // document.location.href ='http://localhost:8000/modal-example'
-        //     console.log(response)
-        //     document.location.href ='http://localhost:8000/modal-example'
-        //     $('#doctor-name-ar').val(response.first_name);
-        //     console.log(response.first_name)
-          
-        // },
-        // error: function (error) {
-        //     console.error('Error:', error);
-        // }
-    // });
+  const route='/en/admin/modal-example?id='+doctorId;
+  document.location.href=route;
+  console.log(doctorId);
 });
           
 
@@ -665,10 +646,12 @@ $(document).on('click', '#editButton', function () {
             contentType: false,
             processData: false,
             success: function (status) {
-                dt_category.draw();
-                offCanvasForm.offcanvas('hide');
+              // Replace with the actual base URL
+          
+              dt_doctor.draw();
+               
                 // Clear form inputs
-                $('#addNewCategoryForm').trigger('reset');
+                $('#addNewDoctorForm').trigger('reset');
 
                 // sweetalert
                 Swal.fire({

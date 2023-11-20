@@ -61,8 +61,12 @@
                             </button>
                         </div>
                     </div>
+{{-- 
+                    <div id="map" style="height: 50vh;"></div>
+                    <div class="col-md-6"></div> --}}
+
                     <div class="bs-stepper-content  multi-step-form">
-                        <form id="addNewDoctorForm" action="{{ route('admin.createDoctor') }}" method="post"  enctype="multipart/form-data">
+                        <form id="addNewDoctorForm" action="{{ route('admin.createDoctor') }}" method="post"  enctype="multipart/form-data"  id="addNewDoctorForm">
                             @csrf
                             <fieldset aria-label="Step One" id="step-1">
                                 <div class="title-step">
@@ -75,7 +79,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="الاسم الاول ( باللغه العربيه )" name="first_name_ar"
-                                                required />
+                                                value="{{ optional($doctor)->getTranslation('first_name', 'ar') }}" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -85,7 +89,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="الاسم الاول ( باللغه الانجليزيه)"
-                                                name="first_name_en" required />
+                                                name="first_name_en"  value="{{ optional($doctor)->getTranslation('first_name', 'en') }}" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -95,7 +99,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="الاسم الثاني ( باللغه العربيه )" name="last_name_ar"
-                                                required />
+                                                value="{{ optional($doctor)->getTranslation('first_name', 'ar') }}"   required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -105,7 +109,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="الاسم الثاني ( باللغه الانجليزيه)"
-                                                name="last_name_en" required />
+                                                value="{{ optional($doctor)->getTranslation('last_name', 'en') }}"    name="last_name_en" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -115,7 +119,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="لقب الدكتور ( باللغه العربيه ) مثال : استشاري نسائيه ، اخصائي طب نفسي"
-                                                name="title_ar" required />
+                                                value="{{ optional($doctor)->getTranslation('title', 'ar') }}"   name="title_ar" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -125,7 +129,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="لقب الدكتور ( باللغه الانجليزيه)"
-                                                name="title_en" required />
+                                                value="{{ optional($doctor)->getTranslation('first_name', 'en') }}"  name="title_en" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -143,7 +147,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="الخبره المهنيه ( باللغه العربيه )" name="description_ar"
-                                                required />
+                                                value="{{ optional($doctor)->getTranslation('description', 'ar') }}"  required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -153,7 +157,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="الخبره المهنيه ( باللغه الانجليزيه)"
-                                                name="description_en" required />
+                                                value="{{ optional($doctor)->getTranslation('description', 'en') }}"   name="description_en" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -187,9 +191,12 @@
                                                     <label for="imageUpload"></label>
                                                 </div>
                                                 <div class="avatar-preview">
-                                                    <div id="imagePreview"
-                                                        style="background-image: url(assets/img/avatar.jpg);">
-                                                    </div>
+                                                   
+                                                    <div id="imagePreview" 
+                                                    style="background-image: url({{ $doctor->image->original_url ?? 'assets/img/avatar.jpg' }});">
+                                                </div>
+                                                 
+                                                    
                                                     {{-- @if($item->hasMedia())
                                         <img src="{{ $item->getFirstMediaUrl() }}" alt="Image">
                                                       @else
@@ -291,6 +298,33 @@
                                         
                                         <!-- Col for Treatments -->
                                         <div class="col-md-6">
+                                            <h3>التخصصات</h3>
+                                            <div class="form-group">
+                                                <label for="child_categories">التخصصات الفرعية </label>
+                                                <select class="form-control" name="child_categories[]" multiple>
+                                                    @foreach($child_categories as $child_category)
+                                                        <option value="{{$child_category->id}}">{{$child_category->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <div class="row">
+                                        <!-- Col for Categories -->
+                                        
+                                        <div class="col-md-6">
+                                            <h3>المستشفيات</h3>
+                                            <div class="form-group">
+                                                <label for="categories"> المستشفيات </label>
+                                                <select class="form-control" name="hospitals[]" multiple>
+                                                    @foreach($Hospitals as $hospital)
+                                                        <option value="{{$hospital->id}}">{{$hospital->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Col for Treatments -->
+                                        <div class="col-md-6">
                                             <h3>العلاجات</h3>
                                             <div class="form-group">
                                                 <label for="treatments">العلاجات</label>
@@ -303,8 +337,10 @@
                                         </div>
                                     </div>
                                     
-
+                                     
                                     <!-- Col -->
+
+                                  
                                     {{-- <div class="col-md-12">
                                         <div class="title-step title-step-center">
                                             <h3>الحالات</h3>
@@ -553,6 +589,98 @@
                                     <!-- /Col -->
 
                                     <!-- Col -->
+                                    {{-- <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button class="btn btn-success btn-done" type="submit">
+                                                <span>إرسال</span>
+                                            </button>
+                                        </div>
+                                    </div> --}}
+                                    <!-- /Col -->
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button class="btn btn-default btn-next" type="button"
+                                            aria-controls="step-5">
+                                            <span>المرحلة التاليه</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset aria-label="Step Five" id="step-5">
+                                <div class="title-step">
+                                    <h3>مواعيد</h3>
+                                </div>
+                                {{-- @foreach( $services as $service) --}}
+                                <div class="form-h row">
+
+                                    <!-- Col -->
+                                  
+                                    {{-- <div class="col-md-2">
+                                      
+                                      
+                                        <div class="form-group">
+                                           
+                                            <label for="check1">
+                                                <input type="checkbox" id="" name=""  />
+                                                مواعيد العيادة
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- /Col -->
+
+                                    <!-- Col -->
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                placeholder="كشفية العيادة (دينار اردني)" name="price-1"
+                                                required />
+                                        </div>
+                                    </div> --}}
+                                    {{-- @endforeach --}}
+                                    <!-- /Col -->
+
+                                    <!-- Col -->
+                                    {{-- <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="check1">
+                                                <input type="checkbox" id="" name="" />
+                                                زيارة منزلية
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- /Col -->
+
+                                    <!-- Col -->
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                placeholder="كشفية منزلية (دينار اردني)" name="price-2"
+                                                required />
+                                        </div>
+                                    </div> --}}
+                                    <!-- /Col -->
+
+                                    <!-- Col -->
+                                    @foreach ($services as $service)
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="check{{ $service->id }}">
+                                                <input type="checkbox" id="check{{ $service->id }}" name="services[]" value="{{ $service->id }}" />
+                                                {{ $service->name }}
+                                            </label>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="{{ $service->name }}" name="prices[]" />
+                                        </div>
+                                    </div>
+                                @endforeach
+                                    <!-- /Col -->
+                                    
+                                    <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <button class="btn btn-success btn-done" type="submit">
@@ -563,6 +691,7 @@
                                     <!-- /Col -->
                                 </div>
                             </fieldset>
+                           
                         </form>
                     </div>
                 </div>
@@ -576,6 +705,7 @@
     
 <!-- Page JS -->
 
+
 <script src="{{asset('js/jquery-1.11.0.min.js')}}"></script>
 <script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
 <script src="{{asset('assets/js/wizard.js')}}"></script> 
@@ -588,6 +718,7 @@
   
      @push('js')
     {{-- <script src={{asset('{{asset('backend/datatables/js/doctor-management.js')}}"></script> --}} 
+    
     <script>
   
         function readURL(input) {
@@ -638,9 +769,409 @@
         });
     });
 
-    </script>
+  
+ 
+
+// let map;
+
+// function initMap() {
+//   map = new google.maps.Map(document.getElementById("map"), {
+//     center: { lat: -34.397, lng: 150.644 },
+//     zoom: 8,
+//   });
+// }
+
+// window.initMap = initMap;
+// 
+</script>
+{{-- <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmbQF5P5h2VjGRv01mgsfS7RnOAMBhIDs&callback=initMap">
+</script> --}}
+{{-- <script async
+src="https://maps.googleapis.com/maps/api/js?key=75168e1133a999ceb6837e318fd2ad8855ee1ddb&callback=initMap"></script>  --}}
+{{-- <script>
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",initMap+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      key: "75168e1133a999ceb6837e318fd2ad8855ee1ddb",
+      v: "weekly",
+      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+      // Add other bootstrap parameters as needed, using camel case.
+    });
+  </script> --}}
     @endpush
 
 
 
 
+<style>
+    /*
+* demo.css
+* File include item demo only specific css only
+******************************************************************************/
+
+.light-style .menu .app-brand.demo {
+  height: 64px;
+}
+
+.dark-style .menu .app-brand.demo {
+  height: 64px;
+}
+
+.app-brand-logo.demo {
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -ms-flexbox;
+  display: flex;
+  width: 34px;
+  height: 24px;
+}
+
+.app-brand-logo.demo svg {
+  width: 35px;
+  height: 24px;
+}
+
+.app-brand-text.demo {
+  font-size: 1.375rem;
+}
+
+/* ! For .layout-navbar-fixed added fix padding top tpo .layout-page */
+.layout-navbar-fixed .layout-wrapper:not(.layout-without-menu) .layout-page {
+  padding-top: 64px !important;
+}
+.layout-navbar-fixed .layout-wrapper:not(.layout-horizontal):not(.layout-without-menu) .layout-page {
+  padding-top: 78px !important;
+}
+/* Navbar page z-index issue solution */
+.content-wrapper .navbar {
+  z-index: auto;
+}
+
+/*
+* Content
+******************************************************************************/
+
+.demo-blocks > * {
+  display: block !important;
+}
+
+.demo-inline-spacing > * {
+  margin: 1rem 0.375rem 0 0 !important;
+}
+
+/* ? .demo-vertical-spacing class is used to have vertical margins between elements. To remove margin-top from the first-child, use .demo-only-element class with .demo-vertical-spacing class. For example, we have used this class in forms-input-groups.html file. */
+.demo-vertical-spacing > * {
+  margin-top: 1rem !important;
+  margin-bottom: 0 !important;
+}
+.demo-vertical-spacing.demo-only-element > :first-child {
+  margin-top: 0 !important;
+}
+
+.demo-vertical-spacing-lg > * {
+  margin-top: 1.875rem !important;
+  margin-bottom: 0 !important;
+}
+.demo-vertical-spacing-lg.demo-only-element > :first-child {
+  margin-top: 0 !important;
+}
+
+.demo-vertical-spacing-xl > * {
+  margin-top: 5rem !important;
+  margin-bottom: 0 !important;
+}
+.demo-vertical-spacing-xl.demo-only-element > :first-child {
+  margin-top: 0 !important;
+}
+
+.rtl-only {
+  display: none !important;
+  text-align: left !important;
+  direction: ltr !important;
+}
+
+[dir='rtl'] .rtl-only {
+  display: block !important;
+}
+
+/* Dropdown buttons going out of small screens */
+@media (max-width: 576px) {
+  #dropdown-variation-demo .btn-group .text-truncate {
+    width: 254px;
+    position: relative;
+  }
+  #dropdown-variation-demo .btn-group .text-truncate::after {
+    position: absolute;
+    top: 45%;
+    right: 0.65rem;
+  }
+}
+
+/*
+* Layout demo
+******************************************************************************/
+
+.layout-demo-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+.layout-demo-placeholder img {
+  width: 900px;
+}
+.layout-demo-info {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+div#template-customizer {
+  display: none !important;
+}
+
+
+
+.no-js .multi-step-form fieldset button,
+.no-js .multi-step-form h2,
+.multi-step-form.edit-form fieldset button,
+.multi-step-form.edit-form h2 {
+    display: none !important;
+}
+
+.no-js .multi-step-form fieldset,
+.multi-step-form.edit-form fieldset {
+    display: block !important;
+}
+
+.no-js .multi-step-form [type=submit],
+.no-js .multi-step-form [type=reset],
+.multi-step-form.edit-form [type=submit],
+.multi-step-form.edit-form [type=reset] {
+    display: inline-block !important;
+}
+
+.no-js .multi-step-form .steps,
+.multi-step-form.edit-form .steps {
+    display: none;
+}
+
+.multi-step-form fieldset {
+    display: none;
+}
+
+.multi-step-form fieldset:first-of-type {
+    display: block;
+}
+
+.multi-step-form fieldset.hidden {
+    display: none;
+}
+
+.multi-step-form fieldset.visible {
+    display: block;
+}
+
+.multi-step-form .steps button {
+    border: 0;
+}
+
+.multi-step-form .steps [disabled] {
+    background: none;
+}
+
+.multi-step-form .steps .active {
+    background: #eee;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    flex: 0 1;
+    margin: 0 0 64px;
+    z-index: 2;
+}
+
+.steps button {
+    width: 33.33%;
+    flex: 0 0 33.33%;
+    padding: 0;
+    background: transparent !important;
+    position: relative;
+}
+
+.steps button .icon {
+    width: 68px;
+    height: 68px;
+    background: #fff;
+    border: 2px solid #FE6521;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    font-size: 34px;
+    line-height: 68px;
+    color: #000000;
+    /* padding: 12px; */
+}
+
+.steps button .icon img {
+    max-height: 44px;
+}
+
+.steps button:nth-child(2) .icon img {
+    max-width: 27px;
+}
+
+.steps button.active .icon {
+    background: var(--main-color);
+    color: #fff;
+}
+
+.steps button.active .icon img {
+    filter: brightness(0) invert(1);
+}
+
+.steps button:nth-child(1) .icon {
+    line-height: 58px;
+}
+
+.steps button h6 {
+    margin: 11px 0 0;
+    color: #030202;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.payment-inner .steps::after {
+    content: "";
+    position: absolute;
+    width: 200%;
+    right: -50%;
+    left: 0;
+    border-bottom: 1px dashed #707070;
+    top: 36px;
+    z-index: -2;
+}
+
+.payment-page.multi-step-form.body-inner {
+    overflow: hidden;
+}
+
+.multi-step-form .steps button:last-child::after {
+    display: none;
+}
+
+.multi-step-form .steps button::after {
+    content: "";
+    position: absolute;
+    left: -55%;
+    width: 100%;
+    height: 2px;
+    background: var(--main-color);
+    top: 35px;
+    z-index: -1;
+}
+
+.form-group {
+  margin: 0 0 1rem;
+}
+
+span.error-text {
+  display: inline-block;
+  color: red;
+  font-size: 13px;
+  margin: 10px 0 0;
+}
+
+
+
+.avatar-upload {
+  position: relative;
+  max-width: 140px;
+  margin: 0 auto 13px;
+}
+
+.avatar-upload .avatar-edit {
+  position: absolute;
+  right: 12px;
+  z-index: 1;
+  top: 10px;
+}
+
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+
+.avatar-upload .avatar-edit input+label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+  line-height: 34px;
+  padding: 0;
+}
+
+.avatar-upload .avatar-edit input+label:hover {
+  background: #f1f1f1;
+  border-color: #d6d6d6;
+}
+
+.avatar-upload .avatar-edit input+label:after {
+  content: "\eb04";
+  font-family: 'tabler-icons';
+  color: #757575;
+  position: absolute;
+  /* top: 10px; */
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: auto;
+  line-height: 34px;
+  font-size: 22px;
+}
+
+.avatar-upload .avatar-preview {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  border-radius: 100%;
+  border: 4px solid #F8F8F8;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-upload .avatar-preview>div {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.form-group label input {
+  width: 20px;
+  height: 20px;
+  margin-inline-end: 10px;
+}
+
+.form-group label {
+  display: inline-flex;
+  align-items: center;
+  -webkit-align-items: center;
+}
+</style>

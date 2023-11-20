@@ -20,11 +20,12 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Models\Nationality;
 use App\Models\Treatment;
+use App\Models\Service;
 use App\Models\Cases;
 use App\Models\Category;
 use App\Models\Insurance;
 use App\Models\City;
-
+use App\Models\Hospital;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,10 +106,11 @@ Route::group(
         Route::post('/api-createDoctor', [DoctorController::class, 'store'])->name('createDoctor');
         Route::Delete('/doctors/{id}', [DoctorController::class, 'deletedoctor'])->name('deletedoctor');
         Route::get('/api_doctors/edit/{id}', [DoctorController::class, 'showdoctor'])->name('showdoctor.api');
-        Route::get('/modal-example',function(){
-            return view('backend.doctors.form',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
-                                                'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get()]);
-            })->name('form');
+        Route::get('/modal-example', [DoctorController::class, 'create'])->name('form');
+        // Route::get('/modal-example',function(){
+        //     return view('backend.doctors.form',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
+        //                  'Hospitals'=>Hospital::get(),'child_categories'=>Category::whereNotNull('parent_id')->get(),'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get(),'services'=>Service::get(),]);
+        //     })->name('form');
 
             Route::get('/hospitals/index', [HospitalController::class, 'index'])->name('hospitals.index');
             Route::get('/hospitals/{id}/edit', [HospitalController::class,'edit'] );

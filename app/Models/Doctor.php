@@ -12,7 +12,8 @@ use App\Models\Category;
 use App\Models\Service;
 use App\Models\Treatment;
 use App\Models\Insurance;
-use App\Models\Case;
+Use App\Models\Hospital;
+use App\Models\Cases;
 class Doctor extends Model implements HasMedia 
 {
     use HasFactory ,HasTranslations ,  InteractsWithMedia;
@@ -33,12 +34,11 @@ class Doctor extends Model implements HasMedia
 {
     return $this->belongsToMany(Category::class, 'category_doctors')->withTimestamps();
 }
-    public function category_child()
-    {
-        return $this->belongsToMany(Category::class, 'child_category_id')->withDefault([
-            'name' => '-'
-        ]);
-    }
+public function category_child()
+{
+    return $this->belongsToMany(Category::class, 'category_doctors')->withTimestamps();
+}
+    
     // public function categories()
     // {
     //     // Assuming you want to get both parent and child categories
@@ -50,7 +50,7 @@ class Doctor extends Model implements HasMedia
     }
     public function service()
     {
-        return $this->belongsToMany(Service::class);
+        return $this->belongsToMany(Service::class)->withPivot('value');
     }
     public function cases()
     {
@@ -59,6 +59,10 @@ class Doctor extends Model implements HasMedia
     public function treatments()
     {
         return $this->belongsToMany(Treatment::class);
+    }
+    public function hospitals()
+    {
+        return $this->belongsToMany(Hospital::class,'doctor_hospitals');
     }
 
 }

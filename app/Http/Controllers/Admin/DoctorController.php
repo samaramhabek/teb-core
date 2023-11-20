@@ -11,7 +11,9 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Doctor;
 use App\Models\DoctorInsurance;
+use App\Models\DoctorService;
 use App\Models\Insurance;
+use App\Models\Hospital;
 use App\Models\Nationality;
 use App\Models\Service;
 use App\Models\Treatment;
@@ -64,38 +66,6 @@ class DoctorController extends Controller
         $query = Doctor::with('service','insurances','treatments','cases','city')
             ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
 
-        // if (!empty($search)) {
-        //     $query->where(function ($query) use ($search) {
-        //         $query->where('id', 'LIKE', "%{$search}%")
-        //             ->orWhere('first_name->ar', 'LIKE', "%{$search}%")
-        //             ->orWhere('first_name->en', 'LIKE', "%{$search}%")
-        //             ->orWhere('last_name->en', 'LIKE', "%{$search}%")
-        //             ->orWhere('last_name->ar', 'LIKE', "%{$search}%")
-        //             ->orWhere('title->ar', 'LIKE', "%{$search}%")
-        //             ->orWhere('title->en', 'LIKE', "%{$search}%")
-        //             ->orWhereHas('category_parent', function ($query) use ($search) {
-        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
-        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
-        //             })
-        //             ->orWhereHas('category_child', function ($query) use ($search) {
-        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
-        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
-        //             })
-        //             ->orWhereHas('treatments', function ($query) use ($search) {
-        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
-        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
-        //             })
-        //             ->orWhereHas('cases', function ($query) use ($search) {
-        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
-        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
-        //             })
-        //             ->orWhereHas('services', function ($query) use ($search) {
-        //                 $query->where('name->ar', 'LIKE', "%{$search}%")
-        //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
-        //             });
-        //     });
-        // }
-
         // Filter by category if a category ID is provided
         if (!empty($categoryId)) {
             $query->where('category_id', $categoryId);
@@ -129,11 +99,6 @@ class DoctorController extends Controller
                 $nestedData['lang'] = $doctor->lang;
                 // $nestedData['city_id'] = $doctor->city->name;
                 $nestedData['city_id'] = $doctor->city ? $doctor->city->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
-             // dd( $nestedData['city_id']);
-                // $nestedData['nationality_id'] = $doctor->nationality_id;
-                // $nestedData['category'] = $doctor->category_parent ? $doctor->category_parent->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
-                // $nestedData['sub_category'] = $doctor->category_child ? $doctor->category_child->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
-                // $nestedData['created_at'] = $doctor->created_at->format('M Y');
                 $data[] = $nestedData;
             }
         }
@@ -158,163 +123,55 @@ class DoctorController extends Controller
     public function index()
     {
         return view('tables');
-    //     $countries = Country::latest()->get();
-
-    //     return view('backend.categories.index', compact('countries'));
-    // }
-
-    // public function categories_api(Request $request)
-    // {
-    //     $columns = [
-    //         1 => 'id',
-    //         2 => 'name',
-    //         3 => 'slug',
-    //         4 => 'created_at',
-    //     ];
-
-    //     $search = [];
-
-    //     $totalData = Category::whereNull('parent_id')->count();
-
-    //     $totalFiltered = $totalData;
-
-    //     $limit = $request->input('length');
-    //     $start = $request->input('start');
-    //     $order = $columns[$request->input('order.0.column')];
-    //     $dir = $request->input('order.0.dir');
-
-    //     $categoriesQuery = Category::whereNull('parent_id');
-
-    //     if (empty($request->input('search.value'))) {
-    //         $categories = $categoriesQuery
-    //             ->offset($start)
-    //             ->limit($limit)
-    //             ->orderBy($order, $dir)
-    //             ->get();
-    //     } else {
-    //         $search = $request->input('search.value');
-
-    //         $categories = $categoriesQuery
-    //             ->where(function ($query) use ($search) {
-    //                 $query->where('id', 'LIKE', "%{$search}%")
-    //                     ->orWhere('name->ar', 'LIKE', "%{$search}%")
-    //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
-    //             })
-    //             ->offset($start)
-    //             ->limit($limit)
-    //             ->orderBy($order, $dir)
-    //             ->get();
-
-    //         $totalFiltered = $categoriesQuery
-    //             ->where(function ($query) use ($search) {
-    //                 $query->where('id', 'LIKE', "%{$search}%")
-    //                     ->orWhere('name->ar', 'LIKE', "%{$search}%")
-    //                     ->orWhere('name->en', 'LIKE', "%{$search}%");
-    //             })
-    //             ->count();
-    //     }
-
-    //     $data = [];
-
-    //     if (!empty($categories)) {
-    //         // providing a dummy id instead of database ids
-    //         $ids = $start;
-
-    //         foreach ($categories as $category) {
-    //             $nestedData['id'] = $category->id;
-    //             $nestedData['fake_id'] = ++$ids;
-    //             $nestedData['name'] = $category->getTranslation('name', app()->getLocale(Config::get('app.locale')));
-    //             $nestedData['slug'] = $category->slug;
-    //             //   $nestedData['image'] = asset('storage/'.$category->image);
-    //             $nestedData['created_at'] = $category->created_at->format('M Y');
-
-    //             $data[] = $nestedData;
-    //         }
-    //     }
-
-    //     if ($data) {
-    //         return response()->json([
-    //             'draw' => intval($request->input('draw')),
-    //             'recordsTotal' => intval($totalData),
-    //             'recordsFiltered' => intval($totalFiltered),
-    //             'code' => 200,
-    //             'data' => $data,
-    //         ]);
-    //     } else {
-    //         return response()->json([
-    //             'message' => 'Internal Server Error',
-    //             'code' => 500,
-    //             'data' => [],
-    //         ]);
-    //     }
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $nationalities=Nationality::get();
-    $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
-        // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
-        return view('backend.doctors.form',['nationalities'=>$nationalities,'categories'=>$categories]);
-    }
+    
+     public function create(Request $request)
+     {
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function store(Request $request)
-    // {
-    //     $categoryId = $request->id;
-    //     $existingCategory = Category::find($categoryId);
-    //     $request->validate([
-    //         'name_ar' => 'required|unique:categories,name->ar,' . $categoryId,
-    //         'name_en' => 'required|unique:categories,name->en,' . $categoryId,
-    //         'country_id' => 'required|array',
-    //         //     'image' => 'required',
-    //         'country_id.*' => 'exists:countries,id',
-    //     ], [
-    //         'name_ar.required' => __('validation.required'),
-    //         'name_en.required' => __('validation.required'),
-    //         'name_ar.unique' => __('validation.unique'),
-    //         'name_en.unique' => __('validation.unique'),
-    //         'country_id.exists' => __('validation.exists'),
-    //     ]);
+ 
+         $cases=Cases::get();
+         $nationalities=Nationality::get();
+         $categories=Category::get();
+         $treatments=Treatment::get();
+         $insurances=Insurance::get();
+         $cities=City::get();
+         $child_categories = Category::whereNotNull('parent_id')->get();
+         $Hospitals=Hospital::get();
+         $services=Service::get();
+         $doctor = null;
 
+         // $lang = app()->getLocale(Config::get('app.locale'));
+         if($request->has('id'))
+         {
+             $doctors=Doctor::with('media')->whereId($request->id)->get();
+             $doctors->transform(function ($doctor) {
+                // $doctor->setRelation('images', $doctor->media->where('collection_name', 'doctor_images'));
+                $doctor->setRelation('image', $doctor->media->where('collection_name', 'Doctor_image')->first());
+                $doctor->unsetRelation('media');
+                return $doctor;
+            });
 
-  
-
-    //     $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
-    //     if ($categoryId) {
-    //         // update the value
-    //         $category = Category::whereId($categoryId)->firstOrFail();
-
-    //         $category->update($data);
-    //         if ($request->country_id) {
-    //             $category->countries()->sync($request->country_id);
-    //         }
-    //         // user updated
-    //         return response()->json(__('cp.update'));
-    //     } else {
-    //         // create new one if email is unique
-    //         $category = Category::where('id', $request->id)->first();
-
-    //         if (empty($category)) {
-    //             $category = Category::create($data);
-    //             if ($request->country_id) {
-    //                 $category->countries()->attach($request->country_id);
-    //             }
-    //             return response()->json(__('cp.create'));
-    //         } else {
-    //             // category Already exist
-    //             return response()->json(['message' => "Already exits"], 422);
-    //         }
-    //     }
-    // }
+            //  log::info($doctors->first_name);
+            //  log::info($doctors->first_name);
+             // return view('backend.doctors.form',['doctor'=>$doctor,'cases'=>$cases,'nationalities'=>$nationalities,'categories'=>$categories,
+             // 'treatments'=>$treatments,'insurances'=>$insurances,'cities'=>$cities]);
+ 
+         }
+         log::info('$doctors[0]');
+         log::info($doctors[0]);
+         return view('backend.doctors.form',[ 'doctor'=>$doctors[0],'cases'=>$cases,'nationalities'=>$nationalities,'categories'=>$categories,
+      'services'=>$services, 'child_categories'=>$child_categories,  'Hospitals'=>$Hospitals, 'treatments'=>$treatments,'insurances'=>$insurances,'cities'=>$cities]);
+     }
+ 
+   
 
     public function store(Request $request)
     {  
-      //  dd($request->all());
+    //    dd($request->all());
         log::info($request->all());
         $doctorId = $request->id;
        // $data = $request->all();
@@ -341,8 +198,8 @@ class DoctorController extends Controller
         $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
          $data['email'] = "ss@dd.com";
          $data['gender'] = $request->gender;
-         $data['lat'] = $request->lat;
-         $data['lang'] = $request->lang;
+         $data['lat'] = (float) $request->lat;
+         $data['lang'] = (float) $request->lang;
          $data['nationality_id'] = $request->nationality_id;
         //  $data['treatment_id'] = $request->treatment_id;
         //  $data['case_id'] = $request->case_id;
@@ -361,32 +218,51 @@ class DoctorController extends Controller
                
                 $categories = $request->categories;
                 $doctor->category_parent()->attach($categories);
+                   
+                $child_categories = $request->child_categories;
+                $doctor->category_child()->attach($child_categories);
+                
 
-               $data['treatments']= $request->treatments;
+              
             
-                $treatments = $data['treatments'];
+                $treatments =  $request->treatments;
      
               $doctor->treatments()->attach($treatments);
 
 
 
-               $data['cases'] = $request->cases;
+              
+            
+              $hospitals = $request->hospitals;
+            $doctor->hospitals()->attach($hospitals);
 
-              $cases = $data['cases'];
+
+
+               
+
+              $cases = $request->cases;
               $doctor->cases()->attach($cases);
         
               
             //   // Attach new cases
             
 
-              $data['insurances']= $request->insurances;
+            
         
-                $insurances = $data['insurances'];
-        
+                $insurances =  $request->insurances;
               $doctor->insurances()->attach($insurances);
          
                 if ($request->hasFile('image')) {
                     $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
+                }
+                if ($request->hasFile('upload1')) {
+                    $doctor->addMedia($request->file('upload1'))->toMediaCollection('Doctor_upload1');
+                }
+                if ($request->hasFile('upload2')) {
+                    $doctor->addMedia($request->file('upload2'))->toMediaCollection('Doctor_upload2');
+                }
+                if ($request->hasFile('upload3')) {
+                    $doctor->addMedia($request->file('upload3'))->toMediaCollection('Doctor_upload3');
                 }
                 // if ($request->hasFile('image')) {
                 //     $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
@@ -395,11 +271,46 @@ class DoctorController extends Controller
                 //     $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
                 // }
                 // category created
-                $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
-                $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
+                // $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+                // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
                  // dd($parent_categories);
                 // return redirect()->route('admin.tables');            // }
-                return response()->json(["message"=>"success"]);
+                //  return 'doctor created';
+                if($request->services){
+                    $selectedServices = $request->input('services');
+                    $prices = $request->input('prices');
+                    $priceslist=[];
+                    foreach ($prices as $price) {
+                        if($price!=null){
+                            $priceslist[]=$price;
+
+                        # code...
+                    }}
+               log::info($priceslist);
+               log::info($selectedServices);
+                    // Sync services to the doctor with prices
+                    $servicesData = [];
+                    foreach ($selectedServices as $index => $serviceId) {
+                        $price = $priceslist[$index];
+                        // dd([
+                        //     'index' => $index,
+                        //     'serviceId' => $serviceId,
+                        //     'price' => $price,
+                        // ]);
+                        
+                        $servicesData[$serviceId] = ['value' => $price];
+                        log::info($servicesData);
+                       // dd($servicesData);
+                
+                    // Assuming you have a 'services' relationship in your Doctor model
+                }
+                $doctor->service()->attach($servicesData);
+
+            }
+                $url='http://localhost:8000/en/admin/doctors/index';
+                return redirect($url);
+           
+                
      
     }
 
@@ -409,37 +320,14 @@ class DoctorController extends Controller
     public function showdoctor($id)
     {
        // dd($id);
-       $nationalities=Nationality::get();
-       $insurances=Insurance::get();
-       $services=Service::get();
-       $treatments=Treatment::get();
-       $cases= Cases::get();
-       $cities=City::get();
-   
-       $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+
      $doctors=Doctor::with('media')->where('id',$id)->get();
              $doctors->transform(function ($doctor) {
             $doctor->setRelation('image', $doctor->media->where('collection_name', 'doctor_image')->first());
             $doctor->unsetRelation('media');
             return $doctor;
         });
-     $doctor=$doctors[0]->toArray();
-
-    
-         // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
-        //  return view('backend.doctors.form',['nationalities'=>$nationalities,'categories'=>$categories,'doctor'=>$doctor,'insurances'=>$insurances,'cases'=>$cases,'services'=>$services,'treatments'=>$treatments,'cities'=>$cities]);
-
-        return Redirect::route('form')->with($doctor,$categories,$nationalities,$cases,$treatments,$services,$cities,$insurances);
-
-    //  return response()->json(['doctor'=>$doctor,'nationalities'=>$nationalities,
-    //  'categories'=>$categories,
-    //  'insurances'=>$insurances,
-    //  'cases'=>$cases,
-    //  'treatments'=>$treatments,
-    //  'services'=>$services,
-    //  'cities'=>$cities,
-
-    // ]);
+        return response()->json(["doctor"=>$doctors[0]]);
 
 
     }

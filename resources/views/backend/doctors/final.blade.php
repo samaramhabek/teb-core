@@ -552,7 +552,8 @@
             // changing the title of offcanvas
             $('#offcanvasAddDoctorLabel').html(edit);
 
-            // get data
+            // get 
+            
             $.get(`${baseUrl}/admin/doctors\/${doctor_id}\/edit`, function (data) {
                 $('#doctor_id').val(data.id);
                 $('#add-doctor-name-ar').val(data.name.ar);

@@ -13,6 +13,6 @@ class Service extends Model
     public $translatable = ['name'];
     public function doctors()
     {
-        return $this->belongsToMany(Doctor::class);
+        return $this->belongsToMany(Doctor::class)->withPivot('value');;
     }
 }
