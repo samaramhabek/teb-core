@@ -98,8 +98,9 @@ class CoursesController extends Controller
                 $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
                 // $nestedData['category'] = $course->category_parent ? $course->category_parent->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
                 // $nestedData['sub_category'] = $course->category_child ? $course->category_child->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
-                $nestedData['trainer'] = $course->trainer ? $course->trainer->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
+                $nestedData['trainer'] = $course->trainer ? $course->trainer->getTranslation('first_name', app()->getLocale(Config::get('app.locale'))) : '';
                 $nestedData['hours'] = $course->hours;
+                $nestedData['online'] = $course->online;
                 // $nestedData['created_at'] = $treatment->created_at->format('M Y');
                 $data[] = $nestedData;
             }
@@ -167,6 +168,7 @@ class CoursesController extends Controller
         }
         $data['hours'] =$request->hours; 
         $data['category_id'] = $request->category_id;
+        $data['trainer_id'] = $request->trainer_id;
         $data['child_category_id'] = $request->child_category_id;
         $data['online']=0;
         if($request->is_online=='on')

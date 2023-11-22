@@ -1186,6 +1186,19 @@ return [
     'id'=>'المعرف',
     'hospitals'=>'المستشفيات',
     'add_Hospitals'=>'اضف مشفى',
+    'courses'=>'الدورات',
+    'lessons'=>'الدروس',
+    'category_text'=>'الصنف',
+    'hours'=>'الساعات',
+    'trainer'=>'المدرب',
+    'category_text_ar'=>'الصنف (عربي)',
+    'category_text_en'=>'الصنف (انكليزي)',
+    'online'=>'اون لاين',
+    'course'=>'الدورة',
+    'add_courses'=>'إضافة دورة',
+    'add_lessons'=>'إضافة درس',
+    
+
 
 ];
 

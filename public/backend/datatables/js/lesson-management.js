@@ -132,7 +132,7 @@ $(function () {
                     // Slug
                     targets: 3,
                     render: function (data, type, full, meta) {
-                        var $category = full['course'];
+                        var $course = full['course'];
 
                         return '<span class="course-slug">' + $course + '</span>';
                     }
@@ -504,10 +504,10 @@ $(function () {
                     }
                 }
             },
-            category_id: {
+            course_id: {
                 validators: {
                     notEmpty: {
-                        message: validationMessages.data('category-id-required')
+                        message: validationMessages.data('course-id-required')
                     }
                 }
             },
@@ -542,7 +542,7 @@ $(function () {
                 dt_category.draw();
                 offCanvasForm.offcanvas('hide');
                 // Clear form inputs
-                $('#addNewCategoryForm').trigger('reset');
+                $('#addNewLessonForm').trigger('reset');
 
                 // sweetalert
                 Swal.fire({

@@ -77,6 +77,7 @@ $(function () {
                 { data: 'category_text'},
                 { data: 'hours'},
                 { data: 'trainer' },
+                { data: 'online' },
                 { data: 'action' },
             ],
             columnDefs: [
@@ -142,24 +143,31 @@ $(function () {
                 //         return '<span class="category-slug">' + $category + '</span>';
                 //     }
                 // },
-                // {
-                //     // Slug
-                //     targets: 4,
-                //     render: function (data, type, full, meta) {
-                //         var $sub_category = full['sub_category'];
-
-                //         return '<span class="category-slug">' + $sub_category + '</span>';
-                //     }
-                // },
                 {
-                    // Created at
-                    targets: 5,
+                    targets: 7,
                     render: function (data, type, full, meta) {
-                        var $created_at = full['created_at'];
+                        var $online = full['online'];
+                         var states = ['success', 'danger'];
+                        if($online == 0 ){
+                            states='danger'
+                       return  '<span class="avatar-initial rounded-circle bg-label-'+states+'">' +  'NO'  + '</span>';
 
-                        return '<span class="category-created_at">' + $created_at + '</span>';
+                        }else{
+                            states='success'
+                            return  '<span class="avatar-initial rounded-circle bg-label-'+states+'">' +  'yes'  + '</span>';
+     
+                        }
                     }
                 },
+                // {
+                //     // Created at
+                //     targets: 5,
+                //     render: function (data, type, full, meta) {
+                //         var $created_at = full['created_at'];
+
+                //         return '<span class="category-created_at">' + $created_at + '</span>';
+                //     }
+                // },
                 {
                     // Actions
                     targets: -1,
@@ -509,13 +517,13 @@ $(function () {
                     }
                 }
             },
-            category_id: {
-                validators: {
-                    notEmpty: {
-                        message: validationMessages.data('category-id-required')
-                    }
-                }
-            },
+            // category_id: {
+            //     validators: {
+            //         notEmpty: {
+            //             message: validationMessages.data('category-id-required')
+            //         }
+            //     }
+            // },
         },
         plugins: {
             trigger: new FormValidation.plugins.Trigger(),

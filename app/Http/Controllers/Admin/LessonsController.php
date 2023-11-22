@@ -19,7 +19,7 @@ class LessonsController extends Controller
         return view('backend.lessons.index', compact('courses'));
     }
 
-    public function treatments_api(Request $request)
+    public function lessons_api(Request $request)
     {
 
         $columns = [

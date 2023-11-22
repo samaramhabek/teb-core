@@ -130,7 +130,7 @@
             <li class="menu-item {{ request()->is(app()->getLocale().'/admin/courses/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-id"></i>
-                    <div>{{__('cp.coursess')}}</div>
+                    <div>{{__('cp.courses')}}</div>
                     <div class="badge bg-primary rounded-pill ms-auto">3</div>
                 </a>
                 <ul class="menu-sub">

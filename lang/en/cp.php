@@ -1012,6 +1012,18 @@ return [
     'id'=>'Id',
     'hospitals'=>'Hospitals',
     'add_Hospitals'=>'Add Hospitals',
+    'courses'=>'Courses',
+    'lessons'=>'Lessons',
+    'category_text'=>'Category',
+    'hours'=>'Hours',
+    'trainer'=>'Trainer',
+    'category_text_ar'=>'category (arabic)',
+    'category_text_en'=>'category (english)',
+    'online'=>'online',
+    'course'=>'Course',
+    'add_courses'=>'add courses',
+    'add_lessons'=>'add lessons',
+
 
 ];
 

@@ -25,6 +25,7 @@
                            <th>{{__('cp.category_text')}}</th>
                            <th>{{__('cp.hours')}}</th>
                            <th>{{__('cp.trainer')}}</th>
+                           <th>{{__('cp.online')}}</th>
                            <th>{{__('cp.action')}}</th>
                        </tr>
                        </thead>
@@ -89,23 +90,18 @@
                                <label class="form-label" for="child_category_id">{{__('cp.subcategory')}}</label>
                                <select id="child_category_id" name="child_category_id" class="select2_sub form-select">
                                    <option value="">{{__('cp.select')}}</option>
-{{--                                   @foreach($child_categories as $sub)--}}
-{{--                                       <option value="{{$sub->id}}">{{$sub->name}}</option>--}}
-{{--                                   @endforeach--}}
                                </select>
                            </div>
                            <div class="mb-3">
                             <label class="form-label" for="trainer_id">{{__('cp.trainer')}}</label>
-                            <select id="trainer_id" name="trainer_id" class="select2 form-select">
-                                <option value="">Select</option>
+                            <select id="trainer_id" name="trainer_id" class="select form-select">
+                                {{-- <option value="">Select</option> --}}
 
                                 @foreach($trainers as $trainer)
                                     <option value="{{$trainer->id}}">{{$trainer->first_name}}</option>
                                 @endforeach
                             </select>
                            </div>
-                        </div>
-
                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">{{__('cp.save')}}</button>
                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">{{__('cp.cancel')}}</button>
                        </form>
