@@ -176,7 +176,7 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {  
-    //    dd($request->all());
+      // dd($request->all());
         log::info($request->all());
         $doctorId = $request->id;
         if($doctorId){
