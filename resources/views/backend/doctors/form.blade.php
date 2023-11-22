@@ -68,6 +68,9 @@
                     <div class="bs-stepper-content  multi-step-form">
                         <form id="addNewDoctorForm" action="{{ route('admin.createDoctor') }}" method="post"  enctype="multipart/form-data"  id="addNewDoctorForm">
                             @csrf
+                            @if($doctor)
+                            <input type="hidden" name="id" value="{{optional($doctor)->id}}">
+                            @endif
                             <fieldset aria-label="Step One" id="step-1">
                                 <div class="title-step">
                                     <h3>الاسم واللقب</h3>
