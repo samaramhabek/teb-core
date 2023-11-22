@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
 
-class Treatment extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+class Course extends Model implements HasMedia 
 {
-    use HasFactory, HasTranslations;
-    protected $guarded = [];
-    public $translatable = ['name'];
-
+    use HasFactory ,HasTranslations ,  InteractsWithMedia;
+    protected $guarded=[];
+    public $translatable = ['category_text','name','description'];
     public function category_parent()
     {
         return $this->belongsTo(Category::class, 'category_id')->withDefault();
@@ -24,8 +24,9 @@ class Treatment extends Model
             'name' => '-'
         ]);
     }
-    public function doctors()
+    public function trainer()
     {
-        return $this->belongsToMany(Doctor::class);
+        return $this->belongsTo(Doctor::class, 'trainer_id')->where('is_trainer', 1);
     }
+
 }

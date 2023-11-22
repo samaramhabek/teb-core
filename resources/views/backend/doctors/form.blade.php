@@ -193,7 +193,7 @@
                                                 <div class="avatar-preview">
                                                    
                                                     <div id="imagePreview" 
-                                                    style="background-image: url({{ $doctor->image->original_url ?? 'assets/img/avatar.jpg' }});">
+                                                    style="background-image: url({{ optional($doctor)->image->original_url ?? 'assets/img/avatar.jpg' }});">
                                                 </div>
                                                  
                                                     
@@ -212,9 +212,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="gender" required>
-                                                <option value="" >الجنس</option>
-                                                <option value="0">انثي</option>
-                                                <option value="1">ذكر</option>
+                                               
+                                                   
+                                                    <option value="0" @if(optional($doctor)->gender === '0') selected @endif>انثي</option>
+                                                    <option value="1" @if(optional($doctor)->gender === '1') selected @endif>ذكر</option>
+                                              
                                             </select>
                                         </div>
                                     </div>
@@ -224,11 +226,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="nationality_id">
-                                                <option value="" >الجنسيه</option>
+                                                <option value="" @if(optional($doctor)->nationality_id === '')  @endif>الجنسيه</option>
                                                 @foreach($nationalities as $nationality)
-                                                <option value="{{$nationality->id}}">{{$nationality->name}}</option>
+                                                    <option value="{{ $nationality->id }}" @if(optional($doctor)->nationality_id == $nationality->id) selected @endif>
+                                                        {{ $nationality->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
+                                            
+                                            
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -237,7 +243,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control phone"
-                                                placeholder="رقم الهاتف" name="Phone" required />
+                                                placeholder="رقم الهاتف" name="Phone" required  value="{{optional($doctor)->Phone}}" />
                                               
                                         </div>
                                     </div>
@@ -245,7 +251,7 @@
                                         <div class="col-md-6">
                                         <div class="form-group">
                                         <input type="text" class="form-control email"
-                                        placeholder="Email " name="email" required />
+                                        placeholder="Email " name="email" required value="{{optional($doctor)->email}}" />
                                         </div> 
                                       
                                     </div>
@@ -259,7 +265,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control lat"
-                                                placeholder="lat " name="lat" required />
+                                                placeholder="lat " name="lat" required value="{{optional($doctor)->lat}}" />
                                               
                                         </div>
                                     </div>
@@ -267,7 +273,7 @@
                                         <div class="col-md-6">
                                         <div class="form-group">
                                         <input type="text" class="form-control lang"
-                                        placeholder="lang " name="lang" required />
+                                        placeholder="lang " name="lang" required value="{{optional($doctor)->lang}}" />
                                         </div> 
                                       
                                     </div>
@@ -290,9 +296,13 @@
                                                 <label for="categories">التخصصات الرئيسية</label>
                                                 <select class="form-control" name="categories[]" multiple>
                                                     @foreach($categories as $category)
-                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                        <option value="{{ $category->id }}" 
+                                                            @if(optional($doctor)->category_parent && $doctor->category_parent->contains('id', $category->id)) selected @endif>
+                                                            {{ $category->name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
+                                                
                                             </div>
                                         </div>
                                         
@@ -303,7 +313,10 @@
                                                 <label for="child_categories">التخصصات الفرعية </label>
                                                 <select class="form-control" name="child_categories[]" multiple>
                                                     @foreach($child_categories as $child_category)
-                                                        <option value="{{$child_category->id}}">{{$child_category->name}}</option>
+                                                    <option value="{{ $category->id }}" 
+                                                        @if(optional($doctor)->category_child && $doctor->category_child->contains('id', $category->id)) selected @endif>
+                                                    {{ $category->name }}
+                                                </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -317,7 +330,10 @@
                                                 <label for="categories"> المستشفيات </label>
                                                 <select class="form-control" name="hospitals[]" multiple>
                                                     @foreach($Hospitals as $hospital)
-                                                        <option value="{{$hospital->id}}">{{$hospital->name}}</option>
+                                                    <option value="{{ $hospital->id }}" 
+                                                        @if(optional($doctor)->hospitals && $doctor->hospitals->contains('id', $hospital->id)) selected @endif>
+                                                        {{ $hospital->name }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -330,7 +346,11 @@
                                                 <label for="treatments">العلاجات</label>
                                                 <select class="form-control" name="treatments[]" multiple>
                                                     @foreach($treatments as $treatment)
-                                                        <option value="{{$treatment->id}}">{{$treatment->name}}</option>
+                                                    <option value="{{ $treatment->id }}" 
+                                                       
+                                                        @if(optional($doctor)->treatments && $doctor->treatments->contains('id', $treatment->id)) selected @endif>
+                                                        {{ $treatment->name }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -401,7 +421,11 @@
                                                 <select class="form-control" name="cases[]" multiple>
                                                     <option value="disabled">اختيار الحالة</option>
                                                     @foreach($cases as $case)
-                                                    <option value="{{$case->id}}">{{$case->name}}</option>
+                                                    <option value="{{ $case->id }}" 
+                                                      
+                                                        @if(optional($doctor)->cases && $doctor->cases->contains('id', $case->id)) selected @endif>
+                                                        {{ $case->name }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -416,7 +440,11 @@
                                                 <select class="form-control" name="insurances[]" multiple>
                                                     <option value="disabled">اختيار التأمين</option>
                                                     @foreach($insurances as $insurance)
-                                                        <option value="{{$insurance->id}}">{{$insurance->name}}</option>
+                                                    <option value="{{ $insurance->id }}" 
+                                                      
+                                                        @if(optional($doctor)->insurances && $doctor->insurances->contains('id', $insurance->id)) selected @endif>
+                                                        {{ $insurance->name }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -448,7 +476,9 @@
                                             <select class="form-control" name="city_id">
                                                 <option value="" disabled>اختيار المدينه</option>
                                                 @foreach($cities as $city)
-                                                 <option value="{{$city->id}}">{{$city->name}}</option>
+                                                <option value="{{ $city->id }}" @if(optional($doctor)->city_id == $city->id) selected @endif>
+                                                    {{ $city->name }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -460,7 +490,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="المنطقة  ( بالغه العربيه )"
-                                                name="region_ar" required />
+                                                value="{{ optional($doctor)->getTranslation('region', 'ar') }}"     name="region_ar" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -470,7 +500,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="المنطقة  ( بالغه الانجليزيه )"
-                                                name="region_en" required />
+                                                value="{{ optional($doctor)->getTranslation('region', 'en') }}"    name="region_en" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -481,7 +511,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="العنوان التفصيلي ( بالغه العربيه )"
-                                                name="address_ar" required />
+                                                value="{{ optional($doctor)->getTranslation('address', 'ar') }}"      name="address_ar" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -491,7 +521,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="العنوان التفصيلي ( بالغه الانجليزيه )"
-                                                name="address_en" required />
+                                                value="{{ optional($doctor)->getTranslation('address', 'ar') }}"     name="address_en" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -562,30 +592,35 @@
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="file" class="form-control"
-                                                placeholder="تحميل شهاده مزاولة" name="upload-1"  />
+                                            <label for="upload1">تحميل شهادة المزاولة</label>
+                                            <input type="file" class="form-control" name="upload1" />
+                                            {{-- @if($doctor->upload1->original_url ) --}}
+                                                <p>Existing File: <a href="{{ $doctor->upload1->original_url  ?? null}}" target="_blank">{{ $doctor->upload1->file_name ?? null}}</a></p>
+                                            {{-- @endif --}}
                                         </div>
                                     </div>
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
+                                    
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="file" class="form-control"
-                                                placeholder="تحميل شهاده الجامعة" name="upload-2"
-                                                 />
+                                            <label for="upload2">تحميل شهادة الجامعة</label>
+                                            <input type="file" class="form-control" name="upload2" />
+                                            {{-- @if(optional($doctor->upload2)->original_url) --}}
+                                                <p>Existing File: <a href="{{ $doctor->upload2->original_url ?? null }}" target="_blank">{{ $doctor->upload2->file_name ?? null }}</a></p>
+                                            {{-- @endif --}}
                                         </div>
                                     </div>
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
+                                    
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="file" class="form-control"
-                                                placeholder="تحميل الهويه الشخصيه" name="upload-3"
-                                                 />
+                                            <label for="upload3">تحميل الهوية الشخصية</label>
+                                            <input type="file" class="form-control" name="upload3" />
+                                            {{-- @if(optional($doctor->upload3)->original_url) --}}
+                                                <p>Existing File: <a href="{{ $doctor->upload3->original_url ?? null }}" target="_blank">{{ $doctor->upload3->file_name ?? null }}</a></p>
+                                            {{-- @endif --}}
                                         </div>
                                     </div>
+                                    
+                                    
                                     <!-- /Col -->
 
                                     <!-- Col -->
@@ -612,72 +647,62 @@
                                     <h3>مواعيد</h3>
                                 </div>
                                 {{-- @foreach( $services as $service) --}}
+                                @if($doctor)
+                                <div class="form-h row">
+                                    @foreach ($services as $service)
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="check{{ $service->id }}">
+                                                    <input type="checkbox" id="check{{ $service->id }}" name="services[]" value="{{ $service->id }}" {{ $doctor->service->contains('id', $service->id) ? 'checked' : '' }} />
+                                                    {{ $service->name }}
+                                                </label>
+                                            </div>
+                                         
+                                        </div>
+                                
+                                        <div class="col-md-10">
+                                            
+                                           
+                                                <div class="form-group">
+                                                    @php
+                                                        $serviceData = $doctor->service->where('id', $service->id)->first();
+                                                    @endphp
+                                                    {{-- @if ($serviceData) --}}
+                                                        <input type="text" class="form-control" placeholder="{{ $service->name }}" name="prices[]" value="{{ isset($serviceData->pivot->value) ? $serviceData->pivot->value : '' }}" />
+                                                    {{-- @endif --}}
+                                                </div>
+                                        </div>
+                                    @endforeach
+                                  
+                                </div>
+                                @else
+
+
                                 <div class="form-h row">
 
-                                    <!-- Col -->
-                                  
-                                    {{-- <div class="col-md-2">
-                                      
-                                      
-                                        <div class="form-group">
-                                           
-                                            <label for="check1">
-                                                <input type="checkbox" id="" name=""  />
-                                                مواعيد العيادة
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="كشفية العيادة (دينار اردني)" name="price-1"
-                                                required />
-                                        </div>
-                                    </div> --}}
-                                    {{-- @endforeach --}}
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
-                                    {{-- <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="check1">
-                                                <input type="checkbox" id="" name="" />
-                                                زيارة منزلية
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="كشفية منزلية (دينار اردني)" name="price-2"
-                                                required />
-                                        </div>
-                                    </div> --}}
-                                    <!-- /Col -->
-
-                                    <!-- Col -->
                                     @foreach ($services as $service)
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="check{{ $service->id }}">
-                                                <input type="checkbox" id="check{{ $service->id }}" name="services[]" value="{{ $service->id }}" />
-                                                {{ $service->name }}
-                                            </label>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="check{{ $service->id }}">
+                                                    <input type="checkbox" id="check{{ $service->id }}" name="services[]" value="{{ $service->id }}"  />
+                                                    {{ $service->name }}
+                                                </label>
+                                            </div>
+                                        
                                         </div>
-                                    </div>
-                            
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="{{ $service->name }}" name="prices[]" />
+                                
+                                        <div class="col-md-10">
+                                                <div class="form-group">
+                                                 
+                                                        <input type="text" class="form-control" placeholder="{{ $service->name }}" name="prices[]" />
+                                                    
+                                                </div>
+                                            
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                  
+                                </div>
+                                @endif
                                     <!-- /Col -->
                                     
                                     <!-- Col -->
@@ -740,19 +765,23 @@
 
         document.getElementById('addNewDoctorForm').addEventListener('submit', function (event) {
         event.preventDefault();
-
+        console.log('success');
         // Create a FormData object to send the form data
         const formData = new FormData(this);
-
+        console.log('lkj',formData);
         // Submit the form using fetch
         fetch(this.action, {
             method: 'POST',
             body: formData,
+            
         })
+        
         .then(response => response.json())
+       
         .then(data => {
+        //     console.log('success');
             // Handle the JSON response
-            console.log(data);
+            console.log('uh',data);
 
             // You can perform actions based on the response here
             if (data.message === 'success') {
@@ -767,7 +796,7 @@
             // Handle errors if any
             console.error('Error:', error);
         });
-    });
+     });
 
   
  

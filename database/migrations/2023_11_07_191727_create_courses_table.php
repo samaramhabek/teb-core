@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
-            // $table->foreignId('child_category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
+            $table->foreignId('child_category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
+            $table->string('category_text')->nullable();
+            $table->boolean('online')->default(1);
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('course_files')->nullable();
-            $table->integer('course_hours');
-            $table->string('video_intro')->nullable();
+            $table->integer('hours')->nullable();
             $table->foreignId('trainer_id')->nullable()->constrained('doctors', 'id')->nullOnDelete();
-            // $table->unsignedBigInteger('user_id')->nullable();
-            // $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

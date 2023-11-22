@@ -121,7 +121,37 @@
                         </a>
                     </li> --}}
                 </ul>
+            </li>
                 <!-- end hospital-->
+                  <!--    courses -->
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Courses</span>
+            </li>
+            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/courses/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-id"></i>
+                    <div>{{__('cp.coursess')}}</div>
+                    <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/courses/index') ? 'active' : '' }}">
+                        <a href="{{route('admin.courses.index')}}" class="menu-link">
+                            <div>{{__('cp.courses')}}</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/lessons/index') ? 'active' : '' }}">
+                        <a href="{{route('admin.lessons.index')}}" class="menu-link">
+                            <div>{{__('cp.lessons')}}</div>
+                        </a>
+                    </li>
+                    {{-- <li class="menu-item {{ request()->is(app()->getLocale().'/admin/sub-categories*') ? 'active' : '' }}">
+                        <a href="{{route('admin.sub-categories.index')}}" class="menu-link">
+                            <div>{{__('cp.sub_categories')}}</div>
+                        </a>
+                    </li> --}}
+                </ul>
+            </li>
+                <!-- end courses-->
 
         <!-- Apps & Pages -->
         <li class="menu-header small text-uppercase">

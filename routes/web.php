@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\NationalityController;
 use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TreatmentsController;
+use App\Http\Controllers\Admin\CoursesController;
+use App\Http\Controllers\Admin\LessonsController;
 use App\Http\Controllers\Admin\UserController;
  use App\Http\Controllers\Admin\HospitalController;
 use App\Http\Controllers\ProfileController;
@@ -100,6 +102,12 @@ Route::group(
 
         Route::resource('/treatments', TreatmentsController::class);
         Route::get('/api-treatments', [TreatmentsController::class, 'treatments_api'])->name('treatments.api');
+
+        Route::resource('/courses', CoursesController::class);
+        Route::get('/api-courses', [CoursesController::class, 'courses_api'])->name('courses.api');
+
+        Route::resource('/lessons', LessonsController::class);
+        Route::get('/api-lessons', [LessonsController::class, 'lessons_api'])->name('lessons.api');
 
         Route::get('/doctors/index', [DoctorController::class, 'index2'])->name('tables');
         Route::get('/api-doctors', [DoctorController::class, 'doctors_api'])->name('doctors.api');

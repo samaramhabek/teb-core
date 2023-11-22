@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Lessones', function (Blueprint $table) {
+        Schema::create('lessons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->foreignId('course_id')->nullable()->constrained('courses', 'id')->nullOnDelete();
             $table->string('video_url')->nullable(); // Add this column for Vimeo video link
-            $table->string('lesson_file')->nullable();
             $table->timestamps();
         });
     }
