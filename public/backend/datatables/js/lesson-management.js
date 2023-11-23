@@ -72,6 +72,20 @@ $(function () {
                 { data: 'name'},
                 { data: 'Course'},
                 { data: 'created_at'},
+                { data: 'video_url',
+                render: function(data, type, row) {
+                    if (type === 'display' && data) {
+                        return '<a href="' + data + '" target="_blank">Watch Video</a>';
+                    }
+                    return data;
+                }},
+                { data: 'file',
+                render: function(data, type, row) {
+                    if (type === 'display' && data) {
+                        return '<a href="' + data.original_url + '" target="_blank">file</a>';
+                    }
+                    return data;
+                }},
                 { data: 'action' }
             ],
             columnDefs: [

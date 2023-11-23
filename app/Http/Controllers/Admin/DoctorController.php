@@ -207,31 +207,31 @@ class DoctorController extends Controller
                     $doctor->update($data);
                    
                     $categories = $request->categories;
-                    $doctor->category_parent()->attach($categories);
+                    $doctor->category_parent()->sync($categories);
                        
                     $child_categories = $request->child_categories;
-                    $doctor->category_child()->attach($child_categories);
+                    $doctor->category_child()->sync($child_categories);
                     
         
                   
                 
                     $treatments =  $request->treatments;
          
-                  $doctor->treatments()->attach($treatments);
+                  $doctor->treatments()->sync($treatments);
         
         
         
                   
                 
                   $hospitals = $request->hospitals;
-                $doctor->hospitals()->attach($hospitals);
+                $doctor->hospitals()->sync($hospitals);
         
         
         
                    
         
                   $cases = $request->cases;
-                  $doctor->cases()->attach($cases);
+                  $doctor->cases()->sync($cases);
             
                   
                 //   // Attach new cases
@@ -240,7 +240,7 @@ class DoctorController extends Controller
                 
             
                     $insurances =  $request->insurances;
-                  $doctor->insurances()->attach($insurances);
+                  $doctor->insurances()->sync($insurances);
              
                     if ($request->hasFile('image')) {
                         $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
@@ -274,7 +274,7 @@ class DoctorController extends Controller
                             $servicesData[$serviceId] = ['value' => $price];
                           
                       }
-                     $doctor->service()->attach($servicesData);
+                     $doctor->service()->sync($servicesData);
         
                     }
             
@@ -308,31 +308,31 @@ class DoctorController extends Controller
                 $doctor = Doctor::create($data);
                
                 $categories = $request->categories;
-                $doctor->category_parent()->sync($categories);
+                $doctor->category_parent()->attach($categories);
                    
                 $child_categories = $request->child_categories;
-                $doctor->category_child()->sync($child_categories);
+                $doctor->category_child()->attach($child_categories);
                 
 
               
             
                 $treatments =  $request->treatments;
      
-              $doctor->treatments()->sync($treatments);
+              $doctor->treatments()->attach($treatments);
 
 
 
               
             
               $hospitals = $request->hospitals;
-            $doctor->hospitals()->sync($hospitals);
+            $doctor->hospitals()->attach($hospitals);
 
 
 
                
 
               $cases = $request->cases;
-              $doctor->cases()->sync($cases);
+              $doctor->cases()->attach($cases);
         
               
             //   // Attach new cases
@@ -341,7 +341,7 @@ class DoctorController extends Controller
             
         
                 $insurances =  $request->insurances;
-              $doctor->insurances()->sync($insurances);
+              $doctor->insurances()->attach($insurances);
          
                 if ($request->hasFile('image')) {
                     $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
@@ -376,7 +376,7 @@ class DoctorController extends Controller
                         $servicesData[$serviceId] = ['value' => $price];
 
                 }
-                $doctor->service()->sync($servicesData);
+                $doctor->service()->attach($servicesData);
 
             }
         }

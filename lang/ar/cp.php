@@ -1197,6 +1197,7 @@ return [
     'course'=>'الدورة',
     'add_courses'=>'إضافة دورة',
     'add_lessons'=>'إضافة درس',
+    'video_url'=>'فيديو',
     
 
 

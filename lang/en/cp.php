@@ -1023,6 +1023,7 @@ return [
     'course'=>'Course',
     'add_courses'=>'add courses',
     'add_lessons'=>'add lessons',
+    'video_url'=>'video',
 
 
 ];
