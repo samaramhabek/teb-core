@@ -264,7 +264,17 @@
                                     
                                     
                                     <!-- /Col -->
-
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="check">
+                                                Trainer:
+                                                <input type="checkbox" name="is_trainer" {{ optional($doctor)->is_trainer ? 'checked' : '' }} />
+                                              
+                                            </label>
+                                        </div>
+                                    </div>
+                                     
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control lat"

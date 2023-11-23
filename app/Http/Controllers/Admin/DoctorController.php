@@ -177,7 +177,7 @@ class DoctorController extends Controller
     public function store(Request $request)
     {  
       // dd($request->all());
-        log::info($request->all());
+       // log::info($request->all());
         $doctorId = $request->id;
         if($doctorId){
             $data['first_name'] = ['en' => $request->first_name_en, 'ar' => $request->first_name_ar];
@@ -195,7 +195,7 @@ class DoctorController extends Controller
             //  $data['case_id'] = $request->case_id;
             //  $data['service_id'] = $request->service_id;
             if($request->is_trainer){
-             $data['is_trainer'] = $request->is_trainer;
+             $data['is_trainer'] = 1;
             }
             $data['city_id'] = $request->city_id;
              $data['Phone'] = $request->Phone;
@@ -296,7 +296,7 @@ class DoctorController extends Controller
         //  $data['case_id'] = $request->case_id;
         //  $data['service_id'] = $request->service_id;
         if($request->is_trainer){
-         $data['is_trainer'] = $request->is_trainer;
+         $data['is_trainer'] = 1;
         }
         $data['city_id'] = $request->city_id;
          $data['Phone'] = $request->Phone;
@@ -382,9 +382,11 @@ class DoctorController extends Controller
         }
                 // $url='http://localhost:8000/en/admin/doctors/index';
                 // return redirect($url);
-                return response()->json(["message"=>"success"]);
+                return response()->json(["message"=>"success"
+      
+            ]);
 
-           
+        
                 
      
     }
