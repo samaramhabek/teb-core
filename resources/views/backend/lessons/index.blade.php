@@ -22,6 +22,8 @@
                            <th>{{__('cp.course')}}</th>
                            {{-- <th>{{__('cp.subcategory')}}</th> --}}
                            <th>{{__('cp.created')}}</th>
+                           <th>{{__('cp.video_url')}}</th>
+                           <th>{{__('cp.file')}}</th>
                            <th>{{__('cp.action')}}</th>
                        </tr>
                        </thead>
@@ -43,6 +45,15 @@
                            <div class="mb-3">
                                <label class="form-label" for="add-lesson-name">{{__('cp.name_en')}}</label>
                                <input type="text" class="form-control" id="add-lesson-name-en" placeholder="{{__('cp.name_en')}}" name="name_en" aria-label="{{__('cp.name_en')}}" />
+                           </div>
+                           <div class="mb-3">
+                               <label class="form-label" for="add-lesson-video_url">{{__('cp.video_url')}}</label>
+                               <input type="url" class="form-control" id="add-lessonvideo_url" placeholder="{{__('cp.video_url')}}" name="video_url" aria-label="{{__('cp.video_url')}}" />
+                           </div>
+                           <div class="mb-3">
+                            <label for="upload1">تحميل الملف</label>
+                            <input type="file" class="form-control" name="upload1" />
+                                {{-- <p>Existing File: <a href="{{ $doctor->upload1->original_url  ?? null}}" target="_blank">{{ $doctor->upload1->file_name ?? null}}</a></p> --}}
                            </div>
                            <div class="mb-3">
                                <label class="form-label" for="course_id">{{__('cp.course')}}</label>
@@ -107,35 +118,8 @@
     <script>
         $(document).ready(function () {
 
-            // $('#category_id').on('change', function () {
-            //     var getCategoryId = $(this).val();
-            //     if (getCategoryId) {
-            //         $.ajax({
-            //             url: '/admin/get-sub-category-by-category/' + getCategoryId,
-            //             type: "GET",
-            //             dataType: "json",
-            //             success: function (data) {
-            //                 if (data) {
-
-            //                     $('#child_category_id').empty();
-            //                     $('#child_category_id').focus;
-
-            //                     $('#child_category_id').append('<option value="">Select</option>');
-            //                     $.each(data, function (key, value) {
-            //                         $('#child_category_id').append('<option value="' + value.id + '">' + value.name + '</option>');
-            //                     });
-            //                 } else {
-            //                     $('#child_category_id').empty();
-            //                 }
-            //             }
-            //         });
-            //     } else {
-            //         $('#child_category_id').empty();
-            //     }
-            // });
-
             $(document).on('click', '.edit-record', function () {
-                var treatment_id = $(this).data('id'),
+                var lesson_id = $(this).data('id'),
                     dtrModal = $('.dtr-bs-modal.show');
 
                 // hide responsive modal in small screen
@@ -150,45 +134,13 @@
                 // get data
                 $.get(`${baseUrl}/admin/lessons\/${lesson_id}\/edit`, function (data) {
                     $('#lesson_id').val(data.id);
+                    $('#course_id').val(data.course_id);
+                    $('#video_url').val(data.video_url);
                     $('#add-lesson-name-ar').val(data.name.ar);
                     $('#add-lesson-name-en').val(data.name.en);
-                //     $('#course_id').val(data.course_id);
-
-
-                //         var getCourseId = data.course_id;
-                //         if (getCourseId) {
-                //             $.ajax({
-                //                 url: '/admin/get-sub-category-by-category/' + getCategoryId,
-                //                 type: "GET",
-                //                 dataType: "json",
-                //                 success: function (subCategoryData) {
-                //                     if (subCategoryData) {
-                //                         var childCategoryDropdown = $('#child_category_id');
-                //                         childCategoryDropdown.empty();
-                //                         childCategoryDropdown.focus();
-
-                //                         childCategoryDropdown.append('<option value="">+select+</option>');
-                //                         $.each(subCategoryData, function (key, value) {
-                //                             childCategoryDropdown.append('<option value="' + value.id + '">' + value.name + '</option>');
-                //                         });
-
-                //                         // Set the selected value in child_category_id dropdown
-                //                         childCategoryDropdown.val(data.child_category_id);
-                //                     } else {
-                //                         $('#child_category_id').empty();
-                //                     }
-                //                 }
-                //             });
-                //         } else {
-                //             $('#child_category_id').empty();
-                //         }
                 });
             });
 
         });
-
-
-
-
     </script>
 @endpush

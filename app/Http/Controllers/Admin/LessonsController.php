@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 
 class LessonsController extends Controller
 {
@@ -27,6 +28,8 @@ class LessonsController extends Controller
             2 => 'name',
             3 => 'course_id',
             5 => 'created_at',
+            5 => 'video_url',
+            6 => 'file',
         ];
 
         $search = $request->input('search.value');
@@ -36,7 +39,7 @@ class LessonsController extends Controller
 
         $totalData = Lesson::count();
 
-        $query = Lesson::with('course')
+        $query = Lesson::with('course','media')
             ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
 
         if (!empty($search)) {
@@ -60,6 +63,12 @@ class LessonsController extends Controller
         $limit = $request->input('length');
         $start = $request->input('start');
         $lessons = $query->skip($start)->take($limit)->get();
+        $lessons->transform(function ($lesson) {
+            $lesson->setRelation('file', $lesson->media->where('collection_name', 'lesson_upload1')->first());
+            $lesson->unsetRelation('media');
+            return $lesson;
+        });
+        log::info($lessons);
 
         $data = [];
 
@@ -73,10 +82,13 @@ class LessonsController extends Controller
                 $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
                 $nestedData['course'] = $lesson->course ? $lesson->course->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
                 $nestedData['created_at'] = $lesson->created_at->format('M Y');
+                $nestedData['video_url'] = $lesson->video_url;
+                $nestedData['file'] = $lesson->file;
                 $data[] = $nestedData;
             }
         }
 
+        log::info($data);
         if ($data) {
             return response()->json([
                 'draw' => intval($request->input('draw')),
@@ -120,21 +132,27 @@ class LessonsController extends Controller
 
         $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
         $data['course_id'] = $request->course_id;
+        $data['video_url'] = $request->video_url;
 
         if ($lessonId) {
             // update the value
             $lesson = Lesson::whereId($lessonId)->firstOrFail();
             $lesson->update($data);
-
+            if ($request->hasFile('upload1')) {
+                $lesson->addMedia($request->file('upload1'))->toMediaCollection('lesson_upload1');
+            }
             // user updated
             return response()->json(__('cp.update'));
-        } else {
+        } 
+        else {
             // create new one if email is unique
             $lesson = Lesson::where('id', $request->id)->first();
 
             if (empty($lesson)) {
                 $lesson = Lesson::create($data);
-
+                if ($request->hasFile('upload1')) {
+                    $lesson->addMedia($request->file('upload1'))->toMediaCollection('lesson_upload1');
+                }
                 // category created
                 return response()->json(__('cp.create'));
             } else {

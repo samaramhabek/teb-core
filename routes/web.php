@@ -108,6 +108,7 @@ Route::group(
 
         Route::resource('/lessons', LessonsController::class);
         Route::get('/api-lessons', [LessonsController::class, 'lessons_api'])->name('lessons.api');
+        Route::get('/lessons/{id}/edit', [HospitalController::class,'edit'] );
 
         Route::get('/doctors/index', [DoctorController::class, 'index2'])->name('tables');
         Route::get('/api-doctors', [DoctorController::class, 'doctors_api'])->name('doctors.api');
