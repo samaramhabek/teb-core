@@ -41,6 +41,7 @@ $(function () {
                 {data: ''},
                 {data: 'id'},
                 {data: 'name'},
+                
                 {data: 'country'},
                 {data: 'created_at'},
                 {data: 'action'}

@@ -35,8 +35,10 @@ class CurrencyController extends Controller
 
         $totalData = Currency::count();
 
-        $query = Currency::with('country')
-            ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
+        $query = Currency::with('country');
+        
+            // ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
+            
 
         if (!empty($search)) {
             $query->where(function ($query) use ($search) {
@@ -70,10 +72,11 @@ class CurrencyController extends Controller
                 $nestedData['fake_id'] = ++$ids;
                 $nestedData['name'] = $currency->getTranslation('name', app()->getLocale(Config::get('app.locale')));
                 $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
-                $nestedData['country'] = $currency->country ? $currency->country->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
+                $nestedData['country'] = $currency->country ? $currency->country->name : '';
                 $nestedData['created_at'] = $currency->created_at->format('M Y');
                 $data[] = $nestedData;
             }
+            
         }
 
         if ($data) {
@@ -108,6 +111,7 @@ class CurrencyController extends Controller
      */
     public function store(Request $request)
     {
+       // dd($request->all());
         $currencyId = $request->id;
 
         $request->validate([
@@ -117,6 +121,7 @@ class CurrencyController extends Controller
         ]);
 
         $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
+        // $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
         $data['country_id'] = $request->country_id;
 
         if ($currencyId) {
