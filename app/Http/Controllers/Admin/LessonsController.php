@@ -165,10 +165,7 @@ class LessonsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Treatment $treatment)
-    {
-        //
-    }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -183,17 +180,14 @@ class LessonsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Treatment $treatment)
-    {
-        //
-    }
+  
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Treatment $treatment)
+    public function destroy($lesson)
     {
-        $treatment->delete();
+        $lesson->delete();
         return 'Lesson deleted';
     }
 }

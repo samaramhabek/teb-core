@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('country_id')->constrained();
           
-            $table->string('currency_name');
-            $table->string('currency_code', 3)->unique();
+            $table->string('name');
+            $table->string('currency_code', 3)->unique()->nullable();
             $table->string('symbol')->nullable();
             $table->timestamps();
         });
