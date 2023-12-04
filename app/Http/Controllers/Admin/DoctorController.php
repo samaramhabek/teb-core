@@ -177,218 +177,73 @@ class DoctorController extends Controller
     public function store(Request $request)
     {  
       // dd($request->all());
-       // log::info($request->all());
+       log::info($request->all());
         $doctorId = $request->id;
-        if($doctorId){
-            $data['first_name'] = ['en' => $request->first_name_en, 'ar' => $request->first_name_ar];
-            $data['last_name'] = ['en' => $request->last_name_en, 'ar' => $request->last_name_ar];
-            $data['description'] = ['en' => $request->description_en, 'ar' => $request->description_ar];
-            $data['title'] = ['en' => $request->title_en, 'ar' => $request->title_ar];
-            $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];
-            $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
-             $data['email'] = "ss@dd.com";
-             $data['gender'] = $request->gender;
-             $data['lat'] = (float) $request->lat;
-             $data['lang'] = (float) $request->lang;
-             $data['nationality_id'] = $request->nationality_id;
-            //  $data['treatment_id'] = $request->treatment_id;
-            //  $data['case_id'] = $request->case_id;
-            //  $data['service_id'] = $request->service_id;
-            if($request->is_trainer){
-             $data['is_trainer'] = 1;
-            }
-            $data['city_id'] = $request->city_id;
-             $data['Phone'] = $request->Phone;
-          
-        
-             $doctor=Doctor::where('id',$request->id)->first();
-                           
-               
-                    $doctor->update($data);
-                   
-                    $categories = $request->categories;
-                    $doctor->category_parent()->sync($categories);
-                       
-                    $child_categories = $request->child_categories;
-                    $doctor->category_child()->sync($child_categories);
-                    
-        
-                  
-                
-                    $treatments =  $request->treatments;
-         
-                  $doctor->treatments()->sync($treatments);
-        
-        
-        
-                  
-                
-                  $hospitals = $request->hospitals;
-                $doctor->hospitals()->sync($hospitals);
-        
-        
-        
-                   
-        
-                  $cases = $request->cases;
-                  $doctor->cases()->sync($cases);
-            
-                  
-                //   // Attach new cases
-                
-        
-                
-            
-                    $insurances =  $request->insurances;
-                  $doctor->insurances()->sync($insurances);
-             
-                    if ($request->hasFile('image')) {
-                        $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
-                    }
-                    if ($request->hasFile('upload1')) {
-                        $doctor->addMedia($request->file('upload1'))->toMediaCollection('Doctor_upload1');
-                    }
-                    if ($request->hasFile('upload2')) {
-                        $doctor->addMedia($request->file('upload2'))->toMediaCollection('Doctor_upload2');
-                    }
-                    if ($request->hasFile('upload3')) {
-                        $doctor->addMedia($request->file('upload3'))->toMediaCollection('Doctor_upload3');
-                    }
-                 
-                    if($request->services){
-                        $selectedServices = $request->input('services');
-                        $prices = $request->input('prices');
-                        $priceslist=[];
-                        foreach ($prices as $price) {
-                            if($price!=null){
-                                $priceslist[]=$price;
-        
-                            # code...
-                        }}
-              
-                        $servicesData = [];
-                        foreach ($selectedServices as $index => $serviceId) {
-                            $price = $priceslist[$index];
-                          
-                            
-                            $servicesData[$serviceId] = ['value' => $price];
-                          
-                      }
-                     $doctor->service()->sync($servicesData);
-        
-                    }
-            
-        }else{
-
-
         $data['first_name'] = ['en' => $request->first_name_en, 'ar' => $request->first_name_ar];
         $data['last_name'] = ['en' => $request->last_name_en, 'ar' => $request->last_name_ar];
         $data['description'] = ['en' => $request->description_en, 'ar' => $request->description_ar];
         $data['title'] = ['en' => $request->title_en, 'ar' => $request->title_ar];
         $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];
         $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
-         $data['email'] = "ss@dd.com";
-         $data['gender'] = $request->gender;
-         $data['lat'] = (float) $request->lat;
-         $data['lang'] = (float) $request->lang;
-         $data['nationality_id'] = $request->nationality_id;
-        //  $data['treatment_id'] = $request->treatment_id;
-        //  $data['case_id'] = $request->case_id;
-        //  $data['service_id'] = $request->service_id;
+        $data['email'] = "ss@dd.com";
+        $data['gender'] = $request->gender;
+        $data['lat'] = (float) $request->lat;
+        $data['lang'] = (float) $request->lang;
+        $data['nationality_id'] = $request->nationality_id;
         if($request->is_trainer){
          $data['is_trainer'] = 1;
         }
         $data['city_id'] = $request->city_id;
-         $data['Phone'] = $request->Phone;
-      
+        $data['Phone'] = $request->Phone; 
+        if($doctorId){      
+            $doctor=Doctor::where('id',$request->id)->first();
+            $doctor->update($data); 
+        }else{
 
-   
-                       
-           
-                $doctor = Doctor::create($data);
-               
-                $categories = $request->categories;
-                $doctor->category_parent()->attach($categories);
-                   
-                $child_categories = $request->child_categories;
-                $doctor->category_child()->attach($child_categories);
-                
-
-              
-            
-                $treatments =  $request->treatments;
-     
-              $doctor->treatments()->attach($treatments);
-
-
-
-              
-            
-              $hospitals = $request->hospitals;
-            $doctor->hospitals()->attach($hospitals);
-
-
-
-               
-
-              $cases = $request->cases;
-              $doctor->cases()->attach($cases);
-        
-              
-            //   // Attach new cases
-            
-
-            
-        
-                $insurances =  $request->insurances;
-              $doctor->insurances()->attach($insurances);
-         
-                if ($request->hasFile('image')) {
-                    $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
-                }
-                if ($request->hasFile('upload1')) {
-                    $doctor->addMedia($request->file('upload1'))->toMediaCollection('Doctor_upload1');
-                }
-                if ($request->hasFile('upload2')) {
-                    $doctor->addMedia($request->file('upload2'))->toMediaCollection('Doctor_upload2');
-                }
-                if ($request->hasFile('upload3')) {
-                    $doctor->addMedia($request->file('upload3'))->toMediaCollection('Doctor_upload3');
-                }
-
-                if($request->services){
-                    $selectedServices = $request->input('services');
-                    $prices = $request->input('prices');
-                    $priceslist=[];
-                    foreach ($prices as $price) {
-                        if($price!=null){
-                            $priceslist[]=$price;
-
-                        # code...
-                    }}
-
-                    // Sync services to the doctor with prices
-                    $servicesData = [];
-                    foreach ($selectedServices as $index => $serviceId) {
-                        $price = $priceslist[$index];
-
-                        
-                        $servicesData[$serviceId] = ['value' => $price];
-
-                }
-                $doctor->service()->attach($servicesData);
-
-            }
+        $doctor = Doctor::create($data);
+        log::info($doctor);      
         }
-                // $url='http://localhost:8000/en/admin/doctors/index';
-                // return redirect($url);
-                return response()->json(["message"=>"success"
-      
-            ]);
+        $categories = $request->categories;
+        $doctor->category_parent()->sync($categories);        
+        $child_categories = $request->child_categories;
+        $doctor->category_child()->sync($child_categories);
+        $treatments =  $request->treatments;
+        $doctor->treatments()->sync($treatments);
+        $hospitals = $request->hospitals;
+        $doctor->hospitals()->sync($hospitals);
+        $cases = $request->cases;
+        $doctor->cases()->sync($cases);
+        $insurances =  $request->insurances;
+        $doctor->insurances()->sync($insurances);
+        if ($request->hasFile('image')) {
+            $doctor->addMedia($request->file('image'))->toMediaCollection('Doctor_image');
+        }
+        if ($request->hasFile('upload1')) {
+            $doctor->addMedia($request->file('upload1'))->toMediaCollection('Doctor_upload1');
+        }
+        if ($request->hasFile('upload2')) {
+            $doctor->addMedia($request->file('upload2'))->toMediaCollection('Doctor_upload2');
+        }
+        if ($request->hasFile('upload3')) {
+            $doctor->addMedia($request->file('upload3'))->toMediaCollection('Doctor_upload3');
+        }
+        if($request->services){
+            $selectedServices = $request->input('services');
+            $prices = $request->input('prices');
+            $priceslist=[];
+            foreach ($prices as $price) {
+                if($price!=null){
+                    $priceslist[]=$price;
+                }}
+            $servicesData = [];
+            foreach ($selectedServices as $index => $serviceId) {
+                $price = $priceslist[$index];
+                $servicesData[$serviceId] = ['value' => $price];
+                }
+                $doctor->service()->sync($servicesData);
+        }
 
-        
-                
-     
+        return response()->json(["message"=>"success"]);     
     }
 
     /**
@@ -436,5 +291,17 @@ class DoctorController extends Controller
           Doctor::where('id', $id)->delete();
        
         return 'Doctor deleted';
+    }
+    public function assignArticle(Request $request)
+    {
+        log::info('aa');
+        log::info($request->all());
+        $doctor=Doctor::whereId($request->id)->first();
+        $categories = $request->categories;
+        $doctor->category_parent()->sync($categories);        
+        $child_categories = $request->child_categories;
+        $doctor->category_child()->sync($child_categories);
+        return response()->json(__('cp.create'));
+
     }
 }

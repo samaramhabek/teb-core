@@ -19,39 +19,6 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-                             <!-- Offcanvas to assign article -->
-               <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAssignArticle" aria-labelledby="offcanvasAssignArticleLabel">
-                   <div class="offcanvas-header">
-                       <h5 id="offcanvasAssignArticleLabel" class="offcanvas-title">Assign Article</h5>
-                       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                   </div>
-                   <div class="offcanvas-body mx-0 flex-grow-0">
-                       <form class="add-new-hospitals pt-0" id="assignArticleForm" enctype="multipart/form-data">
-                           <input type="hidden" name="id" id="doctor_id">
-
-                           <div class="mb-3">
-                            <label class="form-label" for="category_id">{{__('cp.maincategory')}}</label>
-                            <select id="category_id" name="category_id" class="select2 form-select">
-                                <option value="">Select</option>
-                                @foreach($parent_categories as $category)
-                                
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="child_category_id">{{__('cp.subcategory')}}</label>
-                            <select id="child_category_id" name="child_category_id" class="select2_sub form-select">
-                                <option value="">{{__('cp.select')}}</option>
-
-                            </select>
-                        </div>
-
-                           <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">{{__('cp.save')}}</button>
-                           <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">{{__('cp.cancel')}}</button>
-                       </form>
-                   </div>
-               </div>
               {{-- <h4 class="py-3 mb-4"><span class="text-muted fw-light">DataTables /</span> Basic</h4> --}}
 
               <!-- DataTable with Buttons -->
@@ -74,7 +41,95 @@
                   </table>
                 </div>
               </div>
-
+              <!-- Modal to add new record -->
+              <div class="offcanvas offcanvas-end" id="add-new-record">
+                <div class="offcanvas-header border-bottom">
+                  <h5 class="offcanvas-title" id="exampleModalLabel">New Record</h5>
+                  <button
+                    type="button"
+                    class="btn-close text-reset"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body flex-grow-1">
+                  <form class="add-new-record pt-0 row g-2" id="form-add-new-record" onsubmit="return false">
+                    <div class="col-sm-12">
+                      <label class="form-label" for="basicFullname">Full Name</label>
+                      <div class="input-group input-group-merge">
+                        <span id="basicFullname2" class="input-group-text"><i class="ti ti-user"></i></span>
+                        <input
+                          type="text"
+                          id="basicFullname"
+                          class="form-control dt-full-name"
+                          name="basicFullname"
+                          placeholder="John Doe"
+                          aria-label="John Doe"
+                          aria-describedby="basicFullname2" />
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <label class="form-label" for="basicPost">Post</label>
+                      <div class="input-group input-group-merge">
+                        <span id="basicPost2" class="input-group-text"><i class="ti ti-briefcase"></i></span>
+                        <input
+                          type="text"
+                          id="basicPost"
+                          name="basicPost"
+                          class="form-control dt-post"
+                          placeholder="Web Developer"
+                          aria-label="Web Developer"
+                          aria-describedby="basicPost2" />
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <label class="form-label" for="basicEmail">Email</label>
+                      <div class="input-group input-group-merge">
+                        <span class="input-group-text"><i class="ti ti-mail"></i></span>
+                        <input
+                          type="text"
+                          id="basicEmail"
+                          name="basicEmail"
+                          class="form-control dt-email"
+                          placeholder="john.doe@example.com"
+                          aria-label="john.doe@example.com" />
+                      </div>
+                      <div class="form-text">You can use letters, numbers & periods</div>
+                    </div>
+                    <div class="col-sm-12">
+                      <label class="form-label" for="basicDate">Joining Date</label>
+                      <div class="input-group input-group-merge">
+                        <span id="basicDate2" class="input-group-text"><i class="ti ti-calendar"></i></span>
+                        <input
+                          type="text"
+                          class="form-control dt-date"
+                          id="basicDate"
+                          name="basicDate"
+                          aria-describedby="basicDate2"
+                          placeholder="MM/DD/YYYY"
+                          aria-label="MM/DD/YYYY" />
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <label class="form-label" for="basicSalary">Salary</label>
+                      <div class="input-group input-group-merge">
+                        <span id="basicSalary2" class="input-group-text"><i class="ti ti-currency-dollar"></i></span>
+                        <input
+                          type="number"
+                          id="basicSalary"
+                          name="basicSalary"
+                          class="form-control dt-salary"
+                          placeholder="12000"
+                          aria-label="12000"
+                          aria-describedby="basicSalary2" />
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <button type="submit" class="btn btn-primary data-submit me-sm-3 me-1">Submit</button>
+                      <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+              </div> --}}
               <!--/ DataTable with Buttons -->
 
               {{-- <hr class="my-5" /> --}}
@@ -227,7 +282,9 @@
                             <label class="form-label" for="child_category_id">{{__('cp.subcategory')}}</label>
                             <select id="child_category_id" name="child_category_id" class="select2_sub form-select">
                                 <option value="">{{__('cp.select')}}</option>
-
+{{--                                   @foreach($child_categories as $sub)--}}
+{{--                                       <option value="{{$sub->id}}">{{$sub->name}}</option>--}}
+{{--                                   @endforeach--}}
                             </select>
                         </div>
 
@@ -240,34 +297,48 @@
 
               <!-- Row grouping -->
               <div class="card">
-                <h5 class="card-header">{{__('cp.doctors')}}</h5>
+                <h5 class="card-header">{{__('cp.articles')}}</h5>
                 <div class="card-datatable table-responsive">
-                  <table class="datatables-doctors table">
+                  <table class="datatables-articles table">
                     <thead>
                       <tr>
                         <th></th>
+                        {{-- <th>{{'fake_id'}}</th> --}}
                         <th>{{__('cp.id')}}</th>
-                        <th>{{__('cp.first_name')}}</th>
-                        <th>{{__('cp.last_name')}}</th>
-                        <th>{{__('cp.email')}}</th>
-                        <th>{{__('cp.city')}}</th>
-                        <th>{{__('cp.phone')}}</th>
-                        <th>{{__('cp.gender')}}</th>
+                        <th>{{__('cp.article_name')}}</th>
+                        <th>{{__('cp.writer_name')}}</th>
+                        <th>{{__('cp.reviewer_name')}}</th>
+                        <th>{{__('cp.publish_at')}}</th>
+                        <th>{{__('cp.meta tags')}}</th>
+                        <th>{{__('cp.description')}}</th>
+                        <th>{{__('cp.meta_descrption')}}</th>
+                        <th>{{__('cp.category')}}</th>
+                        <th>{{__('cp.child Categor')}}</th>
+                        {{-- <th>{{__('cp.gender')}}</th>
                         <th>{{__('cp.title')}}</th>
                         <th>{{__('cp.region')}}</th>
                         <th>{{__('cp.description')}}</th>
                         <th>{{__('cp.is_trainer')}}</th>
                         <th>{{__('cp.lat')}}</th>
-                        <th>{{__('cp.lang')}}</th>
+                        <th>{{__('cp.lang')}}</th> --}}
                         <th data-priority="1">{{__('cp.action')}}</th>
                       </tr>
                     </thead>
                     <tfoot>
                       <tr>
                         <th></th>
+                        {{-- <th>{{'fake_id'}}</th> --}}
                         <th>{{__('cp.id')}}</th>
-                        <th>{{__('cp.first_name')}}</th>
-                        <th>{{__('cp.last_name')}}</th>
+                        <th>{{__('cp.article_name')}}</th>
+                        <th>{{__('cp.writer_name')}}</th>
+                        <th>{{__('cp.reviewer_name')}}</th>
+                        <th>{{__('cp.publish_at')}}</th>
+                        <th>{{__('cp.meta tags')}}</th>
+                        <th>{{__('cp.description')}}</th>
+                        <th>{{__('cp.meta_descrption')}}</th>
+                        <th>{{__('cp.category')}}</th>
+                        <th>{{__('cp.child Categor')}}</th>
+                        {{-- <th>{{__('cp.last_name')}}</th>
                         <th>{{__('cp.email')}}</th>
                         <th>{{__('cp.city')}}</th>
                         <th>{{__('cp.phone')}}</th>
@@ -277,7 +348,7 @@
                         <th>{{__('cp.description')}}</th>
                         <th>{{__('cp.is_trainer')}}</th>
                         <th>{{__('cp.lat')}}</th>
-                        <th>{{__('cp.lang')}}</th>
+                        <th>{{__('cp.lang')}}</th> --}}
                         <th data-priority="1">{{__('cp.action')}}</th>
                       </tr>
                     </tfoot>
@@ -370,38 +441,12 @@
     <!-- Core JS -->
     <!-- build:js 'assets/vendor/js/core.js -->
 
-    {{-- <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
-    <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/node-waves/node-waves.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/hammer/hammer.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/i18n/i18n.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/typeahead-js/typeahead.js')}}"></script>
-    <script src="{{asset('assets/vendor/js/menu.js')}}"></script> --}}
-
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    {{-- <script src="{{asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js')}}"></script>
-    <!-- Flat Picker -->
-    <script src="{{asset('assets/vendor/libs/moment/moment.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/flatpickr/flatpickr.js')}}"></script>
-    <!-- Form Validation -->
-    <script src="{{asset('assets/vendor/libs/@form-validation/umd/bundle/popular.min.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js')}}"></script>
-
-    <!-- Main JS -->
-    <script src="{{asset('assets/js/main.js')}}"></script>
-
-    <!-- Page JS -->
-    <script src="{{asset('assets/js/tables-datatables-basic.js')}}"></script> --}}
+ 
     <div id="validation-messages" style="display: none;"
-         data-add-new="{{ trans('cp.add_doctors') }}"
+         data-add-new="{{ trans('cp.add_articles') }}"
          data-edit="{{ trans('cp.edit') }}"
-         data-first_name-en-required="{{ trans('cp.first_name_en_required') }}"
-         data-first_name-ar-required="{{ trans('cp.first__name_ar_required') }}"
+         {{-- data-first_name-en-required="{{ trans('cp.first_name_en_required') }}"
+         data-first_name-ar-required="{{ trans('cp.first__name_ar_required') }}" --}}
          {{-- data-country-id-required="{{ trans('cp.country_id_required') }}"
          data-category-id-required="{{ trans('cp.category_id_required') }}"
          data-child-category-id-required="{{ trans('cp.child_category_id_required') }}" --}}
@@ -427,7 +472,7 @@
 
 
   @push('js')
-  <script src="{{asset('backend/datatables/js/doctor-management.js')}}"></script>
+  <script src="{{asset('backend/datatables/js/article-management.js')}}"></script>
   <script>
       $.ajaxSetup({
           headers: {
@@ -435,11 +480,11 @@
           }
       });
       var csrf = "{{csrf_token()}}";
-      var DATA_URL = "{{ route('admin.doctors.api') }}";
+      var DATA_URL = "{{ route('admin.articles.api') }}";
       var baseUrl = '{{URL::to('')}}';
   </script>
 
-<script>
+{{-- <script>
   document.addEventListener('DOMContentLoaded', function () {
       // Add event listener to the "Add" button
       document.getElementById('addDoctorButton').addEventListener('click', function () {
@@ -450,95 +495,7 @@
           window.location.href = addDoctorUrl;
       });
   });
-</script>
+</script> --}}
  
-  <script>
-    $(document).ready(function () {
-
-        $('#category_id').on('change', function () {
-            var getCategoryId = $(this).val();
-            if (getCategoryId) {
-                $.ajax({
-                    url: '/admin/get-sub-category-by-category/' + getCategoryId,
-                    type: "GET",
-                    dataType: "json",
-                    success: function (data) {
-                        if (data) {
-
-                            $('#child_category_id').empty();
-                            $('#child_category_id').focus;
-
-                            $('#child_category_id').append('<option value="">Select</option>');
-                            $.each(data, function (key, value) {
-                                $('#child_category_id').append('<option value="' + value.id + '">' + value.name + '</option>');
-                            });
-                        } else {
-                            $('#child_category_id').empty();
-                        }
-                    }
-                });
-            } else {
-                $('#child_category_id').empty();
-            }
-        });
-
-        $(document).on('click', '.edit-record', function () {
-            var doctor_id = $(this).data('id'),
-                dtrModal = $('.dtr-bs-modal.show');
-
-            // hide responsive modal in small screen
-            if (dtrModal.length) {
-                dtrModal.modal('hide');
-            }
-            var edit = "{{__('edit')}}"
-            var select = "{{__('select')}}"
-            // changing the title of offcanvas
-            $('#offcanvasAddDoctorLabel').html(edit);
-
-            // get 
-            
-            $.get(`${baseUrl}/admin/doctors\/${doctor_id}\/edit`, function (data) {
-                $('#doctor_id').val(data.id);
-                $('#add-doctor-name-ar').val(data.name.ar);
-                $('#add-doctor-name-en').val(data.name.en);
-                $('#category_id').val(data.category_id);
-                $('#child_category_id').val(data.child_category_id);
-
-
-                    var getCategoryId = data.category_id;
-                    if (getCategoryId) {
-                        $.ajax({
-                            url: '/admin/get-sub-category-by-category/' + getCategoryId,
-                            type: "GET",
-                            dataType: "json",
-                            success: function (subCategoryData) {
-                                if (subCategoryData) {
-                                    var childCategoryDropdown = $('#child_category_id');
-                                    childCategoryDropdown.empty();
-                                    childCategoryDropdown.focus();
-
-                                    childCategoryDropdown.append('<option value="">+select+</option>');
-                                    $.each(subCategoryData, function (key, value) {
-                                        childCategoryDropdown.append('<option value="' + value.id + '">' + value.name + '</option>');
-                                    });
-
-                                    // Set the selected value in child_category_id dropdown
-                                    childCategoryDropdown.val(data.child_category_id);
-                                } else {
-                                    $('#child_category_id').empty();
-                                }
-                            }
-                        });
-                    } else {
-                        $('#child_category_id').empty();
-                    }
-            });
-        });
-
-    });
-
-
-
-
-</script>
+  
 @endpush

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('child_category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
         
             $table->foreignId('doctor_id')->nullable()->constrained('doctors', 'id')->nullOnDelete();
-
+            $table->boolean('for_article')->default(0);
             $table->timestamps();
         });
     }

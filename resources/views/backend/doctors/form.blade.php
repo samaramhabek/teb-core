@@ -20,19 +20,19 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">Form Wizard/</span> Numbered</h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">{{__('cp.form_doctor')}} </span></h4>
 
             <!-- Validation Wizard -->
             <div class="col-12 mb-4">
-                <small class="text-light fw-medium">Validation</small>
+                {{-- <small class="text-light fw-medium">Validation</small> --}}
                 <div id="wizard-validation" class="bs-stepper mt-2">
                     <div class="bs-stepper-header">
                         <div class="step" data-target="#account-details-validation">
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-circle">1</span>
                                 <span class="bs-stepper-label mt-1">
-                                    <span class="bs-stepper-title">Account Details</span>
-                                    <span class="bs-stepper-subtitle">Setup Account Details</span>
+                                    <span class="bs-stepper-title">{{__('cp.account_details')}}</span>
+                                    <span class="bs-stepper-subtitle">{{__('cp.setup_account_details')}}</span>
                                 </span>
                             </button>
                         </div>
@@ -43,8 +43,8 @@
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-circle">2</span>
                                 <span class="bs-stepper-label">
-                                    <span class="bs-stepper-title">Personal Info</span>
-                                    <span class="bs-stepper-subtitle">Add personal info</span>
+                                    <span class="bs-stepper-title">{{__('cp.personal_info')}}</span>
+                                    <span class="bs-stepper-subtitle">{{__('cp.add_personal_info')}}</span>
                                 </span>
                             </button>
                         </div>
@@ -55,8 +55,8 @@
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-circle">3</span>
                                 <span class="bs-stepper-label">
-                                    <span class="bs-stepper-title">Social Links</span>
-                                    <span class="bs-stepper-subtitle">Add social links</span>
+                                    <span class="bs-stepper-title">{{__('cp.social_links')}}</span>
+                                    <span class="bs-stepper-subtitle">{{__('cp.add_social_links')}}</span>
                                 </span>
                             </button>
                         </div>
@@ -66,14 +66,14 @@
                     <div class="col-md-6"></div> --}}
 
                     <div class="bs-stepper-content  multi-step-form">
-                        <form id="addNewDoctorForm" action="{{ route('admin.createDoctor') }}" method="post"  enctype="multipart/form-data"  id="addNewDoctorForm">
+                        <form id="addNewDoctorForm"  enctype="multipart/form-data" >
                             @csrf
                             @if($doctor)
                             <input type="hidden" name="id" value="{{optional($doctor)->id}}">
                             @endif
                             <fieldset aria-label="Step One" id="step-1">
                                 <div class="title-step">
-                                    <h3>الاسم واللقب</h3>
+                                    <h3>{{__('cp.name_and_title')}}</h3>
                                 </div>
 
                                 <div class="form-h row">
@@ -81,7 +81,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="الاسم الاول ( باللغه العربيه )" name="first_name_ar"
+                                                placeholder="{{__('cp.first_name_ar')}}" name="first_name_ar"
                                                 value="{{ optional($doctor)->getTranslation('first_name', 'ar') }}" required />
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="الاسم الاول ( باللغه الانجليزيه)"
+                                                placeholder="{{__('cp.first_name_en')}}"
                                                 name="first_name_en"  value="{{ optional($doctor)->getTranslation('first_name', 'en') }}" required />
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="الاسم الثاني ( باللغه العربيه )" name="last_name_ar"
+                                                placeholder="{{__('cp.last_name_ar')}}" name="last_name_ar"
                                                 value="{{ optional($doctor)->getTranslation('first_name', 'ar') }}"   required />
                                         </div>
                                     </div>
@@ -111,7 +111,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="الاسم الثاني ( باللغه الانجليزيه)"
+                                                placeholder="{{__('cp.last_name_en')}}"
                                                 value="{{ optional($doctor)->getTranslation('last_name', 'en') }}"    name="last_name_en" required />
                                         </div>
                                     </div>
@@ -121,7 +121,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="لقب الدكتور ( باللغه العربيه ) مثال : استشاري نسائيه ، اخصائي طب نفسي"
+                                                placeholder="{{__('cp.title_ar')}}"
                                                 value="{{ optional($doctor)->getTranslation('title', 'ar') }}"   name="title_ar" required />
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="لقب الدكتور ( باللغه الانجليزيه)"
+                                                placeholder="{{__('cp.title_en')}}"
                                                 value="{{ optional($doctor)->getTranslation('first_name', 'en') }}"  name="title_en" required />
                                         </div>
                                     </div>
@@ -140,7 +140,7 @@
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="title-step title-step-center">
-                                            <h3> {{__('cp.description2')}}</h3>
+                                            <h3> {{__('cp.experience_work')}}</h3>
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -149,7 +149,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="الخبره المهنيه ( باللغه العربيه )" name="description_ar"
+                                                placeholder="{{__('cp.description_ar')}}" name="description_ar"
                                                 value="{{ optional($doctor)->getTranslation('description', 'ar') }}"  required />
                                         </div>
                                     </div>
@@ -159,7 +159,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="الخبره المهنيه ( باللغه الانجليزيه)"
+                                                placeholder="{{__('cp.description_en')}}"
                                                 value="{{ optional($doctor)->getTranslation('description', 'en') }}"   name="description_en" required />
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                         <div class="form-group">
                                             <button class="btn btn-default btn-next" type="button"
                                                 aria-controls="step-2">
-                                                <span>المرحلة التاليه</span>
+                                                <span> {{__('cp.next_step')}}</span>
                                             </button>
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@
 
                             <fieldset aria-label="Step Two" id="step-2">
                                 <div class="title-step">
-                                    <h3>معلومات شخصيه</h3>
+                                    <h3> {{__('cp.presonal_informations')}}</h3>
                                 </div>
 
                                 <div class="form-h row">
@@ -196,7 +196,7 @@
                                                 <div class="avatar-preview">
                                                    
                                                     <div id="imagePreview" 
-                                                    style="background-image: url({{ optional($doctor)->image->original_url ?? 'assets/img/avatar.jpg' }});">
+                                                    style="background-image: url('{{ optional($doctor)->image->original_url ?? asset('assets/img/avatar.jpg') }}')">
                                                 </div>
                                                  
                                                     
@@ -217,8 +217,8 @@
                                             <select class="form-control" name="gender" required>
                                                
                                                    
-                                                    <option value="0" @if(optional($doctor)->gender === '0') selected @endif>انثي</option>
-                                                    <option value="1" @if(optional($doctor)->gender === '1') selected @endif>ذكر</option>
+                                                    <option value="0" @if(optional($doctor)->gender === '0') selected @endif>{{__('cp.fmale')}}</option>
+                                                    <option value="1" @if(optional($doctor)->gender === '1') selected @endif>{{__('cp.male')}}</option>
                                               
                                             </select>
                                         </div>
@@ -229,7 +229,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="nationality_id">
-                                                <option value="" @if(optional($doctor)->nationality_id === '')  @endif>الجنسيه</option>
+                                                <option value="" @if(optional($doctor)->nationality_id === '')  @endif>{{__('cp.nationality')}}</option>
                                                 @foreach($nationalities as $nationality)
                                                     <option value="{{ $nationality->id }}" @if(optional($doctor)->nationality_id == $nationality->id) selected @endif>
                                                         {{ $nationality->name }}
@@ -246,7 +246,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control phone"
-                                                placeholder="رقم الهاتف" name="Phone" required  value="{{optional($doctor)->Phone}}" />
+                                                placeholder="{{__('cp.number_phone')}}" name="Phone" required  value="{{optional($doctor)->Phone}}" />
                                               
                                         </div>
                                     </div>
@@ -254,7 +254,7 @@
                                         <div class="col-md-6">
                                         <div class="form-group">
                                         <input type="text" class="form-control email"
-                                        placeholder="Email " name="email" required value="{{optional($doctor)->email}}" />
+                                        placeholder="{{__('cp.email')}}" name="email" required value="{{optional($doctor)->email}}" />
                                         </div> 
                                       
                                     </div>
@@ -267,7 +267,7 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="check">
-                                                Trainer:
+                                                {{__('cp.trainer')}}:
                                                 <input type="checkbox" name="is_trainer" {{ optional($doctor)->is_trainer ? 'checked' : '' }} />
                                               
                                             </label>
@@ -278,7 +278,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control lat"
-                                                placeholder="lat " name="lat" required value="{{optional($doctor)->lat}}" />
+                                                placeholder="{{__('cp.lat')}}" name="lat" required value="{{optional($doctor)->lat}}" />
                                               
                                         </div>
                                     </div>
@@ -286,7 +286,7 @@
                                         <div class="col-md-6">
                                         <div class="form-group">
                                         <input type="text" class="form-control lang"
-                                        placeholder="lang " name="lang" required value="{{optional($doctor)->lang}}" />
+                                        placeholder="{{__('cp.lang')}}" name="lang" required value="{{optional($doctor)->lang}}" />
                                         </div> 
                                       
                                     </div>
@@ -304,9 +304,9 @@
                                         <!-- Col for Categories -->
                                         
                                         <div class="col-md-6">
-                                            <h3>التخصصات</h3>
+                                            <h3>{{__('cp.categories')}}</h3>
                                             <div class="form-group">
-                                                <label for="categories">التخصصات الرئيسية</label>
+                                                <label for="categories"> {{__('cp.main_categories')}}</label>
                                                 <select class="form-control" name="categories[]" multiple>
                                                     @foreach($categories as $category)
                                                         <option value="{{ $category->id }}" 
@@ -321,9 +321,9 @@
                                         
                                         <!-- Col for Treatments -->
                                         <div class="col-md-6">
-                                            <h3>التخصصات</h3>
+                                            <h3>{{__('cp.categories')}}</h3>
                                             <div class="form-group">
-                                                <label for="child_categories">التخصصات الفرعية </label>
+                                                <label for="child_categories"> {{__('cp.sub_categories')}} </label>
                                                 <select class="form-control" name="child_categories[]" multiple>
                                                     @foreach($child_categories as $child_category)
                                                     <option value="{{ $category->id }}" 
@@ -338,9 +338,9 @@
                                         <!-- Col for Categories -->
                                         
                                         <div class="col-md-6">
-                                            <h3>المستشفيات</h3>
+                                            <h3>{{__('cp.hospitals')}}</h3>
                                             <div class="form-group">
-                                                <label for="categories"> المستشفيات </label>
+                                                <label for="categories"> "{{__('cp.hospitals')}}" </label>
                                                 <select class="form-control" name="hospitals[]" multiple>
                                                     @foreach($Hospitals as $hospital)
                                                     <option value="{{ $hospital->id }}" 
@@ -354,9 +354,9 @@
                                         
                                         <!-- Col for Treatments -->
                                         <div class="col-md-6">
-                                            <h3>العلاجات</h3>
+                                            <h3>{{__('cp.treatments')}}</h3>
                                             <div class="form-group">
-                                                <label for="treatments">العلاجات</label>
+                                                <label for="treatments">{{__('cp.treatments')}}</label>
                                                 <select class="form-control" name="treatments[]" multiple>
                                                     @foreach($treatments as $treatment)
                                                     <option value="{{ $treatment->id }}" 
@@ -428,11 +428,11 @@
                                         <!-- Col for Cases -->
                                         <div class="col-md-6">
                                             <div class="title-step title-step-center">
-                                                <h3>الحالات</h3>
+                                                <h3>{{__('cp.cases')}}</h3>
                                             </div>
                                             <div class="form-group">
                                                 <select class="form-control" name="cases[]" multiple>
-                                                    <option value="disabled">اختيار الحالة</option>
+                                                    <option value="disabled">{{__('cp.select_case')}}</option>
                                                     @foreach($cases as $case)
                                                     <option value="{{ $case->id }}" 
                                                       
@@ -447,11 +447,11 @@
                                         <!-- Col for Insurances -->
                                         <div class="col-md-6">
                                             <div class="title-step title-step-center">
-                                                <h3>التأمينات</h3>
+                                                <h3>{{__('cp.insurances')}} </h3>
                                             </div>
                                             <div class="form-group">
                                                 <select class="form-control" name="insurances[]" multiple>
-                                                    <option value="disabled">اختيار التأمين</option>
+                                                    <option value="disabled">{{__('cp.select_insurance')}}</option>
                                                     @foreach($insurances as $insurance)
                                                     <option value="{{ $insurance->id }}" 
                                                       
@@ -469,7 +469,7 @@
                                         <div class="form-group">
                                             <button class="btn btn-default btn-next" type="button"
                                                 aria-controls="step-3">
-                                                <span>المرحلة التاليه</span>
+                                                <span>{{__('cp.next_step')}} </span>
                                             </button>
                                         </div>
                                     </div>
@@ -479,7 +479,7 @@
 
                             <fieldset aria-label="Step Two" id="step-3">
                                 <div class="title-step">
-                                    <h3>العنوان</h3>
+                                    <h3>{{__('cp.address')}}</h3>
                                 </div>
 
                                 <div class="form-h row">
@@ -487,7 +487,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="city_id">
-                                                <option value="" disabled>اختيار المدينه</option>
+                                                <option value="" disabled>{{__('cp.select_city')}} </option>
                                                 @foreach($cities as $city)
                                                 <option value="{{ $city->id }}" @if(optional($doctor)->city_id == $city->id) selected @endif>
                                                     {{ $city->name }}
@@ -502,7 +502,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="المنطقة  ( بالغه العربيه )"
+                                                placeholder="{{__('cp.region_ar')}}"
                                                 value="{{ optional($doctor)->getTranslation('region', 'ar') }}"     name="region_ar" required />
                                         </div>
                                     </div>
@@ -512,7 +512,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="المنطقة  ( بالغه الانجليزيه )"
+                                                placeholder="{{__('cp.region_en')}}"
                                                 value="{{ optional($doctor)->getTranslation('region', 'en') }}"    name="region_en" required />
                                         </div>
                                     </div>
@@ -523,7 +523,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="العنوان التفصيلي ( بالغه العربيه )"
+                                                placeholder="{{__('cp.address_ar')}}"
                                                 value="{{ optional($doctor)->getTranslation('address', 'ar') }}"      name="address_ar" required />
                                         </div>
                                     </div>
@@ -533,7 +533,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                placeholder="العنوان التفصيلي ( بالغه الانجليزيه )"
+                                                placeholder="{{__('cp.address_en')}}"
                                                 value="{{ optional($doctor)->getTranslation('address', 'ar') }}"     name="address_en" required />
                                         </div>
                                     </div>
@@ -552,7 +552,7 @@
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="title-step title-step-center">
-                                            <h3>رسوم الكشفيه</h3>
+                                            {{-- <h3>رسوم الكشفيه</h3> --}}
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -657,7 +657,7 @@
                             </fieldset>
                             <fieldset aria-label="Step Five" id="step-5">
                                 <div class="title-step">
-                                    <h3>مواعيد</h3>
+                                    <h3>{{__('cp.apointment')}}</h3>
                                 </div>
                                 {{-- @foreach( $services as $service) --}}
                                 @if($doctor)
@@ -721,8 +721,8 @@
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button class="btn btn-success btn-done" type="submit">
-                                                <span>إرسال</span>
+                                            <button class="btn btn-success btn-done" type="button" onclick="formSubmit()">
+                                                <span>{{__('cp.submit')}}</span>
                                             </button>
                                         </div>
                                     </div>
@@ -776,40 +776,32 @@
             readURL(this);
         });
 
-        document.getElementById('addNewDoctorForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        console.log('success');
-        // Create a FormData object to send the form data
-        const formData = new FormData(this);
-        console.log('lkj',formData);
-        // Submit the form using fetch
-        fetch(this.action, {
+        // $('#addNewDoctorForm')
+//         $("#addNewDoctorForm").submit(function(event) {
+
+//     event.preventDefault();
+
+// });
+function formSubmit()
+{
+    console.log('formData');
+var formData = new FormData(document.getElementById("addNewDoctorForm"));
+        var action='{{ route('admin.createDoctor') }}';
+
+       fetch(action, {
             method: 'POST',
             body: formData,
-            
-        })
-        
-        .then(response => response.json())
-       
-        .then(data => {
-        //     console.log('success');
-            // Handle the JSON response
-            console.log('uh',data);
-
-            // You can perform actions based on the response here
-            if (data.message === 'success') {
-                // Do something on success, for example, show a success message
+        }).then(response => response.json()).then(data => {
+                if (data.message === 'success') {
                 window.location.href = "{{ route('admin.tables') }}";
-            } else {
-                // Handle other cases if needed
+                }
+                else {
                 alert('Form submission failed');
             }
         })
-        .catch(error => {
-            // Handle errors if any
-            console.error('Error:', error);
-        });
-     });
+
+}
+     console.log('formData',formData);
 
   
  

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AreasController;
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CasesController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DoctorController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TreatmentsController;
 use App\Http\Controllers\Admin\CoursesController;
 use App\Http\Controllers\Admin\LessonsController;
+use App\Http\Controllers\Admin\QuestionsController;
+use App\Http\Controllers\Admin\ExamQuestionsController;
 use App\Http\Controllers\Admin\UserController;
  use App\Http\Controllers\Admin\HospitalController;
 use App\Http\Controllers\ProfileController;
@@ -106,16 +109,36 @@ Route::group(
         Route::resource('/courses', CoursesController::class);
         Route::get('/api-courses', [CoursesController::class, 'courses_api'])->name('courses.api');
 
-        Route::resource('/lessons', LessonsController::class);
+        Route::get('/lessons/{id}/edit', [LessonsController::class,'edit'] );
+        Route::resource('/lessons', LessonsController::class);   
         Route::get('/api-lessons', [LessonsController::class, 'lessons_api'])->name('lessons.api');
         Route::get('/lessons/{id}/edit', [HospitalController::class,'edit'] );
+
+        Route::get('/questions/{id}/edit', [QuestionsController::class,'edit'] );
+        Route::resource('/questions', QuestionsController::class);   
+        Route::get('/api-questions', [QuestionsController::class, 'questions_api'])->name('questions.api');
+
+
+        Route::get('/exam_questions/{id}/edit', [ExamQuestionsController::class,'edit'] );
+        Route::resource('/exam_questions', ExamQuestionsController::class);   
+        Route::get('/api-exam_questions', [ExamQuestionsController::class, 'exam_questions_api'])->name('exam_questions.api');
+
 
         Route::get('/doctors/index', [DoctorController::class, 'index2'])->name('tables');
         Route::get('/api-doctors', [DoctorController::class, 'doctors_api'])->name('doctors.api');
         Route::post('/api-createDoctor', [DoctorController::class, 'store'])->name('createDoctor');
+        Route::post('/assignArticle', [DoctorController::class, 'assignArticle'])->name('assignArticle');
+
         Route::Delete('/doctors/{id}', [DoctorController::class, 'deletedoctor'])->name('deletedoctor');
         Route::get('/api_doctors/edit/{id}', [DoctorController::class, 'showdoctor'])->name('showdoctor.api');
         Route::get('/modal-example', [DoctorController::class, 'create'])->name('form');
+
+        Route::get('/modal-example/article', [ArticleController::class, 'create'])->name('formarticle');
+        Route::get('/articles/index', [ArticleController::class, 'index'])->name('article.index');
+        Route::get('/api-articles', [ArticleController::class, 'articles_api'])->name('articles.api');
+        Route::post('/api-createArticle', [ArticleController::class, 'store'])->name('createArticle');
+        Route::Delete('/articles/{id}', [ArticleController::class, 'deletearticle'])->name('deletearticle');
+        
         // Route::get('/modal-example',function(){
         //     return view('backend.doctors.form',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
         //                  'Hospitals'=>Hospital::get(),'child_categories'=>Category::whereNotNull('parent_id')->get(),'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get(),'services'=>Service::get(),]);
@@ -128,7 +151,8 @@ Route::group(
              
              Route::get('/api-hospitals', [HospitalController::class, 'hospitals_api'])->name('hospitals.api');
 
-        Route::resource('/cases', CasesController::class);
+        
+             Route::resource('/cases', CasesController::class);
         Route::get('/api-cases', [CasesController::class, 'cases_api'])->name('cases.api');
 
         Route::resource('/nationality', NationalityController::class);

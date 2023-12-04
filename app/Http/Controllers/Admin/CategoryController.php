@@ -125,15 +125,15 @@ class CategoryController extends Controller
         $request->validate([
             'name_ar' => 'required|unique:categories,name->ar,' . $categoryId,
             'name_en' => 'required|unique:categories,name->en,' . $categoryId,
-            'country_id' => 'required|array',
+            // 'country_id' => 'required|array',
             //     'image' => 'required',
-            'country_id.*' => 'exists:countries,id',
+            // 'country_id.*' => 'exists:countries,id',
         ], [
             'name_ar.required' => __('validation.required'),
             'name_en.required' => __('validation.required'),
             'name_ar.unique' => __('validation.unique'),
             'name_en.unique' => __('validation.unique'),
-            'country_id.exists' => __('validation.exists'),
+            // 'country_id.exists' => __('validation.exists'),
         ]);
 //        $commonRules = [
 //            'name_ar' => 'required|unique:categories,name->ar,'. $categoryId,
@@ -165,9 +165,9 @@ class CategoryController extends Controller
             $category = Category::whereId($categoryId)->firstOrFail();
 
             $category->update($data);
-            if ($request->country_id) {
-                $category->countries()->sync($request->country_id);
-            }
+            // if ($request->country_id) {
+            //     $category->countries()->sync($request->country_id);
+            // }
             // user updated
             return response()->json(__('cp.update'));
         } else {
@@ -176,9 +176,9 @@ class CategoryController extends Controller
 
             if (empty($category)) {
                 $category = Category::create($data);
-                if ($request->country_id) {
-                    $category->countries()->attach($request->country_id);
-                }
+                // if ($request->country_id) {
+                //     $category->countries()->attach($request->country_id);
+                // }
                 return response()->json(__('cp.create'));
             } else {
                 // category Already exist

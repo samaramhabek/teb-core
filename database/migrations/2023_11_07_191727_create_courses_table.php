@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->integer('hours')->nullable();
+            $table->integer('exam_duration')->nullable();
             $table->foreignId('trainer_id')->nullable()->constrained('doctors', 'id')->nullOnDelete();
             $table->timestamps();
         });

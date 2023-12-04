@@ -152,7 +152,7 @@
     </script>
 
     <script>
-        console.log({{$parent_categories}})
+        // console.log({{$parent_categories}});
         $(document).ready(function () {
 
             $('#category_id').on('change', function () {
@@ -197,11 +197,27 @@
 
                 // get data
                 $.get(`${baseUrl}/admin/courses\/${course_id}\/edit`, function (data) {
+                    console.log(data);
                     $('#course_id').val(data.id);
                     $('#add-course-name-ar').val(data.name.ar);
                     $('#add-course-name-en').val(data.name.en);
-                    $('#category_id').val(data.category_id);
-                    $('#child_category_id').val(data.child_category_id);
+                    $('#add-course-description-en').val(data.description.en);
+                    $('#add-course-description-ar').val(data.description.ar);
+                    $('#add-course-category_text-en').val(data.category_text.en);
+                    $('#add-course-category_text-ar').val(data.category_text.ar);
+                    $('#add-course-hours').val(data.hours);
+                       // Update checkbox based on the 'online' property
+        $('#is_online').prop('checked', data.online);
+
+// Update select options
+$('#category_id').val(data.category_id).trigger('change'); // Assuming 'category_id' is present in the returned data
+$('#child_category_id').val(data.child_category_id).trigger('change'); // Assuming 'child_category_id' is present
+
+$('#trainer_id').val(data.trainer_id).trigger('change'); // Assuming 'trainer_id' is present
+
+                    
+                    // $('#category_id').val(data.category_id);
+                    // $('#child_category_id').val(data.child_category_id);
 
 
                         var getCategoryId = data.category_id;

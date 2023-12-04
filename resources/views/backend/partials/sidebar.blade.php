@@ -139,20 +139,49 @@
                             <div>{{__('cp.courses')}}</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/exam_questions/index') ? 'active' : '' }}">
+                        <a href="{{route('admin.exam_questions.index')}}" class="menu-link">
+                            <div>{{__('cp.exam_questions')}}</div>
+                        </a>
+                    </li>
                     <li class="menu-item {{ request()->is(app()->getLocale().'/admin/lessons/index') ? 'active' : '' }}">
                         <a href="{{route('admin.lessons.index')}}" class="menu-link">
                             <div>{{__('cp.lessons')}}</div>
                         </a>
                     </li>
-                    {{-- <li class="menu-item {{ request()->is(app()->getLocale().'/admin/sub-categories*') ? 'active' : '' }}">
-                        <a href="{{route('admin.sub-categories.index')}}" class="menu-link">
-                            <div>{{__('cp.sub_categories')}}</div>
+                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/questions/index') ? 'active' : '' }}">
+                        <a href="{{route('admin.questions.index')}}" class="menu-link">
+                            <div>{{__('cp.questions')}}</div>
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
                 <!-- end courses-->
-
+<!--article-->
+<li class="menu-header small text-uppercase">
+    <span class="menu-header-text">Article</span>
+</li>
+<li class="menu-item {{ request()->is(app()->getLocale().'/admin/articles/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-id"></i>
+        <div>{{__('cp.articles')}}</div>
+        <div class="badge bg-primary rounded-pill ms-auto">3</div>
+    </a>
+    <ul class="menu-sub">
+        <li class="menu-item {{ request()->is(app()->getLocale().'/admin/articles/index') ? 'active' : '' }}">
+            <a href="{{route('admin.article.index')}}" class="menu-link">
+                <div>{{__('cp.articles')}}</div>
+            </a>
+        </li>
+      
+        {{-- <li class="menu-item {{ request()->is(app()->getLocale().'/admin/sub-categories*') ? 'active' : '' }}">
+            <a href="{{route('admin.sub-categories.index')}}" class="menu-link">
+                <div>{{__('cp.sub_categories')}}</div>
+            </a>
+        </li> --}}
+    </ul>
+</li>
+<!--endarticle-->
         <!-- Apps & Pages -->
         <li class="menu-header small text-uppercase">
         <li class="menu-header small text-uppercase">

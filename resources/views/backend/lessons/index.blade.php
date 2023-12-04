@@ -52,9 +52,10 @@
                            </div>
                            <div class="mb-3">
                             <label for="upload1">تحميل الملف</label>
-                            <input type="file" class="form-control" name="upload1" />
+                            <input type="file" class="form-control" name="upload1" id="file1"/>
                                 {{-- <p>Existing File: <a href="{{ $doctor->upload1->original_url  ?? null}}" target="_blank">{{ $doctor->upload1->file_name ?? null}}</a></p> --}}
-                           </div>
+                         <span id="fileInfo"></span>
+                            </div>
                            <div class="mb-3">
                                <label class="form-label" for="course_id">{{__('cp.course')}}</label>
                                <select id="course_id" name="course_id" class="select2 form-select">
@@ -133,11 +134,24 @@
 
                 // get data
                 $.get(`${baseUrl}/admin/lessons\/${lesson_id}\/edit`, function (data) {
+                    console.log('Data from the server:', data);
                     $('#lesson_id').val(data.id);
-                    $('#course_id').val(data.course_id);
-                    $('#video_url').val(data.video_url);
+                    $('#course_id').val(data.course_id).trigger('change');
+                   // $('#file1').val(data.file.file_name);
+       // Check if data.media is an array and has at least one element
+       if (Array.isArray(data.media) && data.media.length > 0 && data.media[0].file_name) {
+        // If media is an array with at least one element, and it has file_name, display the file information
+        $('#fileInfo').text(data.media[0].file_name);
+    } else {
+        // Handle the case where data.media or data.media[0].file_name is undefined
+        console.warn('File information not available in the data object.');
+        // You may set a default value or handle it in a way that makes sense for your application
+    }
+                  
+                  
                     $('#add-lesson-name-ar').val(data.name.ar);
                     $('#add-lesson-name-en').val(data.name.en);
+                    $('#add-lessonvideo_url').val(data.video_url);
                 });
             });
 

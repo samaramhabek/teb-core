@@ -3,33 +3,34 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryResource;
+use App\Models\ExamQuestion;
 use App\Models\Course;
-use App\Models\Lesson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 
-class LessonsController extends Controller
+class ExamQuestionsController extends Controller
 {
     public function index()
     {
       //  $categories = Category::latest()->get();
         // $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
         $courses = Course::all();
-        return view('backend.lessons.index', compact('courses'));
+        return view('backend.examquestions.index', compact('courses'));
     }
 
-    public function lessons_api(Request $request)
+    public function exam_questions_api(Request $request)
     {
 
         $columns = [
             1 => 'id',
-            2 => 'name',
+            2 => 'text',
             3 => 'course_id',
             5 => 'created_at',
-            5 => 'video_url',
-            6 => 'file',
+            6 => 'answer1',
+            7 => 'answer2',
+            8 => 'answer3',
+            9 => 'answer4',
         ];
 
         $search = $request->input('search.value');
@@ -37,16 +38,16 @@ class LessonsController extends Controller
 
 
 
-        $totalData = Lesson::count();
+        $totalData = ExamQuestion::count();
 
-        $query = Lesson::with('course','media')
+        $query = ExamQuestion::with('Course')
             ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
 
         if (!empty($search)) {
             $query->where(function ($query) use ($search) {
                 $query->where('id', 'LIKE', "%{$search}%")
-                    ->orWhere('name->ar', 'LIKE', "%{$search}%")
-                    ->orWhere('name->en', 'LIKE', "%{$search}%")
+                    ->orWhere('text->ar', 'LIKE', "%{$search}%")
+                    ->orWhere('text->en', 'LIKE', "%{$search}%")
                     ->orWhereHas('course', function ($query) use ($search) {
                         $query->where('name->ar', 'LIKE', "%{$search}%")
                             ->orWhere('name->en', 'LIKE', "%{$search}%");
@@ -62,29 +63,26 @@ class LessonsController extends Controller
         $totalFiltered = $query->count();
         $limit = $request->input('length');
         $start = $request->input('start');
-        $lessons = $query->skip($start)->take($limit)->get();
-        $lessons->transform(function ($lesson) {
-            $lesson->setRelation('file', $lesson->media->where('collection_name', 'lesson_upload1')->first());
-            $lesson->unsetRelation('media');
-            return $lesson;
-        });
-        log::info($lessons);
+        $questions = $query->skip($start)->take($limit)->get();
+        log::info($questions);
 
         $data = [];
 
-        if (!empty($lessons)) {
+        if (!empty($questions)) {
             $ids = $start;
 
-            foreach ($lessons as $lesson) {
-                $nestedData['id'] = $lesson->id;
+            foreach ($questions as $question) {
+                $nestedData['id'] = $question->id;
                 $nestedData['fake_id'] = ++$ids;
-                $nestedData['name'] = $lesson->getTranslation('name', app()->getLocale(Config::get('app.locale')));
+                $nestedData['text'] = $question->getTranslation('text', app()->getLocale(Config::get('app.locale')));
+                $nestedData['answer1'] = $question->getTranslation('answer1', app()->getLocale(Config::get('app.locale')));
+                $nestedData['answer2'] = $question->getTranslation('answer2', app()->getLocale(Config::get('app.locale')));
+                $nestedData['answer3'] = $question->getTranslation('answer3', app()->getLocale(Config::get('app.locale')));
+                $nestedData['answer4'] = $question->getTranslation('answer4', app()->getLocale(Config::get('app.locale')));
                 $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
-                $nestedData['course'] = $lesson->course ? $lesson->course->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
-                $nestedData['course_id'] =$lesson->course_id;
-                $nestedData['created_at'] = $lesson->created_at->format('M Y');
-                $nestedData['video_url'] = $lesson->video_url;
-                $nestedData['file'] = $lesson->file;
+                $nestedData['course'] = $question->course ? $question->course->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
+                $nestedData['created_at'] = $question->created_at->format('M Y');
+                $nestedData['correct'] = $question->correct;
                 $data[] = $nestedData;
             }
         }
@@ -122,40 +120,44 @@ class LessonsController extends Controller
      */
     public function store(Request $request)
     {
-        $lessonId = $request->id;
+        log::info($request->all());
+        $questionId = $request->id;
 
         $request->validate([
-            'name_ar' => 'required|unique:lessons,name->ar,'. $lessonId,
-            'name_en' => 'required|unique:lessons,name->en,'. $lessonId,
+            'text_ar' => 'required',
+            'text_en' => 'required',
+            'answer1_ar' => 'required',
+            'answer1_en' => 'required',
+            'answer2_ar' => 'required',
+            'answer2_en' => 'required',
+            'answer3_ar' => 'required',
+            'answer3_en' => 'required',
+            'answer4_ar' => 'required',
+            'answer4_en' => 'required',
             'course_id' => 'required|exists:courses,id',
-            'child_category_id' => 'nullable|exists:categories,id',
         ]);
 
-        $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
+        $data['text'] = ['en' => $request->text_en, 'ar' => $request->text_ar];
+        $data['answer1'] = ['en' => $request->answer1_en, 'ar' => $request->answer1_ar];
+        $data['answer2'] = ['en' => $request->answer2_en, 'ar' => $request->answer2_ar];
+        $data['answer3'] = ['en' => $request->answer3_en, 'ar' => $request->answer3_ar];
+        $data['answer4'] = ['en' => $request->answer4_en, 'ar' => $request->answer4_ar];
         $data['course_id'] = $request->course_id;
-        $data['video_url'] = $request->video_url;
+        $data['correct'] = $request->correct;
 
-        if ($lessonId) {
+        if ($questionId) {
             // update the value
-            $lesson = Lesson::whereId($lessonId)->firstOrFail();
-            $lesson->update($data);
-
-            if ($request->hasFile('upload1')) {
-                $lesson->clearMediaCollection('lesson_upload1');
-                $lesson->addMedia($request->file('upload1'))->toMediaCollection('lesson_upload1');
-            }
+            $question = ExamQuestion::whereId($questionId)->firstOrFail();
+            $question->update($data);
             // user updated
             return response()->json(__('cp.update'));
         } 
         else {
             // create new one if email is unique
-            $lesson = Lesson::where('id', $request->id)->first();
+            $question = ExamQuestion::where('id', $request->id)->first();
 
-            if (empty($lesson)) {
-                $lesson = Lesson::create($data);
-                if ($request->hasFile('upload1')) {
-                    $lesson->addMedia($request->file('upload1'))->toMediaCollection('lesson_upload1');
-                }
+            if (empty($question)) {
+                $question = ExamQuestion::create($data);
                 // category created
                 return response()->json(__('cp.create'));
             } else {
@@ -175,9 +177,9 @@ class LessonsController extends Controller
      */
     public function edit($id)
     {
-        $lesson = Lesson::with('media')->where('id', $id)->first();
+        $question = ExamQuestion::where('id', $id)->first();
 
-        return response()->json($lesson);
+        return response()->json($question);
     }
 
     /**
@@ -188,9 +190,9 @@ class LessonsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($lesson)
+    public function destroy($question)
     {
-        Lesson::where('id',$lesson)->delete();
-        return 'Lesson deleted';
+        $question->delete();
+        return 'question deleted';
     }
 }

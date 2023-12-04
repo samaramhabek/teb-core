@@ -35,7 +35,7 @@ $(function () {
         select2 = $('.select2'),
         sub_select2 = $('.select2_sub'),
         categoryView = baseUrl + '/admin/api-doctors',
-        offCanvasForm = $('#offcanvasAddDoctor');
+        offCanvasForm = $('#offcanvasAssignArticle');
 
     if (select2.length) {
         var $this = select2;
@@ -245,7 +245,7 @@ $(function () {
                             '<div class="d-inline-block text-nowrap">' +
                             `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" ><i class="ti ti-edit"></i></button>` +
                             `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
-                            // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
+                            `<button id="assignArticles" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAssignArticle"><i class="ti ti-edit"></i></button>` +
                             // '<div class="dropdown-menu dropdown-menu-end m-0">' +
                             // '<a href="' +
                             // userView +
@@ -592,25 +592,11 @@ $(document).on('click', '#editButton', function () {
     }, 300);
 
     // validating form and updating categories data
-    const addNewDoctorForm = document.getElementById('addNewDoctorForm');
+    const assignArticleForm = document.getElementById('assignArticleForm');
 
     // category form validation
-    const fv = FormValidation.formValidation(addNewDoctorForm, {
+    const fv = FormValidation.formValidation(assignArticleForm, {
         fields: {
-            name_en: {
-                validators: {
-                    notEmpty: {
-                        message: validationMessages.data('name-en-required')
-                    }
-                }
-            },
-            name_ar: {
-                validators: {
-                    notEmpty: {
-                        message: validationMessages.data('name-ar-required')
-                    }
-                }
-            },
             category_id: {
                 validators: {
                     notEmpty: {
@@ -635,11 +621,11 @@ $(document).on('click', '#editButton', function () {
             autoFocus: new FormValidation.plugins.AutoFocus()
         }
     }).on('core.form.valid', function () {
-        var formData = new FormData(addNewDoctorForm);
+        var formData = new FormData(assignArticleForm);
         // adding or updating category when form successfully validate
         $.ajax({
             // data: $('#addNewCategoryForm').serialize(),
-            url: `${baseUrl}/${lang}/admin/doctors`,
+            url: `${baseUrl}/${lang}/admin/doctors/assignArticle`,
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -651,7 +637,7 @@ $(document).on('click', '#editButton', function () {
               dt_doctor.draw();
                
                 // Clear form inputs
-                $('#addNewDoctorForm').trigger('reset');
+                $('#assignArticleForm').trigger('reset');
 
                 // sweetalert
                 Swal.fire({
