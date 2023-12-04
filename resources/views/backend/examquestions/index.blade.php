@@ -49,26 +49,26 @@
                                <input type="text" class="form-control" id="add-question-text-en" placeholder="{{__('cp.question_en')}}" name="text_en" aria-label="{{__('cp.question_en')}}" />
                            </div>
                             <!-- Answers -->
-                           <div class="form-group">
-                                <label>Answers:</label>
-                                <input type="text" class="form-control" name="answer1_ar" placeholder="Answer 1" required>
-                                <input type="text" class="form-control" name="answer1_en" placeholder="Answer 1" required>
-                                <input type="text" class="form-control" name="answer2_ar" placeholder="Answer 2" required>
-                                <input type="text" class="form-control" name="answer2_en" placeholder="Answer 2" required>
-                                <input type="text" class="form-control" name="answer3_ar" placeholder="Answer 3" required>
-                                <input type="text" class="form-control" name="answer3_en" placeholder="Answer 3" required>
-                                <input type="text" class="form-control" name="answer4_ar" placeholder="Answer 4" required>
-                                <input type="text" class="form-control" name="answer4_en" placeholder="Answer 4" required>
+                            <div class="form-group">
+                                <label>{{__('cp.answers')}}</label>
+                                <input type="text" class="form-control" name="answer1_ar" placeholder="{{__('cp.answer1_ar')}}" required>
+                                <input type="text" class="form-control" name="answer1_en" placeholder="{{__('cp.answer1_en')}}" required>
+                                <input type="text" class="form-control" name="answer2_ar" placeholder="{{__('cp.answer2_ar')}}" required>
+                                <input type="text" class="form-control" name="answer2_en" placeholder="{{__('cp.answer2_en')}}" required>
+                                <input type="text" class="form-control" name="answer3_ar" placeholder="{{__('cp.answer3_ar')}}" required>
+                                <input type="text" class="form-control" name="answer3_en" placeholder="{{__('cp.answer3_en')}}" required>
+                                <input type="text" class="form-control" name="answer4_ar" placeholder="{{__('cp.answer4_ar')}}" required>
+                                <input type="text" class="form-control" name="answer4_en" placeholder="{{__('cp.answer4_en')}}" required>
                           </div>
 
                             <!-- Correct Answer -->
                           <div class="form-group">
-                                <label for="correctAnswer">Correct Answer:</label>
+                                <label for="correctAnswer">{{__('cp.correct_answer')}}</label>
                                 <select class="form-control" id="correct" name="correct" required>
-                                    <option value="1">Answer 1</option>
-                                    <option value="2">Answer 2</option>
-                                    <option value="3">Answer 3</option>
-                                    <option value="4">Answer 4</option>
+                                    <option value="1">{{__('cp.answer1')}}</option>
+                                    <option value="2">{{__('cp.answer2')}}</option>
+                                    <option value="3">{{__('cp.answer3')}}</option>
+                                    <option value="4">{{__('cp.answer4')}}</option>
                                 </select>
                           </div>
                            <div class="mb-3">

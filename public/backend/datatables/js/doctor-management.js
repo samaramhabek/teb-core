@@ -245,7 +245,7 @@ $(function () {
                             '<div class="d-inline-block text-nowrap">' +
                             `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" ><i class="ti ti-edit"></i></button>` +
                             `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
-                            `<button id="assignArticles" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAssignArticle"><i class="ti ti-edit"></i></button>` +
+                          
                             // '<div class="dropdown-menu dropdown-menu-end m-0">' +
                             // '<a href="' +
                             // userView +

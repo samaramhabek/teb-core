@@ -99,40 +99,6 @@ $(function () {
                     }
                 },
                 {
-                    // Category name
-                    targets: 2,
-                    // render: function (data, type, full, meta) {
-                    //     var $name = full['name'];
-                    //
-                    //     return '<span class="category-name">' + $name + '</span>';
-                    // }
-                    render: function (data, type, full, meta) {
-                        var $name = full['name'],
-                            $id = full['id'],
-                            $image = full['image'];
-                        // if ($image) {
-                        //     // For Product image
-                        //
-                        //     var $output = '<img src="' + $image + '" alt="Category-' + $id + '" class="rounded-2">';
-                        // }
-                        // Creates full output for Product name and product_brand
-                        var $row_output =
-                            '<div class="d-flex justify-content-start align-items-center product-name">' +
-                            '<div class="avatar-wrapper">' +
-                            // '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
-                            // $output +
-                            // '</div>' +
-                            '</div>' +
-                            '<div class="d-flex flex-column">' +
-                            '<h6 class="text-body text-nowrap mb-0">' +
-                            $name +
-                            '</h6>' +
-                            '</div>' +
-                            '</div>';
-                        return $row_output;
-                    }
-                },
-                {
                     // Slug
                     targets: 3,
                     render: function (data, type, full, meta) {

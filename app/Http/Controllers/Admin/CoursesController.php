@@ -152,19 +152,19 @@ class CoursesController extends Controller
 
         $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
         $data['description'] = ['en' => $request->description_en, 'ar' => $request->description_ar];
-        if($request->child_category_id)
+        if($request->category_text_en)
+        {
+            $data['category_text'] = ['en' => $request->category_text_en, 'ar' => $request->category_text_ar]; 
+        }
+        else if($request->child_category_id)
         {
             $category=Category::whereId($request->child_category_id)->first()->name;
             $data['category_text'] = $category; 
         }
-        elseif($request->category_id)
+        else if($request->category_id)
         {
             $category=Category::whereId($request->category_id)->first()->name;
             $data['category_text'] = $category; 
-        }
-        else
-        {
-            $data['category_text'] = ['en' => $request->category_text_en, 'ar' => $request->category_text_ar]; 
         }
         $data['hours'] =$request->hours; 
         $data['category_id'] = $request->category_id;
