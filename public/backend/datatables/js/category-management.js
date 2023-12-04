@@ -8,7 +8,7 @@ const addNewTranslation = validationMessages.data('add-new');
 const nameEnRequiredTranslation = validationMessages.data('name-en-required');
 const nameArRequiredTranslation = validationMessages.data('name-ar-required');
 const parentIdRequiredTranslation = validationMessages.data('parent-id-required');
-const countryIDRequiredTranslation = validationMessages.data('country-id-required');
+// const countryIDRequiredTranslation = validationMessages.data('country-id-required');
 const exportFile = validationMessages.data('export');
 const selectOption = validationMessages.data('select');
 const edit = validationMessages.data('edit');
@@ -469,16 +469,16 @@ $(function () {
         // get data
         $.get(`${baseUrl}/${lang}/admin/categories\/${category_id}\/edit`, function (data) {
 
-            var selectedCountryIds = data.countries;
-            $('#country_id option').prop('selected', false);
+            // var selectedCountryIds = data.countries;
+            // $('#country_id option').prop('selected', false);
             $('#category_id').val(data.id);
             $('#add-category-name-ar').val(data.name.ar);
             $('#add-category-name-en').val(data.name.en);
             $('#add-category-slug').val(data.slug);
-            $.each(selectedCountryIds, function(index, value) {
-                $('#country_id option[value="' + value.id + '"]').prop('selected', true);
-            });
-            $('#country_id').trigger('change');
+            // $.each(selectedCountryIds, function(index, value) {
+            //     $('#country_id option[value="' + value.id + '"]').prop('selected', true);
+            // });
+            // $('#country_id').trigger('change');
         });
     });
 
@@ -515,18 +515,18 @@ $(function () {
                     }
                 }
             },
-            'country_id[]': {
-                validators: {
-                    notEmpty: {
-                        message: countryIDRequiredTranslation
-                    },
-                    choice: {
-                        min: 1, // Minimum of 1 option must be selected
-                        max: null, // Maximum can be set if needed
-                       // message: 'Please select at least one country.'
-                    }
-                }
-            },
+            // 'country_id[]': {
+            //     validators: {
+            //         notEmpty: {
+            //             message: countryIDRequiredTranslation
+            //         },
+            //         choice: {
+            //             min: 1, // Minimum of 1 option must be selected
+            //             max: null, // Maximum can be set if needed
+            //            // message: 'Please select at least one country.'
+            //         }
+            //     }
+            // },
             // image: {
             //     validators: {
             //         notEmpty: {

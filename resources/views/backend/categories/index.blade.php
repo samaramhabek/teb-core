@@ -47,7 +47,7 @@
                                <label class="form-label" for="add-category-slug">{{__('cp.slug')}}</label>
                                <input type="text" class="form-control" disabled id="add-category-slug" placeholder="{{__('cp.slug')}}" name="slug" aria-label="{{__('cp.slug')}}" />
                            </div>
-                           <div class="mb-3">
+                           {{-- <div class="mb-3">
                                <label class="form-label" for="country_id">{{__('cp.country')}}</label>
                                <select id="country_id" name="country_id[]" class="select2 form-select" multiple>
                                    <option value="">{{__('cp.choose')}}</option>
@@ -55,7 +55,7 @@
                                        <option value="{{$country->id}}">{{$country->name}}</option>
                                    @endforeach
                                </select>
-                           </div>
+                           </div> --}}
 {{--                           <div class="mb-3">--}}
 {{--                               <label class="form-label" for="add-category-image">Image</label>--}}
 {{--                               <input type="file" class="form-control" id="add-category-image" name="image" aria-label="Image" />--}}

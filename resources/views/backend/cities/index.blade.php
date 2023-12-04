@@ -75,7 +75,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="country_id">{{__('cp.country')}}</label>
-                            <select id="country_id" name="country_id" class="select2 form-select">
+                            <select id="country_id" name="country_id" class="form-control">
                                 <option value="">{{__('cp.select')}}</option>
                                 @foreach($countries as $country)
                                     <option value="{{$country->id}}">{{$country->name}}</option>

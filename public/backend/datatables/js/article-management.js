@@ -3,12 +3,14 @@
  */
 
 'use strict';
+var list_nationalities = $("#list_nationalities").data('nationalities');
 var list_countries = $("#list_countries").data('countries');
 const validationMessages = $('#validation-messages');
 const addNewTranslation = validationMessages.data('add-new');
-const nameEnRequiredTranslation = validationMessages.data('name-en-required');
-const nameArRequiredTranslation = validationMessages.data('name-ar-required');
-const courseIdRequiredTranslation = validationMessages.data('course-id-required');
+const first_nameEnRequiredTranslation = validationMessages.data('first_name-en-required');
+const first_nameArRequiredTranslation = validationMessages.data('first_name-ar-required');
+const categoryIdRequiredTranslation = validationMessages.data('category-id-required');
+const childCategoryIdRequiredTranslation = validationMessages.data('child-category-id-required');
 const exportFile = validationMessages.data('export');
 const selectOption = validationMessages.data('select');
 const edit = validationMessages.data('edit');
@@ -29,11 +31,11 @@ const delete_done = validationMessages.data('delete_done');
 // Datatable (jquery)
 $(function () {
     // Variable declaration for table
-    var dt_category_table = $('.datatables-lessons'),
+    var dt_doctor_table = $('.datatables-articles'),
         select2 = $('.select2'),
         sub_select2 = $('.select2_sub'),
-        categoryView = baseUrl + '/admin/api-lessons',
-        offCanvasForm = $('#offcanvasAddLesson');
+        categoryView = baseUrl + '/admin/api-articles',
+        offCanvasForm = $('#offcanvasAddDoctor');
 
     if (select2.length) {
         var $this = select2;
@@ -58,35 +60,42 @@ $(function () {
     });
 
     // Categories datatable
-    if (dt_category_table.length) {
-        var dt_category = dt_category_table.DataTable({
+    if (dt_doctor_table.length) {
+        var dt_doctor = dt_doctor_table.DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseUrl + '/admin/api-lessons'
+                url: baseUrl + '/admin/api-articles'
             },
             columns: [
+               
                 // columns according to JSON
                 { data: '' },
+                //{ data: 'fake_id' },
                 { data: 'id' },
-                { data: 'name'},
-                { data: 'Course'},
-                { data: 'created_at'},
-                { data: 'video_url',
-                render: function(data, type, row) {
-                    if (type === 'display' && data) {
-                        return '<a href="' + data + '" target="_blank">Watch Video</a>';
-                    }
-                    return data;
-                }},
-                { data: 'file',
-                render: function(data, type, row) {
-                    if (type === 'display' && data) {
-                        return '<a href="' + data.original_url + '" target="_blank">file</a>';
-                    }
-                    return data;
-                }},
-                { data: 'action' }
+                { data: 'article_name'},
+                { data: 'Nameofthewriter'},
+                { data: 'reviewerofthearticle'},
+                { data: 'published_at'},
+                { data: 'meta_tags'},
+                
+                 { data: 'description'},
+                 { data: 'meta_description'},
+                 { data: 'category_id'},
+               
+                 { data: 'child_category_id'},
+                // { data: 'gender'},
+                
+                // { data: 'title'},
+                // { data: 'region'},
+                // { data: 'description'},
+              
+                // { data: 'is_trainer'},
+                // { data: 'lat'},
+                // { data: 'lang'},
+                // { data: 'created_at'},
+                { data: 'action' },
+               
             ],
             columnDefs: [
                 {
@@ -117,7 +126,8 @@ $(function () {
                     //     return '<span class="category-name">' + $name + '</span>';
                     // }
                     render: function (data, type, full, meta) {
-                        var $name = full['name'],
+                        var $first_name = full['article_name'],
+                        
                             $id = full['id'],
                             $image = full['image'];
                         // if ($image) {
@@ -135,7 +145,8 @@ $(function () {
                             '</div>' +
                             '<div class="d-flex flex-column">' +
                             '<h6 class="text-body text-nowrap mb-0">' +
-                            $name +
+                            $first_name +
+                            // $last_name +
                             '</h6>' +
                             '</div>' +
                             '</div>';
@@ -145,40 +156,99 @@ $(function () {
                 {
                     // Slug
                     targets: 3,
-                    render: function (data, type, full, meta) {
-                        var $course = full['course'];
-
-                        return '<span class="course-slug">' + $course + '</span>';
-                    }
+                    // render: function (data, type, full, meta) {
+                    //     $last_name = full['last_name']
+                    //     $id = full['id'],
+                    //     $image = full['image'];
+                    //     var $row_output =
+                    //     '<div class="d-flex justify-content-start align-items-center product-name">' +
+                    //     '<div class="avatar-wrapper">' +
+                    //     // '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
+                    //     // $output +
+                    //     // '</div>' +
+                    //     '</div>' +
+                    //     '<div class="d-flex flex-column">' +
+                    //     '<h6 class="text-body text-nowrap mb-0">' +
+                    //     $last_name +
+                    //     // $last_name +
+                    //     '</h6>' +
+                    //     '</div>' +
+                    //     '</div>';
+                    // return $row_output;
+                    // }
                 },
                 // {
                 //     // Slug
-                //     targets: 4,
+                //     targets: 5,
                 //     render: function (data, type, full, meta) {
-                //         var $sub_category = full['sub_category'];
+                //         var $city = full['city_id'];
 
-                //         return '<span class="category-slug">' + $sub_category + '</span>';
+                //         return '<span class="category-slug">' + $city + '</span>';
                 //     }
-                // },
-                {
-                    // Created at
-                    targets: 4,
-                    render: function (data, type, full, meta) {
-                        var $created_at = full['created_at'];
+                //     // render: function (data, type, full, meta) {
+                //     //     var $sub_category = full['sub_category'];
 
-                        return '<span class="category-created_at">' + $created_at + '</span>';
-                    }
-                },
+                //     //     return '<span class="category-slug">' + $sub_category + '</span>';
+                //     // }
+                // },
+
+             
+                // {
+                //     // Created at
+                //     targets: 7,
+                //     render: function (data, type, full, meta) {
+                //         var $gender = full['gender'];
+                //         if($gender == 0){
+                //             return '<span class="category-slug">' + 'male' + '</span>'; 
+                //         }
+                //         else($gender == 1)
+                        
+
+                //         return '<span class="category-slug">' + 'famle' + '</span>';
+                    
+                //     },
+                // }, 
+                // {
+                //     targets: 11,
+                //     render: function (data, type, full, meta) {
+                //         var $is_trainer = full['is_trainer'];
+                //         // var stateNum = Math.floor(Math.random() * 6);
+                //          var states = ['success', 'danger'];
+                //         // var $state = states[stateNum],
+                //         //     $name = full['username'],
+                //         //     $initials = $name.match(/\b\w/g) || [],
+                //         //     $output;
+                //         // $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+                //         if($is_trainer == 0 ){
+                //             states='danger'
+                //        return  '<span class="avatar-initial rounded-circle bg-label-'+states+'">' +  'NO'  + '</span>';
+
+                //         }else{
+                //             states='success'
+                //             return  '<span class="avatar-initial rounded-circle bg-label-'+states+'">' +  'yes'  + '</span>';
+     
+                //         }
+
+                //         // return '<span class="category-slug">' + 'yes' + '</span>';
+                    
+                //     }
+                //     // render: function (data, type, full, meta) {
+                //     //     var $created_at = full['created_at'];
+
+                //     //     return '<span class="category-created_at">' + $created_at + '</span>';
+                //     // }
+                // },
                 {
                     // Actions
                     targets: -1,
                     title: actions,
+                    
                     searchable: false,
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return (
                             '<div class="d-inline-block text-nowrap">' +
-                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddLesson"><i class="ti ti-edit"></i></button>` +
+                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" ><i class="ti ti-edit"></i></button>` +
                             `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
                             // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
                             // '<div class="dropdown-menu dropdown-menu-end m-0">' +
@@ -189,7 +259,8 @@ $(function () {
                             // '</div>' +
                             '</div>'
                         );
-                    }
+                    },
+                 
                 }
             ],
             order: [[2, 'desc']],
@@ -222,7 +293,7 @@ $(function () {
                     buttons: [
                         {
                             extend: 'print',
-                            title: 'Lessons',
+                            title: 'Doctors',
                             text: '<i class="ti ti-printer me-2" ></i>Print',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -261,7 +332,7 @@ $(function () {
                         },
                         {
                             extend: 'csv',
-                             title: 'Lessons',
+                             title: 'Doctors',
                             text: '<i class="ti ti-file-text me-2" ></i>Csv',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -287,7 +358,7 @@ $(function () {
                         },
                         {
                             extend: 'excel',
-                            title: 'Lessons',
+                            title: 'Doctors',
                             text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -313,11 +384,11 @@ $(function () {
                         },
                         {
                             extend: 'pdf',
-                            title: 'Lessons',
+                            title: 'Doctors',
                             text: '<i class="ti ti-file-text me-2"></i>Pdf',
                             className: 'dropdown-item',
                             exportOptions: {
-                                 columns: [1, 2, 3, 4],
+                                 columns: [1, 2, 3, 4, 5],
                                 // prevent avatar to be display
                                 format: {
                                     body: function (inner, coldex, rowdex) {
@@ -339,11 +410,11 @@ $(function () {
                         },
                         {
                             extend: 'copy',
-                             title: 'Lessons',
+                             title: 'Doctors',
                             text: '<i class="ti ti-copy me-1" ></i>Copy',
                             className: 'dropdown-item',
                             exportOptions: {
-                                columns: [1, 2, 3, 4],
+                                columns: [1, 2, 3, 4, 5],
                                 // prevent avatar to be copy
                                 format: {
                                     body: function (inner, coldex, rowdex) {
@@ -369,8 +440,8 @@ $(function () {
                     text: '<i class="ti ti-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">' + addNewTranslation + '</span>',
                     className: 'add-new btn btn-primary',
                     attr: {
-                        'data-bs-toggle': 'offcanvas',
-                        'data-bs-target': '#offcanvasAddLesson'
+                        // 'onClick': 'add()',
+                        'id':'add-new-doctor'
                     }
                 }
             ],
@@ -425,8 +496,7 @@ $(function () {
 
     // Delete Record
     $(document).on('click', '.delete-record', function () {
-        console.log($(this).data('id'))
-        var lesson_id = $(this).data('id'),
+        var article_id = $(this).data('id'),
             dtrModal = $('.dtr-bs-modal.show');
 
         // hide responsive modal in small screen
@@ -453,9 +523,9 @@ $(function () {
                 // delete the data
                 $.ajax({
                     type: 'DELETE',
-                    url: `${baseUrl}/admin/lessons/${lesson_id}`,
+                    url: `${baseUrl}/admin/articles/${article_id}`,
                     success: function () {
-                        dt_category.draw();
+                        dt_doctor.draw();
                     },
                     error: function (error) {
                         console.log(error);
@@ -473,7 +543,7 @@ $(function () {
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire({
                     title: cancel,
-                    text: 'The Lesson is not deleted!',
+                    text: 'The doctor is not deleted!',
                     icon: 'error',
                     customClass: {
                         confirmButton: 'btn btn-success'
@@ -484,13 +554,42 @@ $(function () {
     });
 
     // edit record
-
+    // var doctor= $key1;
+    // if($doctor)
+    // {
+        // console.log(doctor)
+    // }
 
     // changing the title
     $('.add-new').on('click', function () {
-        $('#lesson').val(''); //reseting input field
-        $('#offcanvasAddLessonLabel').html(addNewTranslation);
+        $('#doctor_id').val(''); //reseting input field
+        $('#offcanvasAddDoctorLabel').html(addNewTranslation);
     });
+    $('#add-new-doctor').on('click', function () {
+        // $('#doctor_id').val(''); //reseting input field
+        // $('#offcanvasAddDoctorLabel').html(addNewTranslation);
+        console.log('aaa')
+        // document.location.href ='http://localhost:8000//modal-example'
+//         window.locale = '{{ app()->getLocale() }}';
+
+//         const locale = window.locale;
+
+// // Now you can use the 'locale' variable in your JavaScript code
+const route = `/en/admin/modal-example/article`;
+        document.location.href =route;
+
+    });
+  // Using event delegation to handle click event for dynamically generated elements
+$(document).on('click', '#editButton', function () {
+    var articleId = $(this).data('id');
+console.log(articleId);
+    const route='/en/admin/modal-example/article?id='+articleId;
+
+
+  document.location.href=route;
+  console.log(articleId);
+});
+          
 
     // Filter form control to default size
     // ? setTimeout used for multilingual table initialization
@@ -500,107 +599,109 @@ $(function () {
     }, 300);
 
     // validating form and updating categories data
-    const addNewLessonForm = document.getElementById('addNewLessonForm');
+    // const addNewDoctorForm = document.getElementById('addNewDoctorForm');
 
-    // category form validation
-    const fv = FormValidation.formValidation(addNewLessonForm, {
-        fields: {
-            name_en: {
-                validators: {
-                    notEmpty: {
-                        message: validationMessages.data('name-en-required')
-                    }
-                }
-            },
-            name_ar: {
-                validators: {
-                    notEmpty: {
-                        message: validationMessages.data('name-ar-required')
-                    }
-                }
-            },
-            course_id: {
-                validators: {
-                    notEmpty: {
-                        message: validationMessages.data('course-id-required')
-                    }
-                }
-            },
-        },
-        plugins: {
-            trigger: new FormValidation.plugins.Trigger(),
-            bootstrap5: new FormValidation.plugins.Bootstrap5({
-                // Use this for enabling/changing valid/invalid class
-                eleValidClass: '',
-                rowSelector: function (field, ele) {
-                    // field is the field name & ele is the field element
-                    return '.mb-3';
-                }
-            }),
-            submitButton: new FormValidation.plugins.SubmitButton(),
-            // Submit the form when all fields are valid
-            // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-            autoFocus: new FormValidation.plugins.AutoFocus()
-        }
-    }).on('core.form.valid', function () {
-        var formData = new FormData(addNewLessonForm);
-        // adding or updating category when form successfully validate
-        $.ajax({
-            // data: $('#addNewCategoryForm').serialize(),
-            url: `${baseUrl}/${lang}/admin/lessons`,
-            type: 'POST',
-            data: formData,
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function (status) {
-                dt_category.draw();
-                offCanvasForm.offcanvas('hide');
-                // Clear form inputs
-                $('#addNewLessonForm').trigger('reset');
+    // // category form validation
+    // const fv = FormValidation.formValidation(addNewDoctorForm, {
+    //     fields: {
+    //         name_en: {
+    //             validators: {
+    //                 notEmpty: {
+    //                     message: validationMessages.data('name-en-required')
+    //                 }
+    //             }
+    //         },
+    //         name_ar: {
+    //             validators: {
+    //                 notEmpty: {
+    //                     message: validationMessages.data('name-ar-required')
+    //                 }
+    //             }
+    //         },
+    //         category_id: {
+    //             validators: {
+    //                 notEmpty: {
+    //                     message: validationMessages.data('category-id-required')
+    //                 }
+    //             }
+    //         },
+    //     },
+    //     plugins: {
+    //         trigger: new FormValidation.plugins.Trigger(),
+    //         bootstrap5: new FormValidation.plugins.Bootstrap5({
+    //             // Use this for enabling/changing valid/invalid class
+    //             eleValidClass: '',
+    //             rowSelector: function (field, ele) {
+    //                 // field is the field name & ele is the field element
+    //                 return '.mb-3';
+    //             }
+    //         }),
+    //         submitButton: new FormValidation.plugins.SubmitButton(),
+    //         // Submit the form when all fields are valid
+    //         // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+    //         autoFocus: new FormValidation.plugins.AutoFocus()
+    //     }
+    // }).on('core.form.valid', function () {
+    //     var formData = new FormData(addNewDoctorForm);
+    //     // adding or updating category when form successfully validate
+    //     $.ajax({
+    //         // data: $('#addNewCategoryForm').serialize(),
+    //         url: `${baseUrl}/${lang}/admin/doctors`,
+    //         type: 'POST',
+    //         data: formData,
+    //         dataType: 'json',
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (status) {
+    //           // Replace with the actual base URL
+          
+    //           dt_doctor.draw();
+               
+    //             // Clear form inputs
+    //             $('#addNewDoctorForm').trigger('reset');
 
-                // sweetalert
-                Swal.fire({
-                    icon: 'success',
-                    title: `${status}!`,
-                   // text: `Treatment ${status} Successfully.`,
-                    customClass: {
-                        confirmButton: 'btn btn-success'
-                    }
-                });
-            },
-            error: function (xhr) {
+    //             // sweetalert
+    //             Swal.fire({
+    //                 icon: 'success',
+    //                 title: `${status}!`,
+    //                // text: `Doctor ${status} Successfully.`,
+    //                 customClass: {
+    //                     confirmButton: 'btn btn-success'
+    //                 }
+    //             });
+    //         },
+    //         error: function (xhr) {
 
-                if (xhr.status === 422) {
-                    // Validation error
-                    const errors = xhr.responseJSON.errors;
+    //             if (xhr.status === 422) {
+    //                 // Validation error
+    //                 const errors = xhr.responseJSON.errors;
 
-                    // Display error messages for each field
-                    for (const fieldName in errors) {
-                        if (errors.hasOwnProperty(fieldName)) {
-                            const fieldError = errors[fieldName][0];
-                            // You can display the error message next to the field or handle it as needed
-                            // For example, you can use jQuery to select the field and display the message
-                            $(`[name="${fieldName}"]`).addClass('is-invalid');
-                            $(`[name="${fieldName}"]`).siblings('.invalid-feedback').html(fieldError);
-                        }
-                    }
+    //                 // Display error messages for each field
+    //                 for (const fieldName in errors) {
+    //                     if (errors.hasOwnProperty(fieldName)) {
+    //                         const fieldError = errors[fieldName][0];
+    //                         // You can display the error message next to the field or handle it as needed
+    //                         // For example, you can use jQuery to select the field and display the message
+    //                         $(`[name="${fieldName}"]`).addClass('is-invalid');
+    //                         $(`[name="${fieldName}"]`).siblings('.invalid-feedback').html(fieldError);
+    //                     }
+    //                 }
 
-                } else {
-                    // Handle other errors (not validation-related)
-                    offCanvasForm.offcanvas('hide');
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'An error occurred while processing your request.',
-                        icon: 'error',
-                        customClass: {
-                            confirmButton: 'btn btn-success'
-                        }
-                    });
-                }
-            }
-        });
-    });
+    //             } else {
+    //                 // Handle other errors (not validation-related)
+    //                 offCanvasForm.offcanvas('hide');
+    //                 Swal.fire({
+    //                     title: 'Error!',
+    //                     text: 'An error occurred while processing your request.',
+    //                     icon: 'error',
+    //                     customClass: {
+    //                         confirmButton: 'btn btn-success'
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //     });
+    // });
 
     // clearing form data when offcanvas hidden
     offCanvasForm.on('hidden.bs.offcanvas', function () {

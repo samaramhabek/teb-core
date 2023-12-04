@@ -51,4 +51,7 @@ class Category extends Model
     {
         return $this->belongsToMany(Doctor::class);
     }
+    public function articles(){
+        return $this->hasMany(Article::class);
+    }
 }

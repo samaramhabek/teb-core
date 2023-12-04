@@ -46,7 +46,7 @@
                            </div>
                            <div class="mb-3">
                                <label class="form-label" for="category_id">{{__('cp.maincategory')}}</label>
-                               <select id="category_id" name="category_id" class="select2 form-select">
+                               <select id="category_id" name="category_id" class="form-select">
                                    <option value="">Select</option>
 
                                    @foreach($parent_categories as $category)
@@ -56,7 +56,7 @@
                            </div>
                            <div class="mb-3">
                                <label class="form-label" for="child_category_id">{{__('cp.subcategory')}}</label>
-                               <select id="child_category_id" name="child_category_id" class="select2_sub form-select">
+                               <select id="child_category_id" name="child_category_id" class=" form-select">
                                    <option value="">{{__('cp.select')}}</option>
 {{--                                   @foreach($child_categories as $sub)--}}
 {{--                                       <option value="{{$sub->id}}">{{$sub->name}}</option>--}}

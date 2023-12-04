@@ -87,7 +87,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="parent_id">{{__('cp.maincategory')}}</label>
-                            <select id="parent_id" name="parent_id" class="select2 form-select">
+                            <select id="parent_id" name="parent_id" class="form-select">
                                 <option value="">{{__('cp.choose')}}</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>

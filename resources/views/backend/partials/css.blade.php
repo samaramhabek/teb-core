@@ -86,6 +86,7 @@
 <script src="{{asset('backend')}}/vendor/js/template-customizer.js"></script>
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 <script src="{{asset('backend')}}/js/config.js"></script>
+<script src="https://cdn.tiny.cloud/1/ch4u39vncjyehmamw3p10yadh46zagl8fhcsvicjho3r7ax9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <!--form-->
 <link rel="stylesheet" href="{{asset('assets/vendor/fonts/fontawesome.css')}}"/>
 <link rel="stylesheet" href="{{asset('assets/vendor/fonts/tabler-icons.css')}}"/>

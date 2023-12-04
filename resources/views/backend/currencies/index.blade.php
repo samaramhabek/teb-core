@@ -75,7 +75,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="country_id">Country</label>
-                            <select id="country_id" name="country_id" class="select2 form-select">
+                            <select id="country_id" name="country_id" class="form-select">
                                 <option value="">Select</option>
                                 @foreach($countries as $country)
                                     <option value="{{$country->id}}">{{$country->name}}</option>

@@ -3,11 +3,11 @@
  */
 
 'use strict';
-var list_countries = $("#list_countries").data('countries');
+var list_courses = $("#list_courses").data('courses');
 const validationMessages = $('#validation-messages');
 const addNewTranslation = validationMessages.data('add-new');
-const nameEnRequiredTranslation = validationMessages.data('name-en-required');
-const nameArRequiredTranslation = validationMessages.data('name-ar-required');
+const textEnRequiredTranslation = validationMessages.data('text-en-required');
+const textArRequiredTranslation = validationMessages.data('text-ar-required');
 const courseIdRequiredTranslation = validationMessages.data('course-id-required');
 const exportFile = validationMessages.data('export');
 const selectOption = validationMessages.data('select');
@@ -29,11 +29,11 @@ const delete_done = validationMessages.data('delete_done');
 // Datatable (jquery)
 $(function () {
     // Variable declaration for table
-    var dt_category_table = $('.datatables-lessons'),
+    var dt_category_table = $('.datatables-exam-questions'),
         select2 = $('.select2'),
         sub_select2 = $('.select2_sub'),
-        categoryView = baseUrl + '/admin/api-lessons',
-        offCanvasForm = $('#offcanvasAddLesson');
+        categoryView = baseUrl + '/admin/api-exam_questions',
+        offCanvasForm = $('#offcanvasAddquestion');
 
     if (select2.length) {
         var $this = select2;
@@ -63,29 +63,19 @@ $(function () {
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseUrl + '/admin/api-lessons'
+                url: baseUrl + '/admin/api-exam_questions'
             },
             columns: [
                 // columns according to JSON
                 { data: '' },
                 { data: 'id' },
-                { data: 'name'},
-                { data: 'Course'},
+                { data: 'text'},
+                { data: 'course'},
                 { data: 'created_at'},
-                { data: 'video_url',
-                render: function(data, type, row) {
-                    if (type === 'display' && data) {
-                        return '<a href="' + data + '" target="_blank">Watch Video</a>';
-                    }
-                    return data;
-                }},
-                { data: 'file',
-                render: function(data, type, row) {
-                    if (type === 'display' && data) {
-                        return '<a href="' + data.original_url + '" target="_blank">file</a>';
-                    }
-                    return data;
-                }},
+                { data: 'answer1'},
+                { data: 'answer2'},
+                { data: 'answer3'},
+                { data: 'answer4'},
                 { data: 'action' }
             ],
             columnDefs: [
@@ -151,15 +141,6 @@ $(function () {
                         return '<span class="course-slug">' + $course + '</span>';
                     }
                 },
-                // {
-                //     // Slug
-                //     targets: 4,
-                //     render: function (data, type, full, meta) {
-                //         var $sub_category = full['sub_category'];
-
-                //         return '<span class="category-slug">' + $sub_category + '</span>';
-                //     }
-                // },
                 {
                     // Created at
                     targets: 4,
@@ -167,6 +148,50 @@ $(function () {
                         var $created_at = full['created_at'];
 
                         return '<span class="category-created_at">' + $created_at + '</span>';
+                    }
+                },
+                {
+                    targets: 5,
+                    render: function (data, type, full, meta) {
+                        var correctAnswer = full.correct; // Assuming 'correct' is the field indicating the correct answer    
+                        if (correctAnswer == 1) {
+                            return '<span class="bg-label-success">Correct: ' + data + '</span>';
+                        } else {
+                            return '<span class="bg-label-danger">Incorrect: ' + data + '</span>';
+                        }
+                    }
+                },
+                {
+                    targets: 6,
+                    render: function (data, type, full, meta) {
+                        var correctAnswer = full.correct; // Assuming 'correct' is the field indicating the correct answer    
+                        if (correctAnswer == 2) {
+                            return '<span class="bg-label-success">Correct: ' + data + '</span>';
+                        } else {
+                            return '<span class="bg-label-danger">Incorrect: ' + data + '</span>';
+                        }
+                    }
+                },
+                {
+                    targets: 7,
+                    render: function (data, type, full, meta) {
+                        var correctAnswer = full.correct; // Assuming 'correct' is the field indicating the correct answer    
+                        if (correctAnswer == 3) {
+                            return '<span class="bg-label-success">Correct: ' + data + '</span>';
+                        } else {
+                            return '<span class="bg-label-danger">Incorrect: ' + data + '</span>';
+                        }
+                    }
+                },
+                {
+                    targets: 8,
+                    render: function (data, type, full, meta) {
+                        var correctAnswer = full.correct; // Assuming 'correct' is the field indicating the correct answer    
+                        if (correctAnswer == 4) {
+                            return '<span class="bg-label-success">Correct: ' + data + '</span>';
+                        } else {
+                            return '<span class="bg-label-danger">Incorrect: ' + data + '</span>';
+                        }
                     }
                 },
                 {
@@ -178,7 +203,7 @@ $(function () {
                     render: function (data, type, full, meta) {
                         return (
                             '<div class="d-inline-block text-nowrap">' +
-                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddLesson"><i class="ti ti-edit"></i></button>` +
+                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddQuestion"><i class="ti ti-edit"></i></button>` +
                             `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
                             // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
                             // '<div class="dropdown-menu dropdown-menu-end m-0">' +
@@ -222,7 +247,7 @@ $(function () {
                     buttons: [
                         {
                             extend: 'print',
-                            title: 'Lessons',
+                            title: 'courses',
                             text: '<i class="ti ti-printer me-2" ></i>Print',
                             className: 'dropdown-item',
                             exportOptions: {
@@ -370,7 +395,7 @@ $(function () {
                     className: 'add-new btn btn-primary',
                     attr: {
                         'data-bs-toggle': 'offcanvas',
-                        'data-bs-target': '#offcanvasAddLesson'
+                        'data-bs-target': '#offcanvasAddQuestion'
                     }
                 }
             ],
@@ -380,7 +405,7 @@ $(function () {
                     display: $.fn.dataTable.Responsive.display.modal({
                         header: function (row) {
                             var data = row.data();
-                            return 'Details of ' + data['name'];
+                            return 'Details of ' + data['text'];
                         }
                     }),
                     type: 'column',
@@ -425,8 +450,7 @@ $(function () {
 
     // Delete Record
     $(document).on('click', '.delete-record', function () {
-        console.log($(this).data('id'))
-        var lesson_id = $(this).data('id'),
+        var question_id = $(this).data('id'),
             dtrModal = $('.dtr-bs-modal.show');
 
         // hide responsive modal in small screen
@@ -453,7 +477,7 @@ $(function () {
                 // delete the data
                 $.ajax({
                     type: 'DELETE',
-                    url: `${baseUrl}/admin/lessons/${lesson_id}`,
+                    url: `${baseUrl}/admin/exam_questions/${question_id}`,
                     success: function () {
                         dt_category.draw();
                     },
@@ -473,7 +497,7 @@ $(function () {
             } else if (result.dismiss === Swal.DismissReason.cancel) {
                 Swal.fire({
                     title: cancel,
-                    text: 'The Lesson is not deleted!',
+                    text: 'The Question is not deleted!',
                     icon: 'error',
                     customClass: {
                         confirmButton: 'btn btn-success'
@@ -488,8 +512,8 @@ $(function () {
 
     // changing the title
     $('.add-new').on('click', function () {
-        $('#lesson').val(''); //reseting input field
-        $('#offcanvasAddLessonLabel').html(addNewTranslation);
+        $('#question').val(''); //reseting input field
+        $('#offcanvasAddQuestionLabel').html(addNewTranslation);
     });
 
     // Filter form control to default size
@@ -500,22 +524,22 @@ $(function () {
     }, 300);
 
     // validating form and updating categories data
-    const addNewLessonForm = document.getElementById('addNewLessonForm');
+    const addNewQuestionForm = document.getElementById('addNewQuestionForm');
 
     // category form validation
-    const fv = FormValidation.formValidation(addNewLessonForm, {
+    const fv = FormValidation.formValidation(addNewQuestionForm, {
         fields: {
-            name_en: {
+            text_en: {
                 validators: {
                     notEmpty: {
-                        message: validationMessages.data('name-en-required')
+                        message: validationMessages.data('text-en-required')
                     }
                 }
             },
-            name_ar: {
+            text_ar: {
                 validators: {
                     notEmpty: {
-                        message: validationMessages.data('name-ar-required')
+                        message: validationMessages.data('text-ar-required')
                     }
                 }
             },
@@ -543,11 +567,11 @@ $(function () {
             autoFocus: new FormValidation.plugins.AutoFocus()
         }
     }).on('core.form.valid', function () {
-        var formData = new FormData(addNewLessonForm);
+        var formData = new FormData(addNewQuestionForm);
         // adding or updating category when form successfully validate
         $.ajax({
             // data: $('#addNewCategoryForm').serialize(),
-            url: `${baseUrl}/${lang}/admin/lessons`,
+            url: `${baseUrl}/${lang}/admin/exam_questions`,
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -557,7 +581,7 @@ $(function () {
                 dt_category.draw();
                 offCanvasForm.offcanvas('hide');
                 // Clear form inputs
-                $('#addNewLessonForm').trigger('reset');
+                $('#addNewQuestionForm').trigger('reset');
 
                 // sweetalert
                 Swal.fire({

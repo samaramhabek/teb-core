@@ -46,7 +46,7 @@
                            </div>
                            <div class="mb-3">
                                <label class="form-label" for="category_id">{{__('cp.maincategory')}}</label>
-                               <select id="category_id" name="category_id" class="select2 form-select">
+                               <select id="category_id" name="category_id" class="form-select">
                                    <option value="">Select</option>
                                    @foreach($parent_categories as $category)
                                        <option value="{{$category->id}}">{{$category->name}}</option>
@@ -55,7 +55,7 @@
                            </div>
                            <div class="mb-3">
                                <label class="form-label" for="child_category_id">{{__('cp.subcategory')}}</label>
-                               <select id="child_category_id" name="child_category_id" class="select2_sub form-select">
+                               <select id="child_category_id" name="child_category_id" class="form-select">
                                    <option value="">Select</option>
 {{--                                   @foreach($child_categories as $sub)--}}
 {{--                                       <option value="{{$sub->id}}">{{$sub->name}}</option>--}}
@@ -73,7 +73,7 @@
     </div>
 
     <div id="validation-messages" style="display: none;"
-         data-add-new="{{ trans('cp.add_treatments') }}"
+         data-add-new="{{ trans('cp.add_cases') }}"
          data-edit="{{ trans('cp.edit') }}"
          data-name-en-required="{{ trans('cp.name_en_required') }}"
          data-name-ar-required="{{ trans('cp.name_ar_required') }}"

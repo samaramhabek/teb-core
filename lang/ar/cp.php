@@ -1199,7 +1199,13 @@ return [
     'add_lessons'=>'إضافة درس',
     'video_url'=>'فيديو',
     
-
+'articles'=>'مقالات',
+'add_articles'=>'اضف مقالات',
+'article_name'=>'اسم المقالة',
+'reviewer_name'=>'مراجع المقال',
+'writer_name'=>'كاتب المقال',
+'published_at'=>'تاريخ و وقت المقال',
+'choose'=>'اختر'
 
 ];
 

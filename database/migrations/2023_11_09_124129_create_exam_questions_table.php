@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('exam_questions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('text');
             $table->foreignId('course_id')->nullable()->constrained('courses', 'id')->nullOnDelete();
-            $table->string('video_url')->nullable(); // Add this column for Vimeo video link
+            $table->string('answer1')->nullable();
+            $table->string('answer2')->nullable();
+            $table->string('answer3')->nullable();
+            $table->string('answer4')->nullable();
+            $table->integer('correct')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('exam_questions');
     }
 };

@@ -9,7 +9,15 @@
     data-template="vertical-menu-template"
 >
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+
+    <script src="https://cdn.tiny.cloud/1/ch4u39vncjyehmamw3p10yadh46zagl8fhcsvicjho3r7ax9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <meta charset="utf-8" />
+    {{-- <meta name="keywords" content=@yield('meta_tags')> --}}
+    <meta name ="description", content="@yield('meta_description', 'We build e-commerce site, management site, Android, iOS apps, and teach software development courses online.Laravel, Java, NodeJs, PHP technology.')">
+<meta name ="keywords", content="@yield('meta_tags', 'We build e-commerce site, management site, Android, iOS apps, and teach software development courses online.Laravel, Java, NodeJs, PHP technology.')">
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
