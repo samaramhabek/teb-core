@@ -264,20 +264,13 @@
                                     
                                     
                                     <!-- /Col -->
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="check">
-                                                {{__('cp.trainer')}}:
-                                                <input type="checkbox" name="is_trainer" {{ optional($doctor)->is_trainer ? 'checked' : '' }} />
-                                              
-                                            </label>
-                                        </div>
-                                    </div>
+                                  
                                      
                                     </div>
+                                    <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control lat"
+                                            <input type="text" class="form-control"
                                                 placeholder="{{__('cp.lat')}}" name="lat" required value="{{optional($doctor)->lat}}" />
                                               
                                         </div>
@@ -289,6 +282,16 @@
                                         placeholder="{{__('cp.lang')}}" name="lang" required value="{{optional($doctor)->lang}}" />
                                         </div> 
                                       
+                                    </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="check">
+                                                {{__('cp.trainer')}}:
+                                                <input type="checkbox" name="is_trainer" {{ optional($doctor)->is_trainer ? 'checked' : '' }} />
+                                              
+                                            </label>
+                                        </div>
                                     </div>
 
                                    
@@ -340,7 +343,7 @@
                                         <div class="col-md-6">
                                             <h3>{{__('cp.hospitals')}}</h3>
                                             <div class="form-group">
-                                                <label for="categories"> "{{__('cp.hospitals')}}" </label>
+                                                <label for="categories"> {{__('cp.hospitals')}} </label>
                                                 <select class="form-control" name="hospitals[]" multiple>
                                                     @foreach($Hospitals as $hospital)
                                                     <option value="{{ $hospital->id }}" 
@@ -587,7 +590,7 @@
                                         <div class="form-group">
                                             <button class="btn btn-default btn-next" type="button"
                                                 aria-controls="step-4">
-                                                <span>المرحلة التاليه</span>
+                                                <span>{{__('cp.next_step')}} </span>
                                             </button>
                                         </div>
                                     </div>
@@ -597,7 +600,7 @@
 
                             <fieldset aria-label="Step Two" id="step-4">
                                 <div class="title-step">
-                                    <h3>تحميل الوثائق</h3>
+                                    <h3>{{__('cp.upload_documents')}} </h3>
                                 </div>
 
                                 <div class="form-h row">
@@ -605,30 +608,30 @@
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="upload1">تحميل شهادة المزاولة</label>
+                                            <label for="upload1">{{__('cp.Download_the_practice_certificate')}}  </label>
                                             <input type="file" class="form-control" name="upload1" />
                                             {{-- @if($doctor->upload1->original_url ) --}}
-                                                <p>Existing File: <a href="{{ $doctor->upload1->original_url  ?? null}}" target="_blank">{{ $doctor->upload1->file_name ?? null}}</a></p>
+                                                <p>{{__('cp.existing_file')}}: <a href="{{ $doctor->upload1->original_url  ?? null}}" target="_blank">{{ $doctor->upload1->file_name ?? null}}</a></p>
                                             {{-- @endif --}}
                                         </div>
                                     </div>
                                     
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="upload2">تحميل شهادة الجامعة</label>
+                                            <label for="upload2">  {{__('cp.download_university_certificate')}}</label>
                                             <input type="file" class="form-control" name="upload2" />
                                             {{-- @if(optional($doctor->upload2)->original_url) --}}
-                                                <p>Existing File: <a href="{{ $doctor->upload2->original_url ?? null }}" target="_blank">{{ $doctor->upload2->file_name ?? null }}</a></p>
+                                                <p>{{__('cp.existing_file')}}: <a href="{{ $doctor->upload2->original_url ?? null }}" target="_blank">{{ $doctor->upload2->file_name ?? null }}</a></p>
                                             {{-- @endif --}}
                                         </div>
                                     </div>
                                     
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="upload3">تحميل الهوية الشخصية</label>
+                                            <label for="upload3">{{__('cp.download_your_personal_iD')}}</label>
                                             <input type="file" class="form-control" name="upload3" />
                                             {{-- @if(optional($doctor->upload3)->original_url) --}}
-                                                <p>Existing File: <a href="{{ $doctor->upload3->original_url ?? null }}" target="_blank">{{ $doctor->upload3->file_name ?? null }}</a></p>
+                                                <p>{{__('cp.existing_file')}}: <a href="{{ $doctor->upload3->original_url ?? null }}" target="_blank">{{ $doctor->upload3->file_name ?? null }}</a></p>
                                             {{-- @endif --}}
                                         </div>
                                     </div>
@@ -650,14 +653,14 @@
                                     <div class="form-group">
                                         <button class="btn btn-default btn-next" type="button"
                                             aria-controls="step-5">
-                                            <span>المرحلة التاليه</span>
+                                            <span>{{__('cp.next_step')}} </span>
                                         </button>
                                     </div>
                                 </div>
                             </fieldset>
                             <fieldset aria-label="Step Five" id="step-5">
                                 <div class="title-step">
-                                    <h3>{{__('cp.apointment')}}</h3>
+                                    <h3>{{__('cp.appointment')}}</h3>
                                 </div>
                                 {{-- @foreach( $services as $service) --}}
                                 @if($doctor)
