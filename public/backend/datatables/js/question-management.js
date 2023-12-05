@@ -416,7 +416,7 @@ $(function () {
 
     // Delete Record
     $(document).on('click', '.delete-record', function () {
-        var lesson_id = $(this).data('id'),
+        var question_id = $(this).data('id'),
             dtrModal = $('.dtr-bs-modal.show');
 
         // hide responsive modal in small screen

@@ -114,12 +114,12 @@ Route::group(
         Route::get('/api-lessons', [LessonsController::class, 'lessons_api'])->name('lessons.api');
         Route::get('/lessons/{id}/edit', [HospitalController::class,'edit'] );
 
-        Route::get('/questions/{id}/edit', [QuestionsController::class,'edit'] );
+        // Route::get('/questions/{id}/edit', [QuestionsController::class,'edit'] );
         Route::resource('/questions', QuestionsController::class);   
         Route::get('/api-questions', [QuestionsController::class, 'questions_api'])->name('questions.api');
 
 
-        Route::get('/exam_questions/{id}/edit', [ExamQuestionsController::class,'edit'] );
+        // Route::get('/exam_questions/{id}/edit', [ExamQuestionsController::class,'edit'] );
         Route::resource('/exam_questions', ExamQuestionsController::class);   
         Route::get('/api-exam_questions', [ExamQuestionsController::class, 'exam_questions_api'])->name('exam_questions.api');
 

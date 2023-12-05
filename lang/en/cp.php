@@ -1086,6 +1086,8 @@ return [
 'questions'=>'questions',
     'exam_questions'=>'exam questions',
     'text'=>'question',
+    'text_ar'=>'question arabic',
+    'text_en'=>'question english',
     'answer1'=>'answer1',
     'answer2'=>'answer2',
     'answer3'=>'answer3',

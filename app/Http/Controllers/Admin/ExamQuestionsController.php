@@ -192,7 +192,7 @@ class ExamQuestionsController extends Controller
      */
     public function destroy($question)
     {
-        $question->delete();
+        ExamQuestion::where('id',$question)->delete();
         return 'question deleted';
     }
 }

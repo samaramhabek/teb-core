@@ -51,14 +51,14 @@
                             <!-- Answers -->
                            <div class="form-group">
                                 <label>{{__('cp.answers')}}</label>
-                                <input type="text" class="form-control" name="answer1_ar" placeholder="{{__('cp.answer1_ar')}}" required>
-                                <input type="text" class="form-control" name="answer1_en" placeholder="{{__('cp.answer1_en')}}" required>
-                                <input type="text" class="form-control" name="answer2_ar" placeholder="{{__('cp.answer2_ar')}}" required>
-                                <input type="text" class="form-control" name="answer2_en" placeholder="{{__('cp.answer2_en')}}" required>
-                                <input type="text" class="form-control" name="answer3_ar" placeholder="{{__('cp.answer3_ar')}}" required>
-                                <input type="text" class="form-control" name="answer3_en" placeholder="{{__('cp.answer3_en')}}" required>
-                                <input type="text" class="form-control" name="answer4_ar" placeholder="{{__('cp.answer4_ar')}}" required>
-                                <input type="text" class="form-control" name="answer4_en" placeholder="{{__('cp.answer4_en')}}" required>
+                                <input type="text" class="form-control" id="answer1_ar"  name="answer1_ar" placeholder="{{__('cp.answer1_ar')}}" required>
+                                <input type="text" class="form-control" id="answer1_en" name="answer1_en" placeholder="{{__('cp.answer1_en')}}" required>
+                                <input type="text" class="form-control" id="answer2_ar" name="answer2_ar" placeholder="{{__('cp.answer2_ar')}}" required>
+                                <input type="text" class="form-control" id="answer2_en" name="answer2_en" placeholder="{{__('cp.answer2_en')}}" required>
+                                <input type="text" class="form-control" id="answer3_ar" name="answer3_ar" placeholder="{{__('cp.answer3_ar')}}" required>
+                                <input type="text" class="form-control" id="answer3_en"name="answer3_en" placeholder="{{__('cp.answer3_en')}}" required>
+                                <input type="text" class="form-control" id="answer4_ar" name="answer4_ar" placeholder="{{__('cp.answer4_ar')}}" required>
+                                <input type="text" class="form-control" id="answer4_en" name="answer4_en" placeholder="{{__('cp.answer4_en')}}" required>
                           </div>
 
                             <!-- Correct Answer -->
@@ -73,7 +73,7 @@
                           </div>
                            <div class="mb-3">
                                <label class="form-label" for="lesson_id">{{__('cp.lesson')}}</label>
-                               <select id="lesson_id" name="lesson_id" class="select2 form-select">
+                               <select id="lesson_id" name="lesson_id" class="form-control">
                                    <option value="">Select</option>
 
                                    @foreach($lessons as $lesson)
@@ -132,7 +132,7 @@
         $(document).ready(function () {
 
             $(document).on('click', '.edit-record', function () {
-                var lesson_id = $(this).data('id'),
+                var question_id = $(this).data('id'),
                     dtrModal = $('.dtr-bs-modal.show');
 
                 // hide responsive modal in small screen
@@ -146,19 +146,20 @@
 
                 // get data
                 $.get(`${baseUrl}/admin/questions\/${question_id}\/edit`, function (data) {
-                    console.log('data',data.id)
+                    console.log('data',data)
                     $('#question_id').val(data.id);
                     $('#lesson_id').val(data.lesson_id);
+                    $('#correct').val(data.correct);
                     $('#add-question-text-ar').val(data.text.ar);
                     $('#add-question-text-en').val(data.text.en);
-                    $('#add-question-answer1-ar').val(data.answer1.ar);
-                    $('#add-question-answer1-en').val(data.answer1.en);
-                    $('#add-question-answer2-ar').val(data.answer2.ar);
-                    $('#add-question-answer2-en').val(data.answer2.en);
-                    $('#add-question-answer3-ar').val(data.answer3.ar);
-                    $('#add-question-answer3-en').val(data.answer3.en);
-                    $('#add-question-answer4-ar').val(data.answer4.ar);
-                    $('#add-question-answer4-en').val(data.answer4.en);
+                    $('#answer1_ar').val(data.answer1.ar);
+                    $('#answer1_en').val(data.answer1.en);
+                    $('#answer2_ar').val(data.answer2.ar);
+                    $('#answer2_en').val(data.answer2.en);
+                    $('#answer3_ar').val(data.answer3.ar);
+                    $('#answer3_en').val(data.answer3.en);
+                    $('#answer4_ar').val(data.answer4.ar);
+                    $('#answer4_en').val(data.answer4.en);
                 });
             });
 

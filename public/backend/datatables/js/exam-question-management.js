@@ -32,8 +32,7 @@ $(function () {
     var dt_category_table = $('.datatables-exam-questions'),
         select2 = $('.select2'),
         sub_select2 = $('.select2_sub'),
-        categoryView = baseUrl + '/admin/api-exam_questions',
-        offCanvasForm = $('#offcanvasAddquestion');
+        offCanvasForm = $('#offcanvasAddQuestion');
 
     if (select2.length) {
         var $this = select2;
@@ -545,7 +544,9 @@ $(function () {
             processData: false,
             success: function (status) {
                 dt_category.draw();
+                console.log('aa')
                 offCanvasForm.offcanvas('hide');
+                console.log('bb')
                 // Clear form inputs
                 $('#addNewQuestionForm').trigger('reset');
 

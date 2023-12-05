@@ -190,9 +190,9 @@ class QuestionsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($lesson)
+    public function destroy($question)
     {
-        $lesson->delete();
+        Question::where('id',$question)->delete();
         return 'question deleted';
     }
 }
