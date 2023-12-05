@@ -73,7 +73,7 @@
                     <div class="col-md-6"></div> --}}
 {{-- {{$article}} --}}
                     <div class="bs-stepper-content  multi-step-form">
-                        <form id="addNewDoctorForm" action="{{ route('admin.createArticle') }}" method="post"  enctype="multipart/form-data"  id="addNewDoctorForm">
+                        <form  id="addNewDoctorForm"  enctype="multipart/form-data">
                             @csrf
                            
                             <input type="hidden" name="id" value="{{optional($article)->id}}">
@@ -350,7 +350,7 @@
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button class="btn btn-success btn-done" type="submit">
+                                            <button class="btn btn-success btn-done" type="button"  onclick="formSubmit()">
                                                 <span>إرسال</span>
                                             </button>
                                         </div>
@@ -408,40 +408,59 @@
         readURL(this);
     });
 
-        document.getElementById('addNewDoctorForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        console.log('success');
-        // Create a FormData object to send the form data
-        const formData = new FormData(this);
-        console.log('lkj',formData);
-        // Submit the form using fetch
-        fetch(this.action, {
+    //     document.getElementById('addNewDoctorForm').addEventListener('submit', function (event) {
+    //     event.preventDefault();
+    //     console.log('success');
+    //     // Create a FormData object to send the form data
+    //     const formData = new FormData(this);
+    //     console.log('lkj',formData);
+    //     // Submit the form using fetch
+    //     fetch(this.action, {
+    //         method: 'POST',
+    //         body: formData,
+            
+    //     })
+        
+    //     .then(response => response.json())
+       
+    //     .then(data => {
+    //     //     console.log('success');
+    //         // Handle the JSON response
+    //         console.log('uh',data);
+
+    //         // You can perform actions based on the response here
+    //         if (data.message === 'success') {
+    //             // Do something on success, for example, show a success message
+    //             window.location.href = "{{ route('admin.article.index') }}";
+    //         } else {
+    //             // Handle other cases if needed
+    //             alert('Form submission failed');
+    //         }
+    //     })
+    //     .catch(error => {
+    //         // Handle errors if any
+    //         console.error('Error:', error);
+    //     });
+    //  });
+    function formSubmit()
+{
+    console.log('formData');
+var formData = new FormData(document.getElementById("addNewDoctorForm"));
+        var action='{{ route('admin.createArticle') }}';
+
+       fetch(action, {
             method: 'POST',
             body: formData,
-            
-        })
-        
-        .then(response => response.json())
-       
-        .then(data => {
-        //     console.log('success');
-            // Handle the JSON response
-            console.log('uh',data);
-
-            // You can perform actions based on the response here
-            if (data.message === 'success') {
-                // Do something on success, for example, show a success message
+        }).then(response => response.json()).then(data => {
+                if (data.message === 'success') {
                 window.location.href = "{{ route('admin.article.index') }}";
-            } else {
-                // Handle other cases if needed
+                }
+                else {
                 alert('Form submission failed');
             }
         })
-        .catch(error => {
-            // Handle errors if any
-            console.error('Error:', error);
-        });
-     });
+
+}
 
      var input = document.querySelector('input[name=meta_tags]');
 
