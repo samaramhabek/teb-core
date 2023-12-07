@@ -63,7 +63,7 @@ $(function () {
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseUrl + '/admin/api-questions'
+                url: baseUrl + '/admin/api-questions?lesson_id='+lesson_id
             },
             columns: [
                 // columns according to JSON

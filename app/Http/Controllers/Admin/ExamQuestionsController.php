@@ -11,12 +11,17 @@ use Illuminate\Support\Facades\Log;
 
 class ExamQuestionsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
       //  $categories = Category::latest()->get();
         // $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
         $courses = Course::all();
-        return view('backend.examquestions.index', compact('courses'));
+        $course_id=0;
+        if($request->has('course_id'))
+        {
+            $course_id=$request->course_id;
+        }
+        return view('backend.examquestions.index', compact('courses','course_id'));
     }
 
     public function exam_questions_api(Request $request)
@@ -34,7 +39,9 @@ class ExamQuestionsController extends Controller
         ];
 
         $search = $request->input('search.value');
-        $courseId = $request->input('course_id');
+        $courseId = $request->course_id;
+        log::info('$request->course_id');
+        log::info($request->course_id);
 
 
 
@@ -56,7 +63,7 @@ class ExamQuestionsController extends Controller
         }
 
         // Filter by category if a category ID is provided
-        if (!empty($courseId)) {
+        if ($courseId!=0) {
             $query->where('course_id', $courseId);
         }
 

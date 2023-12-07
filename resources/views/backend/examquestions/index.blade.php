@@ -7,6 +7,7 @@
            <div class="row g-4 mb-4">
 
            </div>
+           <input type="hidden" value="{{ $course_id }}" name="course_id_filtering" id="course_id_filtering">
            <!-- Categories List Table -->
            <div class="card">
                <div class="card-header">
@@ -71,7 +72,7 @@
                                     <option value="4">{{__('cp.answer4')}}</option>
                                 </select>
                           </div>
-                           <div class="mb-3">
+                           {{-- <div class="mb-3">
                                <label class="form-label" for="course_id">{{__('cp.course')}}</label>
                                <select id="course_id" name="course_id" class="form-control">
                                    <option value="">Select</option>
@@ -80,7 +81,29 @@
                                        <option value="{{$course->id}}">{{$course->name}}</option>
                                    @endforeach
                                </select>
+                           </div> --}}
+                           @if($course_id!=0)
+                           <div class="mb-3">
+                               <label class="form-label" for="course_id">{{__('cp.course')}}</label>
+                               <select id="course_id" name="course_id" class="select2 form-select">
+                                   @foreach($courses as $course)
+                                       @if($course->id == $course_id)
+                                           <option selected value="{{$course->id}}">{{$course->name}}</option>
+                                       @endif
+                                   @endforeach
+                               </select>
                            </div>
+                           @else   
+                           <div class="mb-3">
+                               <label class="form-label" for="course_id">{{__('cp.course')}}</label>
+                               <select id="course_id" name="course_id" class="select2 form-select">
+                                   <option value="">Select</option>
+                                   @foreach($courses as $course)
+                                       <option value="{{$course->id}}">{{$course->name}}</option>
+                                   @endforeach
+                               </select>
+                           </div>                   
+                           @endif
 
                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">{{__('cp.save')}}</button>
                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">{{__('cp.cancel')}}</button>
@@ -164,5 +187,6 @@
             });
 
         });
+        course_id=document.getElementById('course_id_filtering').value
     </script>
 @endpush

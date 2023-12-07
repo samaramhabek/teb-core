@@ -12,6 +12,7 @@
                <div class="card-header">
 {{--                   <h5 class="card-title mb-0">Search Filter</h5>--}}
                </div>
+               <input type="hidden" value="{{ $course_id }}" name="course_id_filtering" id="course_id_filtering">
                <div class="card-datatable table-responsive">
                    <table class="datatables-lessons table">
                        <thead class="border-top">
@@ -56,16 +57,28 @@
                                 {{-- <p>Existing File: <a href="{{ $doctor->upload1->original_url  ?? null}}" target="_blank">{{ $doctor->upload1->file_name ?? null}}</a></p> --}}
                          <span id="fileInfo"></span>
                             </div>
-                           <div class="mb-3">
-                               <label class="form-label" for="course_id">{{__('cp.course')}}</label>
-                               <select id="course_id" name="course_id" class="select2 form-select">
-                                   <option value="">Select</option>
-
-                                   @foreach($courses as $course)
-                                       <option value="{{$course->id}}">{{$course->name}}</option>
-                                   @endforeach
-                               </select>
-                           </div>
+                            @if($course_id!=0)
+                            <div class="mb-3">
+                                <label class="form-label" for="course_id">{{__('cp.course')}}</label>
+                                <select id="course_id" name="course_id" class="select2 form-select">
+                                    @foreach($courses as $course)
+                                        @if($course->id == $course_id)
+                                            <option selected value="{{$course->id}}">{{$course->name}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                            @else   
+                            <div class="mb-3">
+                                <label class="form-label" for="course_id">{{__('cp.course')}}</label>
+                                <select id="course_id" name="course_id" class="select2 form-select">
+                                    <option value="">Select</option>
+                                    @foreach($courses as $course)
+                                        <option value="{{$course->id}}">{{$course->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>                   
+                            @endif
 
                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">{{__('cp.save')}}</button>
                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">{{__('cp.cancel')}}</button>
@@ -134,7 +147,6 @@
 
                 // get data
                 $.get(`${baseUrl}/admin/lessons\/${lesson_id}\/edit`, function (data) {
-                    console.log('Data from the server:', data);
                     $('#lesson_id').val(data.id);
                     $('#course_id').val(data.course_id).trigger('change');
                    // $('#file1').val(data.file.file_name);
@@ -151,10 +163,12 @@
                   
                     $('#add-lesson-name-ar').val(data.name.ar);
                     $('#add-lesson-name-en').val(data.name.en);
-                    $('#add-lessonvideo_url').val(data.video_url);
+                    $('#add-lesson-video_url').val(data.video_url);
                 });
             });
 
         });
+        course_id=document.getElementById('course_id_filtering').value
+        
     </script>
 @endpush

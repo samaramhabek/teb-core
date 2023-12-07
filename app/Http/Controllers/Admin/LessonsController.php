@@ -12,12 +12,17 @@ use Illuminate\Support\Facades\Log;
 
 class LessonsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
       //  $categories = Category::latest()->get();
         // $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
         $courses = Course::all();
-        return view('backend.lessons.index', compact('courses'));
+        $course_id=0;
+        if($request->has('course_id'))
+        {
+            $course_id=$request->course_id;
+        }
+        return view('backend.lessons.index', compact('courses','course_id'));
     }
 
     public function lessons_api(Request $request)
@@ -33,8 +38,8 @@ class LessonsController extends Controller
         ];
 
         $search = $request->input('search.value');
-        $courseId = $request->input('course_id');
-
+        $courseId = $request->course_id;
+        log::info($request->all());
 
 
         $totalData = Lesson::count();
@@ -55,7 +60,7 @@ class LessonsController extends Controller
         }
 
         // Filter by category if a category ID is provided
-        if (!empty($courseId)) {
+        if ($courseId!=0) {
             $query->where('course_id', $courseId);
         }
 
@@ -122,6 +127,7 @@ class LessonsController extends Controller
      */
     public function store(Request $request)
     {
+        log::info($request->all());
         $lessonId = $request->id;
 
         $request->validate([
@@ -176,7 +182,7 @@ class LessonsController extends Controller
     public function edit($id)
     {
         $lesson = Lesson::with('media')->where('id', $id)->first();
-
+        log::info($lesson);
         return response()->json($lesson);
     }
 

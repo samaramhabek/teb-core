@@ -63,7 +63,7 @@ $(function () {
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseUrl + '/admin/api-lessons'
+                url: baseUrl + '/admin/api-lessons?course_id='+course_id
             },
             columns: [
                 // columns according to JSON
@@ -180,13 +180,15 @@ $(function () {
                             '<div class="d-inline-block text-nowrap">' +
                             `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddLesson"><i class="ti ti-edit"></i></button>` +
                             `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
-                            // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
-                            // '<div class="dropdown-menu dropdown-menu-end m-0">' +
-                            // '<a href="' +
-                            // userView +
-                            // '" class="dropdown-item">View</a>' +
-                            // '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
-                            // '</div>' +
+                            '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
+                            '<div class="dropdown-menu dropdown-menu-end m-0">' +
+                            '<a href="' +
+                            baseUrl+'/'+lang+'/admin/questions?lesson_id='+full['id']+
+                            '" class="dropdown-item">Questions</a>' +
+                            // '<a href="'+
+                            // baseUrl+'/'+lang+'/admin/exam_questions?course_id='+full['id']+
+                            // '"javascript:;" class="dropdown-item">Final Exam</a>' +
+                            '</div>' +
                             '</div>'
                         );
                     }
@@ -545,6 +547,7 @@ $(function () {
     }).on('core.form.valid', function () {
         var formData = new FormData(addNewLessonForm);
         // adding or updating category when form successfully validate
+        console.log('form',formData)
         $.ajax({
             // data: $('#addNewCategoryForm').serialize(),
             url: `${baseUrl}/${lang}/admin/lessons`,
@@ -601,7 +604,6 @@ $(function () {
             }
         });
     });
-
     // clearing form data when offcanvas hidden
     offCanvasForm.on('hidden.bs.offcanvas', function () {
         fv.resetForm(true);

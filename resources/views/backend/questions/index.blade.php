@@ -12,6 +12,7 @@
                <div class="card-header">
 {{--                   <h5 class="card-title mb-0">Search Filter</h5>--}}
                </div>
+               <input type="hidden" value="{{ $lesson_id }}" name="lesson_id_filtering" id="lesson_id_filtering">
                <div class="card-datatable table-responsive">
                    <table class="datatables-questions table">
                        <thead class="border-top">
@@ -71,7 +72,7 @@
                                     <option value="4">{{__('cp.answer4')}}</option>
                                 </select>
                           </div>
-                           <div class="mb-3">
+                           {{-- <div class="mb-3">
                                <label class="form-label" for="lesson_id">{{__('cp.lesson')}}</label>
                                <select id="lesson_id" name="lesson_id" class="form-control">
                                    <option value="">Select</option>
@@ -80,7 +81,29 @@
                                        <option value="{{$lesson->id}}">{{$lesson->name}}</option>
                                    @endforeach
                                </select>
+                           </div> --}}
+                           @if($lesson_id!=0)
+                           <div class="mb-3">
+                               <label class="form-label" for="lesson_id">{{__('cp.lesson')}}</label>
+                               <select id="lesson_id" name="lesson_id" class="select2 form-select">
+                                   @foreach($lessons as $lesson)
+                                       @if($lesson->id == $lesson_id)
+                                           <option selected value="{{$lesson->id}}">{{$lesson->name}}</option>
+                                       @endif
+                                   @endforeach
+                               </select>
                            </div>
+                           @else   
+                           <div class="mb-3">
+                               <label class="form-label" for="lesson_id">{{__('cp.lesson')}}</label>
+                               <select id="lesson_id" name="lesson_id" class="select2 form-select">
+                                   <option value="">Select</option>
+                                   @foreach($lessons as $lesson)
+                                       <option value="{{$lesson->id}}">{{$lesson->name}}</option>
+                                   @endforeach
+                               </select>
+                           </div>                   
+                           @endif
 
                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">{{__('cp.save')}}</button>
                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">{{__('cp.cancel')}}</button>
@@ -164,5 +187,6 @@
             });
 
         });
+        lesson_id=document.getElementById('lesson_id_filtering').value
     </script>
 @endpush

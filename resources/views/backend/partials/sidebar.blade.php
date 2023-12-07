@@ -139,21 +139,21 @@
                             <div>{{__('cp.courses')}}</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/exam_questions/index') ? 'active' : '' }}">
+                    {{-- <li class="menu-item {{ request()->is(app()->getLocale().'/admin/exam_questions/index') ? 'active' : '' }}">
                         <a href="{{route('admin.exam_questions.index')}}" class="menu-link">
                             <div>{{__('cp.exam_questions')}}</div>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="menu-item {{ request()->is(app()->getLocale().'/admin/lessons/index') ? 'active' : '' }}">
                         <a href="{{route('admin.lessons.index')}}" class="menu-link">
                             <div>{{__('cp.lessons')}}</div>
                         </a>
                     </li>
-                    <li class="menu-item {{ request()->is(app()->getLocale().'/admin/questions/index') ? 'active' : '' }}">
+                    {{-- <li class="menu-item {{ request()->is(app()->getLocale().'/admin/questions/index') ? 'active' : '' }}">
                         <a href="{{route('admin.questions.index')}}" class="menu-link">
                             <div>{{__('cp.questions')}}</div>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
                 <!-- end courses-->

@@ -11,12 +11,17 @@ use Illuminate\Support\Facades\Log;
 
 class QuestionsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
       //  $categories = Category::latest()->get();
         // $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
         $lessons = Lesson::all();
-        return view('backend.questions.index', compact('lessons'));
+        $lesson_id=0;
+        if($request->has('lesson_id'))
+        {
+            $lesson_id=$request->lesson_id;
+        }
+        return view('backend.questions.index', compact('lessons','lesson_id'));
     }
 
     public function questions_api(Request $request)
@@ -34,7 +39,7 @@ class QuestionsController extends Controller
         ];
 
         $search = $request->input('search.value');
-        $lessonId = $request->input('lesson_id');
+        $lessonId = $request->lesson_id;
 
 
 
@@ -56,7 +61,7 @@ class QuestionsController extends Controller
         }
 
         // Filter by category if a category ID is provided
-        if (!empty($lessonId)) {
+        if ($lessonId!=0) {
             $query->where('lesson_id', $lessonId);
         }
 

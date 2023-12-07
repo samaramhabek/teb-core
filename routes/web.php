@@ -109,10 +109,10 @@ Route::group(
         Route::resource('/courses', CoursesController::class);
         Route::get('/api-courses', [CoursesController::class, 'courses_api'])->name('courses.api');
 
-        Route::get('/lessons/{id}/edit', [LessonsController::class,'edit'] );
+        // Route::get('/lessons/{id}/edit', [LessonsController::class,'edit'] );
         Route::resource('/lessons', LessonsController::class);   
         Route::get('/api-lessons', [LessonsController::class, 'lessons_api'])->name('lessons.api');
-        Route::get('/lessons/{id}/edit', [HospitalController::class,'edit'] );
+        // Route::get('/lessons/{id}/edit', [HospitalController::class,'edit'] );
 
         // Route::get('/questions/{id}/edit', [QuestionsController::class,'edit'] );
         Route::resource('/questions', QuestionsController::class);   
