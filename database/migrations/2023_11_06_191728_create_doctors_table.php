@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->boolean('gender')->nullable();
             $table->foreignId('nationality_id')->nullable()->constrained('nationalities', 'id')->nullOnDelete();
+            // $table->foreignId('hospital_id')->nullable()->constrained('hospitals', 'id')->nullOnDelete();
+            $table->foreignId('area_id')->nullable()->constrained('areas', 'id')->nullOnDelete();
             // $table->foreignId('category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
             // $table->foreignId('child_category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
             // $table->foreignId('treatment_id')->nullable()->constrained('treatments', 'id')->nullOnDelete();
@@ -34,7 +36,8 @@ return new class extends Migration
 
             
             $table->foreignId('city_id')->nullable()->constrained();
-            $table->string('region')->nullable();
+            // $table->string('region')->nullable();
+            
             $table->string('address')->nullable();
            $table->string('Phone')->nullable();
 

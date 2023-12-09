@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Area;
 
 
 class DoctorController extends Controller
@@ -28,12 +29,17 @@ class DoctorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index2()
+    public function index2(Request $request)
     {
         $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
         $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
          // dd($parent_categories);
-        return view('.backend.doctors.final',compact(['parent_categories', 'child_categories']));
+         $hospital_id=0;
+         if($request->has('hospital_id'))
+         {
+             $hospital_id=$request->hospital_id;
+         }
+        return view('.backend.doctors.final',compact(['parent_categories', 'child_categories','hospital_id']));
     }
 
     public function doctors_api(Request $request)
@@ -58,18 +64,34 @@ class DoctorController extends Controller
 
         $search = $request->input('search.value');
         $categoryId = $request->input('category_id');
-
+        $hospitalId = $request->hospital_id;
 
 
         $totalData = Doctor::count();
 
-        $query = Doctor::with('service','insurances','treatments','cases','city')
-            ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
+        // $query = Doctor::with('service','insurances','treatments','cases','city','hospitals')
+        //     ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
+        $query = Doctor::with('service', 'insurances', 'treatments', 'cases', 'city', 'hospitals')
+        ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
+    
+    if ($hospitalId != 0) {
+        $query->whereHas('hospitals', function ($subQuery) use ($hospitalId) {
+            $subQuery->where('hospital_id', $hospitalId);
+        });
+    }
+    
+    // $result = $query->get();
+    
+    // ->get();
+
 
         // Filter by category if a category ID is provided
         if (!empty($categoryId)) {
             $query->where('category_id', $categoryId);
         }
+        // if ($hospitalId!=0) {
+        //     $query->where('hospital_id', $hospitalId);
+        // }
 
         $totalFiltered = $query->count();
         $limit = $request->input('length');
@@ -94,7 +116,7 @@ class DoctorController extends Controller
                 $nestedData['Phone'] = $doctor->Phone;
                 $nestedData['description'] = $doctor->description;
                 $nestedData['is_trainer'] = $doctor->is_trainer;
-                $nestedData['region'] = $doctor->region;
+                $nestedData['area_id'] = $doctor->area ? $doctor->area->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
                 $nestedData['lat'] = $doctor->lat;
                 $nestedData['lang'] = $doctor->lang;
                 // $nestedData['city_id'] = $doctor->city->name;
@@ -138,6 +160,7 @@ class DoctorController extends Controller
          $categories=Category::get();
          $treatments=Treatment::get();
          $insurances=Insurance::get();
+         $areas=Area::get();
          $cities=City::get();
          $child_categories = Category::whereNotNull('parent_id')->get();
          $Hospitals=Hospital::get();
@@ -168,8 +191,8 @@ class DoctorController extends Controller
  
          }
 
-         return view('backend.doctors.form',[ 'doctor'=>$doctors[0],'cases'=>$cases,'nationalities'=>$nationalities,'categories'=>$categories,
-      'services'=>$services, 'child_categories'=>$child_categories,  'Hospitals'=>$Hospitals, 'treatments'=>$treatments,'insurances'=>$insurances,'cities'=>$cities]);
+         return view('backend.doctors.form',[ 'doctor'=>$doctors[0],'areas'=>$areas,'cases'=>$cases,'nationalities'=>$nationalities,'categories'=>$categories,
+      'services'=>$services, 'child_categories'=>$child_categories,  'hospitals'=>$Hospitals, 'treatments'=>$treatments,'insurances'=>$insurances,'cities'=>$cities]);
      }
  
    
@@ -183,13 +206,15 @@ class DoctorController extends Controller
         $data['last_name'] = ['en' => $request->last_name_en, 'ar' => $request->last_name_ar];
         $data['description'] = ['en' => $request->description_en, 'ar' => $request->description_ar];
         $data['title'] = ['en' => $request->title_en, 'ar' => $request->title_ar];
-        $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];
+        // $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];
         $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
         $data['email'] = "ss@dd.com";
         $data['gender'] = $request->gender;
         $data['lat'] = (float) $request->lat;
         $data['lang'] = (float) $request->lang;
         $data['nationality_id'] = $request->nationality_id;
+        // $data['hospital_id'] = $request->hospital_id;
+        $data['area_id'] = $request->area_id;
         if($request->is_trainer){
          $data['is_trainer'] = 1;
         }
@@ -209,8 +234,8 @@ class DoctorController extends Controller
         $doctor->category_child()->sync($child_categories);
         $treatments =  $request->treatments;
         $doctor->treatments()->sync($treatments);
-        $hospitals = $request->hospitals;
-        $doctor->hospitals()->sync($hospitals);
+        // $hospitals = $request->hospitals;
+        // $doctor->hospitals()->sync($hospitals);
         $cases = $request->cases;
         $doctor->cases()->sync($cases);
         $insurances =  $request->insurances;

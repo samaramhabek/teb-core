@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('hospitals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('address')->nullable();
+            $table->integer('price')->nullable();
+            $table->integer('waittime')->nullable();
+            $table->foreignId('service_id')->nullable()->constrained('services', 'id')->nullOnDelete();
+            
+
             $table->timestamps();
         });
     }

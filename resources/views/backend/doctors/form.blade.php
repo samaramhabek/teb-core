@@ -340,20 +340,20 @@
                                     <div class="row">
                                         <!-- Col for Categories -->
                                         
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <h3>{{__('cp.hospitals')}}</h3>
                                             <div class="form-group">
-                                                <label for="categories"> {{__('cp.hospitals')}} </label>
-                                                <select class="form-control" name="hospitals[]" multiple>
-                                                    @foreach($Hospitals as $hospital)
-                                                    <option value="{{ $hospital->id }}" 
-                                                        @if(optional($doctor)->hospitals && $doctor->hospitals->contains('id', $hospital->id)) selected @endif>
+                                                <label for="hospitals"> {{__('cp.hospitals')}} </label>
+                                                <select class="form-control" name="hospital_id"  id="hospitalSelect">
+                                                 
+                                                    @foreach($hospitals as $hospital)
+                                                    <option value="{{ $hospital->id }}" @if(optional($doctor)->hospital_id == $hospital->id) selected @endif>
                                                         {{ $hospital->name }}
                                                     </option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         
                                         <!-- Col for Treatments -->
                                         <div class="col-md-6">
@@ -504,21 +504,26 @@
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="{{__('cp.region_ar')}}"
-                                                value="{{ optional($doctor)->getTranslation('region', 'ar') }}"     name="region_ar" required />
+                                            <select class="form-control" name="area_id">
+                                                <option value="" disabled>{{__('cp.region_en')}} </option>
+                                                @foreach($areas as $area)
+                                                <option value="{{ $area->id }}" @if(optional($doctor)->area_id == $area->id) selected @endif>
+                                                    {{ $area->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <!-- /Col -->
 
                                     <!-- Col -->
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="{{__('cp.region_en')}}"
                                                 value="{{ optional($doctor)->getTranslation('region', 'en') }}"    name="region_en" required />
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!-- /Col -->
 
 
@@ -660,7 +665,7 @@
                             </fieldset>
                             <fieldset aria-label="Step Five" id="step-5">
                                 <div class="title-step">
-                                    <h3>{{__('cp.appointment')}}</h3>
+                                    <h3>{{__('cp.services')}}</h3>
                                 </div>
                                 {{-- @foreach( $services as $service) --}}
                                 @if($doctor)
@@ -697,7 +702,7 @@
                                 <div class="form-h row">
 
                                     @foreach ($services as $service)
-                                        <div class="col-md-2">
+                                        <div class="col-md-2  service-checkbox" data-hospital="{{ $service->name }}">
                                             <div class="form-group">
                                                 <label for="check{{ $service->id }}">
                                                     <input type="checkbox" id="check{{ $service->id }}" name="services[]" value="{{ $service->id }}"  />
@@ -707,7 +712,7 @@
                                         
                                         </div>
                                 
-                                        <div class="col-md-10">
+                                        <div class="col-md-10  service-checkbox">
                                                 <div class="form-group">
                                                  
                                                         <input type="text" class="form-control" placeholder="{{ $service->name }}" name="prices[]" />
@@ -759,7 +764,36 @@
   
      @push('js')
     {{-- <script src={{asset('{{asset('backend/datatables/js/doctor-management.js')}}"></script> --}} 
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initial state
+            toggleServices();
     
+            // Event listener for hospital selection change
+            document.getElementById('hospitalSelect').addEventListener('click', function () {
+                toggleServices();
+                console.log('hospital selection change');
+            });
+        });
+    
+        function toggleServices() {
+           // var selectedHospital = document.getElementById('hospitalSelect').value;
+    
+            // Hide all service checkboxes
+            var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+          //  console.log(serviceCheckboxes);
+            serviceCheckboxes.forEach(function (checkbox) {
+                checkbox.style.display = 'none';
+            });
+    
+            // Show service checkboxes for the selected hospital
+            var selectedHospitalServices = document.querySelectorAll('.service-checkbox[data-hospital="' + data + '"]');
+           console.log(selectedHospitalServices);
+            selectedHospitalServices.forEach(function (checkbox) {
+                checkbox.style.display = 'block';
+            });
+        }
+    </script> --}}
     <script>
   
         function readURL(input) {
