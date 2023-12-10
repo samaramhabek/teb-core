@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
-use app\Models\Doctor;
+Use App\Models\Doctor;
 
 class Hospital extends Model
 {
@@ -14,7 +14,11 @@ class Hospital extends Model
     public $translatable = ['name'];
     public function doctors()
     {
-        return $this->belongsToMany(Doctor::class);
+        return $this->belongsToMany(Doctor::class,'doctor_hospitals','hospital_id','doctor_id');
+    }
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 
 }

@@ -14,6 +14,8 @@ use App\Models\Treatment;
 use App\Models\Insurance;
 Use App\Models\Hospital;
 use App\Models\Cases;
+use App\Models\Area;
+
 class Doctor extends Model implements HasMedia 
 {
     use HasFactory ,HasTranslations ,  InteractsWithMedia;
@@ -24,6 +26,10 @@ class Doctor extends Model implements HasMedia
         return $this->belongsTo(City::class)->withDefault([
             'name' => '-'
         ]);
+    }
+    public function area(){
+
+        return $this->belongsTo(Area::class);
     }
     //   public function category_parent()
     // {
@@ -62,7 +68,7 @@ public function category_child()
     }
     public function hospitals()
     {
-        return $this->belongsToMany(Hospital::class,'doctor_hospitals');
+        return $this->belongsToMany(Hospital::class,'doctor_hospitals','doctor_id','hospital_id');
     }
 
 }

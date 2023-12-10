@@ -1284,4 +1284,6 @@ return [
 'correct_answer'=>'الجواب الصحيح',
 'lesson'=>'الدرس',
 'add_questions'=>'إضافة سؤال',
+'services'=>'خدمات',
+'waittime'=>'وقت انتظار',
 ];

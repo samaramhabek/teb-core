@@ -1104,6 +1104,8 @@ return [
     'correct_answer'=>'correct answer',
     'lesson'=>'lesson',
     'add_questions'=>'add questions',
+    'services'=>'Services',
+    'waittime'=>'wait time',
 ];
 
 

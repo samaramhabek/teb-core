@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Models\Hospital;
 use Illuminate\Support\Facades\Config;
@@ -11,8 +12,9 @@ class HospitalController extends Controller
 {
     public function index()
     {
-       
-        return view('backend.hospitals.index');
+       $doctors=Doctor::get();
+      // dd($doctors);
+        return view('backend.hospitals.index',compact(['doctors']));
     }
     public function hospitals_api(Request $request){
         {
@@ -20,8 +22,11 @@ class HospitalController extends Controller
             $columns = [
                 1 => 'id',
                 2 => 'name',
-             
-                5 => 'created_at',
+                3=>'waittime',
+                4=>'price',
+                5=>'address',
+                6=>'service', 
+                7 => 'created_at',
             ];
     
             $search = $request->input('search.value');
@@ -57,7 +62,11 @@ class HospitalController extends Controller
                     $nestedData['id'] = $hospital->id;
                     $nestedData['fake_id'] = ++$ids;
                     $nestedData['name'] = $hospital->getTranslation('name', app()->getLocale(Config::get('app.locale')));
+                    $nestedData['waittime'] = $hospital->waittime;
+                    $nestedData['price'] = $hospital->price;
+                    $nestedData['address'] = $hospital->address;
                     $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
+                    $nestedData['service'] = $hospital->service ? $hospital->service->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
                   
                     $nestedData['created_at'] = $hospital->created_at->format('M Y');
                     $data[] = $nestedData;
@@ -95,38 +104,55 @@ class HospitalController extends Controller
         ]);
 
         $data['name'] = ['en' => $request->name_en, 'ar' => $request->name_ar];
+        $data['price'] =  $request->price;
+        $data['address'] =  $request->address;
+        $data['waittime'] =  $request->waittime;
+        $data['service_id']=4;
        
         if ($hospitalId) {
             // update the value
-            $hospital = Hospital::whereId($hospitalId)->firstOrFail();
+            $hospital = Hospital::with('doctors')->whereId($hospitalId)->firstOrFail();
             $hospital->update($data);
+            if($request->doctors){
+                $hospitals = $request->doctors;
+               // dd($request->doctors);
+                $hospital->doctors()->sync($hospitals);
+               }
 
             // user updated
             return response()->json(__('cp.update'));
         } else {
             // create new one if email is unique
-            $hospital = Hospital::where('id', $request->id)->first();
+            $hospital = Hospital::with('doctors')->where('id', $request->id)->first();
 
             if (empty($hospital)) {
                 $hospital = Hospital::create($data);
-
+                if($request->doctors){
+                    $hospitals = $request->doctors;
+                    $hospital->doctors()->sync($hospitals);
+                   }
                 // category created
                 return response()->json(__('cp.create'));
-            } else {
+            } 
+            
+            else {
                 // category already exist
                 return response()->json(['message' => "already exits"], 422);
             }
+          
+          
         }
+     
     }
 public function edit($id){
-    $hospital = Hospital::where('id', $id)->first();
+    $hospital = Hospital::with('doctors')->where('id', $id)->first();
 
     return response()->json($hospital);
 }
 
 public function destroy( $id)
 {
-    Hospital::where('id',$id)->delete();
+    Hospital::with('doctors')->where('id',$id)->delete();
     return 'Hospital deleted';
 }
 

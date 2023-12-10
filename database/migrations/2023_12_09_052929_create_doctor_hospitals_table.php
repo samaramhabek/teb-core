@@ -13,10 +13,16 @@ return new class extends Migration
     {
         Schema::create('doctor_hospitals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('hospital_id')->nullable()->constrained('hospitals', 'id')->nullOnDelete();
-            $table->foreignId('doctor_id')->nullable()->constrained('doctors', 'id')->nullOnDelete();
+            $table->unsignedBigInteger('doctor_id');
+            $table->unsignedBigInteger('hospital_id');
+            // Add other fields as needed
             $table->timestamps();
+
+            // Foreign key relationships
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
+            $table->foreign('hospital_id')->references('id')->on('hospitals')->onDelete('cascade');
         });
+  
     }
 
     /**

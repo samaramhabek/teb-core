@@ -65,7 +65,7 @@ $(function () {
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseUrl + '/admin/api-doctors'
+                url: baseUrl + '/admin/api-doctors?hospital_id='+hospital_id
             },
             columns: [
                
@@ -82,7 +82,7 @@ $(function () {
                 { data: 'gender'},
                 
                 { data: 'title'},
-                { data: 'region'},
+                { data: 'area_id'},
                 { data: 'description'},
               
                 { data: 'is_trainer'},

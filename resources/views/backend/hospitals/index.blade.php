@@ -20,8 +20,13 @@
                           
                            <th>id</th>
                            <th>{{__('cp.name')}}</th>
+                          
+                           <th>{{__('cp.waittime')}}</th>
+                           <th>{{__('cp.price')}}</th>
+                           <th>{{__('cp.address')}}</th>
+                           <th>{{__('cp.service')}}</th>
                          
-                           {{-- <th>{{__('cp.created')}}</th> --}}
+                           <th>{{__('cp.created')}}</th>
                            <th>{{__('cp.action')}}</th>
                        </tr>
                        </thead>
@@ -44,7 +49,40 @@
                                <label class="form-label" for="add-hospital-name">{{__('cp.name_en')}}</label>
                                <input type="text" class="form-control" id="add-hospital-name-en" placeholder="{{__('cp.name_en')}}" name="name_en" aria-label="{{__('cp.name_en')}}" />
                            </div>
-                           
+                           <div class="mb-3">
+                            <label class="form-label" for="add-hospital-price">{{__('cp.price')}}</label>
+                            <input type="number" class="form-control" id="add-hospital-price" placeholder="{{__('cp.price')}}" name="price" aria-label="{{__('cp.price')}}" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="add-hospital-waittime">{{__('cp.waittime')}}</label>
+                            <input type="number" class="form-control" id="add-hospital-waittime" placeholder="{{__('cp.waittime')}}" name="waittime" aria-label="{{__('cp.waittime')}}" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="add-hospital-address">{{__('cp.address')}}</label>
+                            <input type="text" class="form-control" id="add-hospital-address" placeholder="{{__('cp.address')}}" name="address" aria-label="{{__('cp.address')}}" />
+                        </div>
+                        {{-- {{$doctors}} --}}
+
+                        <div class="mb-3">
+                            <label class="form-label" for="doctor_id">{{__('cp.doctor')}}</label>
+                            <select id="doctor_id" name="doctors[]" class="select form-select" multiple>
+                                {{-- <option value="">Select</option> --}}
+                                
+                                @foreach($doctors as $doctor)
+                                    {{-- @php
+                                        $firstName = json_decode($doctor->first_name, true);
+                                        $lastName = json_decode($doctor->last_name, true);
+                                    @endphp --}}
+                        
+                                    <option value="{{ $doctor->id }}">
+                                        {{ $doctor->first_name && isset($doctor->first_name) ? $doctor->first_name: '' }}
+                                        {{-- {{ $lastName && isset($lastName['en']) ? $lastName['en'] : '' }} --}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        
 
                            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">{{__('cp.save')}}</button>
                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">{{__('cp.cancel')}}</button>
@@ -81,6 +119,11 @@
 @endsection
 
 @push('js')
+
+
+
+
+
 
     <script src="{{asset('backend/datatables/js/hospitals-management.js')}}"></script>
     <script>
@@ -138,9 +181,16 @@
 
             // get data
             $.get(`${baseUrl}/admin/hospitals\/${hospital_id}\/edit`, function (data) {
+                console.log('l',data);
                 $('#hospital_id').val(data.id);
                 $('#add-hospital-name-ar').val(data.name.ar);
                 $('#add-hospital-name-en').val(data.name.en);
+                $('#add-hospital-price').val(data.price);
+                $('#add-hospital-address').val(data.address);
+                 $('#add-hospital-waittime').val(data.waittime);
+                 var selectedDoctors = data.doctors.map(doctor => doctor.id);
+    $('#doctor_id').val(selectedDoctors);
+    $('#doctor_id').selectpicker('refresh');
                 // $('#category_id').val(data.category_id);
                 // $('#child_category_id').val(data.child_category_id);
 
@@ -181,5 +231,6 @@
 
 
 </script>
-  
+
+
 @endpush

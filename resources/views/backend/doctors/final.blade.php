@@ -241,6 +241,7 @@
               <!-- Row grouping -->
               <div class="card">
                 <h5 class="card-header">{{__('cp.doctors')}}</h5>
+                <input type="hidden" value="{{ $hospital_id }}" name="hospital_id_filtering" id="hospital_id_filtering">
                 <div class="card-datatable table-responsive">
                   <table class="datatables-doctors table">
                     <thead>
@@ -537,7 +538,7 @@
 
     });
 
-
+    hospital_id=document.getElementById('hospital_id_filtering').value
 
 
 </script>
