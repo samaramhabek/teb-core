@@ -1106,6 +1106,7 @@ return [
     'add_questions'=>'add questions',
     'services'=>'Services',
     'waittime'=>'wait time',
+    'contact_us'=>'Contact US ',
 ];
 
 

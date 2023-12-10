@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use Inertia\InertiaServiceProvider;
+use Inertia\InertiaFacade;
 
 return [
 
@@ -170,6 +172,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
+        // InertiaServiceProvider::class,
+      
     ])->toArray(),
 
     /*
@@ -185,6 +189,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        // 'Inertia' => Inertia\Facade::class,
     ])->toArray(),
 
 ];

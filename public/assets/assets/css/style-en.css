@@ -1,0 +1,106 @@
+body {
+    direction: ltr;
+}
+
+.mobile-menu {
+    right: auto;
+    left: 0;
+}
+
+.mobile-menu-visible .mobile-menu .menu-box {
+    right: auto;
+    left: 0;
+}
+
+.mobile-menu .menu-box {
+    right: auto;
+    left: -400px;
+}
+
+form {
+    direction: ltr;
+}
+
+.head-inner .nav-menu ul li .sub-menu {
+    right: auto;
+    left: 0;
+}
+
+.search-popup .form-group input[type="submit"],
+.search-popup .form-group button {
+    left: auto;
+    right: 30px;
+}
+
+.readMore i {
+    transform: scaleX(-1);
+}
+
+form {
+    direction: ltr;
+}
+
+.navigation-menu .hamburger-menu {left: auto;right: 0;}
+
+.banner-h .nav-slider {left: auto;right: 0;}
+
+.swiper-pagination.home-pagination {
+    left: auto;
+    right: 0;
+}
+
+.about-h::after {
+    right: auto;
+    left: 0;
+    transform: scaleX(-1);
+}
+
+.services-h::before, .services-h::after {
+    right: auto;
+    left: 22%;
+    transform: scaleX(-1);
+}
+
+.services-h::after {
+    right: auto;
+    left: 25%;
+}
+
+.services-h .overlay-img {
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 75%);
+}
+
+.title .sub-title::before {
+    right: auto;
+    left: 0;
+}
+
+.count-block::after {
+    right: 0;
+    left: auto;
+}
+
+.animate__fadeInRight {
+    -webkit-animation-name: fadeInLeft;
+    animation-name: fadeInLeft;
+}
+
+.animate__fadeInLeft {
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+}
+
+.subscribe-h form button {
+    left: auto;
+    right: 0;
+}
+
+.subscribe-h form .icon {
+    right: auto;
+    left: 0;
+}
+
+.form-h::after {
+    left: auto;
+    right: 0;
+}

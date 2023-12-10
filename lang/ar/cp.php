@@ -1286,4 +1286,5 @@ return [
 'add_questions'=>'إضافة سؤال',
 'services'=>'خدمات',
 'waittime'=>'وقت انتظار',
+'contact_us'=>'تواصل معنا',
 ];

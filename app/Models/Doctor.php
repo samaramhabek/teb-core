@@ -15,9 +15,13 @@ use App\Models\Insurance;
 Use App\Models\Hospital;
 use App\Models\Cases;
 use App\Models\Area;
-
-class Doctor extends Model implements HasMedia 
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+class Doctor extends User implements HasMedia 
 {
+    use HasApiTokens, Notifiable, HasRoles;
     use HasFactory ,HasTranslations ,  InteractsWithMedia;
     protected $guarded=[];
     public $translatable = ['first_name','last_name','title','description','region','address'];
@@ -69,6 +73,14 @@ public function category_child()
     public function hospitals()
     {
         return $this->belongsToMany(Hospital::class,'doctor_hospitals','doctor_id','hospital_id');
+    }
+    public function getUserAvatarAttribute()
+    {
+        if ($this->avatar != null){
+            return asset('storage/'. $this->avatar);
+        }else{
+            return 'https://ui-avatars.com/api/?name='. $this->name. '&background=random';
+        }
     }
 
 }

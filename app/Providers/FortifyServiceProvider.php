@@ -30,12 +30,21 @@ class FortifyServiceProvider extends ServiceProvider
             Config::set('fortify.prefix', 'admin');
         }
 
+        if ($request->is('doctor') || $request->is('doctor/*')) {
+            Config::set('fortify.guard', 'doctor');
+            Config::set('fortify.prefix', 'doctor');
+        }
+
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
             public function toResponse($request)
             {
                 if ($request->user('admin')) {
                     return redirect()->intended('/admin');
-                }else {
+                }
+               elseif($request->user('doctor')){
+                return redirect()->intended('/doctors');
+                }
+                else {
                     return redirect()->intended('/dashboard');
                 }
             }
@@ -46,7 +55,10 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 if ($request->is('admin') || $request->is('admin/*')) {
                     return redirect('/admin/login');
-                } else {
+                }elseif($request->is('doctor') || $request->is('doctor/*')){
+                    return redirect('/doctor/login');
+                }
+                 else {
                     return redirect('/login');
                 }
 
@@ -78,6 +90,11 @@ class FortifyServiceProvider extends ServiceProvider
         if ($request->is('admin') || $request->is('admin/*')) {
             Fortify::loginView(function () {
                 return view('backend.auth.login');
+            });
+        }
+       elseif ($request->is('doctor') || $request->is('doctor/*')) {
+            Fortify::loginView(function () {
+                return view('backend.auth.loginnew');
             });
         }else{
             Fortify::loginView(function () {

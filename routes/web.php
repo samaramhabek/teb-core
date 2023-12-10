@@ -31,6 +31,8 @@ use App\Models\Category;
 use App\Models\Insurance;
 use App\Models\City;
 use App\Models\Hospital;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,4 +172,24 @@ Route::group(
         Route::get('/get-sub-category-by-category/{category}', [AdminController::class, 'get_sub_categories'])->name('get_sub_categories');
     });
 
+});
+Route::prefix('doctor')->group(function () {
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('loginnew');
+    // Add other doctor routes...
+});
+
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
+    ], function () {
+Route::middleware(['auth:doctor'])->prefix('doctor')->as('doctor.')->group(function () {   
+    Route::get('/doctor/create', [DoctorDoctorController::class, 'create'])->name('test');
+    Route::post('/doctor/store', [DoctorDoctorController::class, 'store'])->name('store');
+    // Route::get('/doctortest',function(){
+    //     return view('doctorbackend.form');
+    //     })->name('test');
+ });
 });
