@@ -40,6 +40,20 @@
                    <div class="offcanvas-body mx-0 flex-grow-0">
                        <form class="add-new-course pt-0" id="addNewCourseForm" enctype="multipart/form-data">
                            <input type="hidden" name="id" id="course_id">
+                           {{-- <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                <input type='file' id="imageUpload"
+                                    accept=".png, .jpg, .jpeg" name="image" />
+                                <label for="imageUpload"></label>
+                            </div>
+                            <div class="avatar-preview">
+                               
+                                <div id="imagePreview" 
+                                style="background-image: url('{{asset('assets/img/avatar.jpg') }}')"
+                                >
+                            </div>
+                            </div>
+                        </div> --}}
                            <div class="mb-3">
                                <label class="form-label" for="add-course-name">{{__('cp.name_ar')}}</label>
                                <input type="text" class="form-control" id="add-course-name-ar" placeholder="{{__('cp.name_ar')}}" name="name_ar" aria-label="{{__('cp.name_ar')}}" />

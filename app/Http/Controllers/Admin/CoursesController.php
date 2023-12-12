@@ -180,6 +180,10 @@ class CoursesController extends Controller
             // update the value
             $course = Course::whereId($courseId)->firstOrFail();
             $course->update($data);
+            if ($request->hasFile('image')) {
+                $course->clearMediaCollection('course_image');
+                $course->addMedia($request->file('image'))->toMediaCollection('course_image');
+            }
 
             // user updated
             return response()->json(__('cp.update'));
@@ -188,8 +192,11 @@ class CoursesController extends Controller
             $course = Course::where('id', $request->id)->first();
 
             if (empty($course)) {
-                $course = Course::create($data);
 
+                $course = Course::create($data);
+                if ($request->hasFile('image')) {
+                    $course->addMedia($request->file('image'))->toMediaCollection('course_image');
+                }
                 // category created
                 return response()->json(__('cp.create'));
             } else {

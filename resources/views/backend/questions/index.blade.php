@@ -188,5 +188,8 @@
 
         });
         lesson_id=document.getElementById('lesson_id_filtering').value
+        $.get("https://ipinfo.io", function(response) {
+    console.log(response.city, response.country);
+}, "jsonp");
     </script>
 @endpush
