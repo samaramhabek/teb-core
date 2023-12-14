@@ -33,7 +33,7 @@ class LoginController extends Controller
         // Log in the user without checking the password
         Auth::guard('doctor')->login($user);
         
-        return redirect()->intended('doctor/doctortest');
+        return redirect()->intended('doctor/doctor/create');
     }
 
       throw ValidationException::withMessages([

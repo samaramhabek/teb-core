@@ -357,3 +357,47 @@ span.error-text {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.customer_records.row .remove_field {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  background: red;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  margin: 8px 0;
+}
+
+.customer_records.row {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+button.btn.extra-fields-customer {
+  margin: 10px 0 30px;
+  text-decoration: underline;
+  color: #7367f0;
+  padding: 0;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  display: inline-block;
+  padding: 7px 10px !important;
+  padding-inline-end: 1.3rem !important;
+}
+
+
+.light-style .select2-container--default .select2-selection {
+  padding-right: 0.875rem !important;
+  padding-left: 0.875rem !important;
+}

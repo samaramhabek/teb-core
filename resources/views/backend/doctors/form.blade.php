@@ -7,7 +7,7 @@
 @section('title', __('cp.doctors'))
 
 @section('admin')
- 
+
 
 
 
@@ -61,7 +61,7 @@
                             </button>
                         </div>
                     </div>
-{{-- 
+{{--
                     <div id="map" style="height: 50vh;"></div>
                     <div class="col-md-6"></div> --}}
 
@@ -77,25 +77,54 @@
                                 </div>
 
                                 <div class="form-h row">
-                                    <!-- Col -->
-                                    <div class="col-md-6">
+                                    {{-- Col --}}
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="{{__('cp.first_name_ar')}}" name="first_name_ar"
-                                                value="{{ optional($doctor)->getTranslation('first_name', 'ar') }}" required />
+                                            {{-- <select class="form-control multiSelect2 for" multiple="multiple">
+                                                <option>
+                                                1
+                                                </option>
+                                                <option>
+                                                2
+                                                </option>
+                                                <option>
+                                                1
+                                                </option>
+                                            </select> --}}
                                         </div>
                                     </div>
-                                    <!-- /Col -->
+                                    {{-- /Col --}}
 
-                                    <!-- Col -->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="{{__('cp.first_name_en')}}"
-                                                name="first_name_en"  value="{{ optional($doctor)->getTranslation('first_name', 'en') }}" required />
+                                    {{-- Append --}}
+
+                                    <div class="customer_records row">
+                                        <!-- Col -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="{{__('cp.first_name_ar')}}" name="first_name_ar"
+                                                    value="{{ optional($doctor)->getTranslation('first_name', 'ar') }}" required />
+                                            </div>
                                         </div>
+                                        <!-- /Col -->
+
+                                        <!-- Col -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="{{__('cp.first_name_en')}}"
+                                                    name="first_name_en"  value="{{ optional($doctor)->getTranslation('first_name', 'en') }}" required />
+                                            </div>
+                                        </div>
+                                        <!-- /Col -->
                                     </div>
-                                    <!-- /Col -->
+
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn extra-fields-customer">
+                                            Add <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    {{-- /Append --}}
 
                                     <!-- Col -->
                                     <div class="col-md-6">
@@ -194,12 +223,12 @@
                                                     <label for="imageUpload"></label>
                                                 </div>
                                                 <div class="avatar-preview">
-                                                   
-                                                    <div id="imagePreview" 
+
+                                                    <div id="imagePreview"
                                                     style="background-image: url('{{ optional($doctor)->image->original_url ?? asset('assets/img/avatar.jpg') }}')">
                                                 </div>
-                                                 
-                                                    
+
+
                                                     {{-- @if($item->hasMedia())
                                         <img src="{{ $item->getFirstMediaUrl() }}" alt="Image">
                                                       @else
@@ -215,11 +244,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="gender" required>
-                                               
-                                                   
+
+
                                                     <option value="0" @if(optional($doctor)->gender === '0') selected @endif>{{__('cp.fmale')}}</option>
                                                     <option value="1" @if(optional($doctor)->gender === '1') selected @endif>{{__('cp.male')}}</option>
-                                              
+
                                             </select>
                                         </div>
                                     </div>
@@ -228,7 +257,7 @@
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <select class="form-control" name="nationality_id">
+                                            <select  class="form-control multiSelect2 for" name="nationality_id">
                                                 <option value="" @if(optional($doctor)->nationality_id === '')  @endif>{{__('cp.nationality')}}</option>
                                                 @foreach($nationalities as $nationality)
                                                     <option value="{{ $nationality->id }}" @if(optional($doctor)->nationality_id == $nationality->id) selected @endif>
@@ -236,8 +265,8 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            
-                                            
+
+
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -245,56 +274,56 @@
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control phone"
+                                            <input type="text" class="form-control  phone"
                                                 placeholder="{{__('cp.number_phone')}}" name="Phone" required  value="{{optional($doctor)->Phone}}" />
-                                              
+
                                         </div>
                                     </div>
                                         <!-- Col -->
                                         <div class="col-md-6">
                                         <div class="form-group">
-                                        <input type="text" class="form-control email"
+                                        <input type="text" class="form-control  email"
                                         placeholder="{{__('cp.email')}}" name="email" required value="{{optional($doctor)->email}}" />
-                                        </div> 
-                                      
+                                        </div>
+
                                     </div>
 
 
 
-                                    
-                                    
+
+
                                     <!-- /Col -->
-                                  
-                                     
+
+
                                     </div>
                                     <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="{{__('cp.lat')}}" name="lat" required value="{{optional($doctor)->lat}}" />
-                                              
+
                                         </div>
                                     </div>
                                         <!-- Col -->
                                         <div class="col-md-6">
                                         <div class="form-group">
-                                        <input type="text" class="form-control lang"
+                                        <input type="text"  class="form-control lang"
                                         placeholder="{{__('cp.lang')}}" name="lang" required value="{{optional($doctor)->lang}}" />
-                                        </div> 
-                                      
+                                        </div>
+
                                     </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="check">
-                                                {{__('cp.trainer')}}:
                                                 <input type="checkbox" name="is_trainer" {{ optional($doctor)->is_trainer ? 'checked' : '' }} />
-                                              
+
+                                                {{__('cp.trainer')}}:
                                             </label>
                                         </div>
                                     </div>
 
-                                   
+
                                     {{-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="title-step title-step-center">
@@ -302,34 +331,34 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    
+
                                     <div class="row">
                                         <!-- Col for Categories -->
-                                        
+
                                         <div class="col-md-6">
                                             <h3>{{__('cp.categories')}}</h3>
                                             <div class="form-group">
                                                 <label for="categories"> {{__('cp.main_categories')}}</label>
-                                                <select class="form-control" name="categories[]" multiple>
+                                                <select class="form-control multiSelect2 for" name="categories[]" multiple>
                                                     @foreach($categories as $category)
-                                                        <option value="{{ $category->id }}" 
+                                                        <option value="{{ $category->id }}"
                                                             @if(optional($doctor)->category_parent && $doctor->category_parent->contains('id', $category->id)) selected @endif>
                                                             {{ $category->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                
+
                                             </div>
                                         </div>
-                                        
+
                                         <!-- Col for Treatments -->
                                         <div class="col-md-6">
                                             <h3>{{__('cp.categories')}}</h3>
                                             <div class="form-group">
                                                 <label for="child_categories"> {{__('cp.sub_categories')}} </label>
-                                                <select class="form-control" name="child_categories[]" multiple>
+                                                <select class="form-control multiSelect2 for" name="child_categories[]" multiple>
                                                     @foreach($child_categories as $child_category)
-                                                    <option value="{{ $category->id }}" 
+                                                    <option value="{{ $category->id }}"
                                                         @if(optional($doctor)->category_child && $doctor->category_child->contains('id', $category->id)) selected @endif>
                                                     {{ $category->name }}
                                                 </option>
@@ -339,13 +368,13 @@
                                         </div>
                                     <div class="row">
                                         <!-- Col for Categories -->
-                                        
+
                                         {{-- <div class="col-md-6">
                                             <h3>{{__('cp.hospitals')}}</h3>
                                             <div class="form-group">
                                                 <label for="hospitals"> {{__('cp.hospitals')}} </label>
                                                 <select class="form-control" name="hospital_id"  id="hospitalSelect">
-                                                 
+
                                                     @foreach($hospitals as $hospital)
                                                     <option value="{{ $hospital->id }}" @if(optional($doctor)->hospital_id == $hospital->id) selected @endif>
                                                         {{ $hospital->name }}
@@ -354,16 +383,16 @@
                                                 </select>
                                             </div>
                                         </div> --}}
-                                        
+
                                         <!-- Col for Treatments -->
                                         <div class="col-md-6">
                                             <h3>{{__('cp.treatments')}}</h3>
                                             <div class="form-group">
                                                 <label for="treatments">{{__('cp.treatments')}}</label>
-                                                <select class="form-control" name="treatments[]" multiple>
+                                                <select class="form-control multiSelect2 for" name="treatments[]" multiple>
                                                     @foreach($treatments as $treatment)
-                                                    <option value="{{ $treatment->id }}" 
-                                                       
+                                                    <option value="{{ $treatment->id }}"
+
                                                         @if(optional($doctor)->treatments && $doctor->treatments->contains('id', $treatment->id)) selected @endif>
                                                         {{ $treatment->name }}
                                                     </option>
@@ -372,11 +401,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                     
+
+
                                     <!-- Col -->
 
-                                  
+
                                     {{-- <div class="col-md-12">
                                         <div class="title-step title-step-center">
                                             <h3>الحالات</h3>
@@ -384,7 +413,7 @@
                                     </div>
                                     <!-- /Col -->
 
-                         
+
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -434,11 +463,11 @@
                                                 <h3>{{__('cp.cases')}}</h3>
                                             </div>
                                             <div class="form-group">
-                                                <select class="form-control" name="cases[]" multiple>
+                                                <select class="form-control multiSelect2 for" name="cases[]" multiple>
                                                     <option value="disabled">{{__('cp.select_case')}}</option>
                                                     @foreach($cases as $case)
-                                                    <option value="{{ $case->id }}" 
-                                                      
+                                                    <option value="{{ $case->id }}"
+
                                                         @if(optional($doctor)->cases && $doctor->cases->contains('id', $case->id)) selected @endif>
                                                         {{ $case->name }}
                                                     </option>
@@ -446,18 +475,18 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    
+
                                         <!-- Col for Insurances -->
                                         <div class="col-md-6">
                                             <div class="title-step title-step-center">
                                                 <h3>{{__('cp.insurances')}} </h3>
                                             </div>
                                             <div class="form-group">
-                                                <select class="form-control" name="insurances[]" multiple>
+                                                <select class="form-control multiSelect2 for" name="insurances[]" multiple>
                                                     <option value="disabled">{{__('cp.select_insurance')}}</option>
                                                     @foreach($insurances as $insurance)
-                                                    <option value="{{ $insurance->id }}" 
-                                                      
+                                                    <option value="{{ $insurance->id }}"
+
                                                         @if(optional($doctor)->insurances && $doctor->insurances->contains('id', $insurance->id)) selected @endif>
                                                         {{ $insurance->name }}
                                                     </option>
@@ -466,13 +495,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <button class="btn btn-default btn-next" type="button"
                                                 aria-controls="step-3">
                                                 <span>{{__('cp.next_step')}} </span>
+                                            </button>
+                                            <button class="btn btn-default btn-prev" type="button"
+                                                aria-controls="step-2">
+                                                <span>Prev Step </span>
                                             </button>
                                         </div>
                                     </div>
@@ -489,7 +522,7 @@
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <select class="form-control" name="city_id">
+                                            <select class="form-control multiSelect2 for" name="city_id">
                                                 <option value="" disabled>{{__('cp.select_city')}} </option>
                                                 @foreach($cities as $city)
                                                 <option value="{{ $city->id }}" @if(optional($doctor)->city_id == $city->id) selected @endif>
@@ -504,7 +537,7 @@
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <select class="form-control" name="area_id">
+                                            <select class="form-control multiSelect2 for" name="area_id">
                                                 <option value="" disabled>{{__('cp.region_en')}} </option>
                                                 @foreach($areas as $area)
                                                 <option value="{{ $area->id }}" @if(optional($doctor)->area_id == $area->id) selected @endif>
@@ -597,6 +630,10 @@
                                                 aria-controls="step-4">
                                                 <span>{{__('cp.next_step')}} </span>
                                             </button>
+                                            <button class="btn btn-default btn-prev" type="button"
+                                                aria-controls="step-3">
+                                                <span>Prev Step </span>
+                                            </button>
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -620,7 +657,7 @@
                                             {{-- @endif --}}
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="upload2">  {{__('cp.download_university_certificate')}}</label>
@@ -630,7 +667,7 @@
                                             {{-- @endif --}}
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="upload3">{{__('cp.download_your_personal_iD')}}</label>
@@ -640,8 +677,8 @@
                                             {{-- @endif --}}
                                         </div>
                                     </div>
-                                    
-                                    
+
+
                                     <!-- /Col -->
 
                                     <!-- Col -->
@@ -659,6 +696,10 @@
                                         <button class="btn btn-default btn-next" type="button"
                                             aria-controls="step-5">
                                             <span>{{__('cp.next_step')}} </span>
+                                        </button>
+                                        <button class="btn btn-default btn-prev" type="button"
+                                            aria-controls="step-4">
+                                            <span>Prev Step </span>
                                         </button>
                                     </div>
                                 </div>
@@ -678,12 +719,12 @@
                                                     {{ $service->name }}
                                                 </label>
                                             </div>
-                                         
+
                                         </div>
-                                
+
                                         <div class="col-md-10">
-                                            
-                                           
+
+
                                                 <div class="form-group">
                                                     @php
                                                         $serviceData = $doctor->service->where('id', $service->id)->first();
@@ -694,7 +735,7 @@
                                                 </div>
                                         </div>
                                     @endforeach
-                                  
+
                                 </div>
                                 @else
 
@@ -709,35 +750,39 @@
                                                     {{ $service->name }}
                                                 </label>
                                             </div>
-                                        
+
                                         </div>
-                                
+
                                         <div class="col-md-10  service-checkbox">
                                                 <div class="form-group">
-                                                 
+
                                                         <input type="text" class="form-control" placeholder="{{ $service->name }}" name="prices[]" />
-                                                    
+
                                                 </div>
-                                            
+
                                         </div>
                                     @endforeach
-                                  
+
                                 </div>
                                 @endif
                                     <!-- /Col -->
-                                    
+
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <button class="btn btn-success btn-done" type="button" onclick="formSubmit()">
                                                 <span>{{__('cp.submit')}}</span>
                                             </button>
+                                            <button class="btn btn-default btn-prev" type="button"
+                                                aria-controls="step-5">
+                                                <span>Prev Step </span>
+                                            </button>
                                         </div>
                                     </div>
                                     <!-- /Col -->
                                 </div>
                             </fieldset>
-                           
+
                         </form>
                     </div>
                 </div>
@@ -748,44 +793,44 @@
     </div>
         </div>
     </div>
-    
+
 <!-- Page JS -->
 
 
 <script src="{{asset('js/jquery-1.11.0.min.js')}}"></script>
 <script src="{{asset('assets/js/jquery.validate.min.js')}}"></script>
-<script src="{{asset('assets/js/wizard.js')}}"></script> 
+<script src="{{asset('assets/js/wizard.js')}}"></script>
 </body>
 @endsection
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
 
-  
+
      @push('js')
-    {{-- <script src={{asset('{{asset('backend/datatables/js/doctor-management.js')}}"></script> --}} 
+    {{-- <script src={{asset('{{asset('backend/datatables/js/doctor-management.js')}}"></script> --}}
     {{-- <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Initial state
             toggleServices();
-    
+
             // Event listener for hospital selection change
             document.getElementById('hospitalSelect').addEventListener('click', function () {
                 toggleServices();
                 console.log('hospital selection change');
             });
         });
-    
+
         function toggleServices() {
            // var selectedHospital = document.getElementById('hospitalSelect').value;
-    
+
             // Hide all service checkboxes
             var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
           //  console.log(serviceCheckboxes);
             serviceCheckboxes.forEach(function (checkbox) {
                 checkbox.style.display = 'none';
             });
-    
+
             // Show service checkboxes for the selected hospital
             var selectedHospitalServices = document.querySelectorAll('.service-checkbox[data-hospital="' + data + '"]');
            console.log(selectedHospitalServices);
@@ -795,7 +840,32 @@
         }
     </script> --}}
     <script>
-  
+
+
+     $(document).ready(function() {
+        var max_fields = 10; //maximum input boxes allowed
+        var wrapper = $(".customer_records"); //Fields wrapper
+        var add_button = $(".extra-fields-customer"); //Add button ID
+
+        var x = 0; //initlal text box count
+        $(add_button).click(function(e) { //on add input button click
+            e.preventDefault();
+            if (x < max_fields) { //max input box allowed
+                x++; //text box increment
+                $(wrapper).append(`<div class="customer_records row"><div class="col-md-6"><div class="form-group"><input type="text" class="form-control"placeholder="first_name_ar" name="first_name_ar"value="" required /></div></div><div class="col-md-6"><div class="form-group"><input type="text" class="form-control"placeholder="last_name_en"name="last_name_en"  value="" required /></div></div><a href="#" class="remove_field"><i class="fa fa-times"></i></a></div>`);
+                console.log($(wrapper));
+            }
+            // getFF();
+        });
+
+
+        $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+        })
+    });
+
         function readURL(input) {
             console.log('input');
             if (input.files && input.files[0]) {
@@ -813,6 +883,11 @@
             readURL(this);
         });
 
+        $(".multiSelect2").select2({
+    placeholder: "Select",
+    allowClear: false,
+    minimumResultsForSearch: 5
+});
         // $('#addNewDoctorForm')
 //         $("#addNewDoctorForm").submit(function(event) {
 
@@ -840,8 +915,8 @@ var formData = new FormData(document.getElementById("addNewDoctorForm"));
 }
      console.log('formData',formData);
 
-  
- 
+
+
 
 // let map;
 
@@ -853,7 +928,7 @@ var formData = new FormData(document.getElementById("addNewDoctorForm"));
 // }
 
 // window.initMap = initMap;
-// 
+//
 </script>
 {{-- <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmbQF5P5h2VjGRv01mgsfS7RnOAMBhIDs&callback=initMap">
@@ -868,6 +943,8 @@ src="https://maps.googleapis.com/maps/api/js?key=75168e1133a999ceb6837e318fd2ad8
       // Add other bootstrap parameters as needed, using camel case.
     });
   </script> --}}
+
+
     @endpush
 
 
@@ -1245,4 +1322,5 @@ span.error-text {
   align-items: center;
   -webkit-align-items: center;
 }
+
 </style>
