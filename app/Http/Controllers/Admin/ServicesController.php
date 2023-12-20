@@ -67,7 +67,7 @@ class ServicesController extends Controller
                 ->count();
         }
 
-        $data = [];
+      $services[]= null;
 
         if (!empty($services)) {
             // providing a dummy id instead of database ids

@@ -94,7 +94,10 @@
 {{--                            <span class="align-middle">English</span>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
+{{-- {{ dd($currentUserInfo) }} --}}
+{{-- Latitude: {{ $currentUserInfo->latitude }} --}}
 
+              {{-- {{$currentUserInfo}} --}}
                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                         <li>
                             <a class="dropdown-item lang" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -102,6 +105,7 @@
                             </a>
                         </li>
                     @endforeach
+                    {{ $currentUserInfo->countryName }}
                 {{-- </ul> --}}
             {{-- </li> --}}
             <!--/ Language -->
@@ -295,6 +299,11 @@
                                             aria-controls="step-2">
                                             <span> {{__('cp.next_step')}}</span>
                                         </button>
+                                        {{-- <button class="btn btn-default btn-prev" type="button"
+                                        aria-controls="step-2">
+                                        <span>Prev Step </span>
+                                    </button> --}}
+                                      
                                     </div>
                                 </div>
                                 <!-- /Col -->
@@ -434,12 +443,12 @@
                                         <div class="form-group">
                                             <label for="categories"> {{__('cp.main_categories')}}</label>
                                             <select class="form-control multiSelect2 for" name="categories[]" multiple>
-                                                @foreach($categories as $category)
+                                                {{-- @foreach($categories as $category)
                                                     <option value="{{ $category->id }}" 
                                                       >
                                                         {{ $category->name }}
                                                     </option>
-                                                @endforeach
+                                                @endforeach --}}
                                             </select>
                                             
                                         </div>
@@ -451,12 +460,12 @@
                                         <div class="form-group">
                                             <label for="child_categories"> {{__('cp.sub_categories')}} </label>
                                             <select class="form-control multiSelect2 for" name="child_categories[]" multiple>
-                                                @foreach($child_categories as $child_category)
+                                                {{-- @foreach($child_categories as $child_category)
                                                 <option value="{{ $category->id }}" 
                                                  >
                                                 {{ $category->name }}
                                             </option>
-                                                @endforeach
+                                                @endforeach --}}
                                             </select>
                                         </div>
                                     </div>
@@ -597,6 +606,11 @@
                                             aria-controls="step-3">
                                             <span>{{__('cp.next_step')}} </span>
                                         </button>
+                                        <button class="btn btn-default btn-prev" type="button"
+                                        aria-controls="step-2">
+                                        <span>Prev Step </span>
+                                    </button>
+                                   
                                     </div>
                                 </div>
                                 <!-- /Col -->
@@ -720,6 +734,11 @@
                                             aria-controls="step-4">
                                             <span>{{__('cp.next_step')}} </span>
                                         </button>
+                                        <button class="btn btn-default btn-prev" type="button"
+                                        aria-controls="step-2">
+                                        <span>Prev Step </span>
+                                    </button>
+                                    
                                     </div>
                                 </div>
                                 <!-- /Col -->
@@ -783,6 +802,10 @@
                                         aria-controls="step-5">
                                         <span>{{__('cp.next_step')}} </span>
                                     </button>
+                                    <button class="btn btn-default btn-prev" type="button"
+                                    aria-controls="step-2">
+                                    <span>Prev Step </span>
+                                </button>
                                 </div>
                             </div>
                         </fieldset>
@@ -1073,6 +1096,11 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   {{-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJfzOqR9u2eyXv6OaiuExD3jzoBGGIVKY&libraries=geometry,places&v=weekly"></script> --}}
 <script src="{{asset('assets/assets/js/java.js')}}"></script>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+
 
 
 </body>
@@ -1081,11 +1109,7 @@
 {{-- @push('js') --}}
 
 <script>
-        $(".multiSelect2").select2({
-    placeholder: "Select",
-    allowClear: false,
-    minimumResultsForSearch: 5
-});
+   
 
     function readURL(input) {
         console.log('input');
@@ -1125,14 +1149,65 @@ var formData = new FormData(document.getElementById("addNewDoctorForm"));
     })
 
 }
- console.log('formData',formData);
+//  console.log('formData',formData);
 
 
 
+$(document).ready(function() {
+    // Function to make the AJAX request
+    $.noConflict();
+    $(".multiSelect2").select2({
+    placeholder: "Select",
+    allowClear: false,
+    minimumResultsForSearch: 5
+});
+    function fetchData() {
+        $.ajax({
+            type: 'GET',
+            url: '/api/doctor/create-api',
+            success: function(data) {
+                console.log('ss', data);
 
+                // Populate Categories dropdown
+                var categoriesDropdown = $('select[name="categories[]"]');
+                categoriesDropdown.empty();
+                categoriesDropdown.append('<option value="disabled">{{__('cp.select_category')}}</option>');
+
+                if (data.categories && data.categories.length > 0) {
+                    $.each(data.categories, function(index, category) {
+                        // Assuming each category has an 'id' and 'name' property
+                        var categoryName = category.name['en']; // Use 'ar' for Arabic
+                        categoriesDropdown.append('<option value="' + category.id + '">' + categoryName + '</option>');
+                    });
+                }
+                  // Populate Child Categories dropdown
+                  var childCategoriesDropdown = $('select[name="child_categories[]"]');
+                    childCategoriesDropdown.empty();
+                    childCategoriesDropdown.append('<option value="disabled">{{__('cp.select_sub_category')}}</option>');
+
+                    if (data.child_categories && data.child_categories.length > 0) {
+                        $.each(data.child_categories, function(index, childCategory) {
+                            // Assuming each child category has an 'id' and 'name' property
+                            var childCategoryName = childCategory.name['en']; // Use 'ar' for Arabic
+                            childCategoriesDropdown.append('<option value="' + childCategory.id + '">' + childCategoryName + '</option>');
+                        });
+                    }
+            },
+            error: function(error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
+
+    // Call the function when the page is loaded
+    fetchData();
+});
 
 
 </script>
+ 
+   
+   
 <style>
     /*
 * demo.css

@@ -65,7 +65,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="doctor_id">{{__('cp.doctor')}}</label>
-                            <select id="doctor_id" name="doctors[]" class="select form-select" multiple>
+                            <select id="doctor_id" name="doctors[]" class="select2 form-select" multiple>
                                 {{-- <option value="">Select</option> --}}
                                 
                                 @foreach($doctors as $doctor)
@@ -137,8 +137,14 @@
         var baseUrl = '{{URL::to('')}}';
     </script>
   <script>
+    
     $(document).ready(function () {
 
+        $(".multiSelect2").select2({
+    placeholder: "Select",
+    allowClear: false,
+    minimumResultsForSearch: 5
+});
         // $('#category_id').on('change', function () {
         //     var getCategoryId = $(this).val();
         //     if (getCategoryId) {

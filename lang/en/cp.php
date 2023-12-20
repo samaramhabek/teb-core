@@ -1107,6 +1107,7 @@ return [
     'services'=>'Services',
     'waittime'=>'wait time',
     'contact_us'=>'Contact US ',
+    'doctor'=>'doctor',
 ];
 
 

@@ -16,10 +16,57 @@ use App\Models\City;
 use App\Models\Hospital;
 use App\Models\Service;
 use App\Models\Doctor;
+use App\Http\Resources\CategoryResource;
+use Stevebauman\Location\Facades\Location;
 
 class DoctorController extends Controller
 {
+    // public function index(Request $request)
+
+    // {
+
+        /* $ip = $request->ip(); Dynamic IP address */
+
+        // $ip = '162.159.24.227'; /* Static IP address */
+
+        // $currentUserInfo = Location::get($ip);
+
+          
+
+        // return view('doctorbackend.form', compact('currentUserInfo'));
+
+    // }
     public function create(){
+        // $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+        // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
+        $ip = '162.159.24.227'; /* Static IP address */
+ $ip='212.47.230.124';
+//  $ip = request()->ip();
+//  dd($ip);
+        $currentUserInfo = Location::get($ip);
+        $cases=Cases::get();
+        $nationalities=Nationality::get();
+        $categories=Category::get();
+        $treatments=Treatment::get();
+        $insurances=Insurance::get();
+        $areas=Area::get();
+        $cities=City::get();
+        $child_categories = Category::whereNotNull('parent_id')->get();
+        $Hospitals=Hospital::get();
+        $services=Service::get();
+        return view('doctorbackend.form'
+        ,[
+            'currentUserInfo'=>$currentUserInfo,'areas'=>$areas,'cases'=>$cases,'nationalities'=>$nationalities,
+        'services'=>$services, 'child_categories'=>$child_categories,  'hospitals'=>$Hospitals, 'treatments'=>$treatments,'insurances'=>$insurances,'cities'=>$cities]
+    );
+    }
+    public function get_sub_categories(Category $category)
+    {
+       // dd($category);
+        $items = CategoryResource::collection($category->children()->latest()->get());
+        return response()->json($items);
+    }
+    public function create_api(){
         // $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
         // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
         $cases=Cases::get();
@@ -32,8 +79,9 @@ class DoctorController extends Controller
         $child_categories = Category::whereNotNull('parent_id')->get();
         $Hospitals=Hospital::get();
         $services=Service::get();
-        return view('doctorbackend.form',['areas'=>$areas,'cases'=>$cases,'nationalities'=>$nationalities,'categories'=>$categories,
-        'services'=>$services, 'child_categories'=>$child_categories,  'hospitals'=>$Hospitals, 'treatments'=>$treatments,'insurances'=>$insurances,'cities'=>$cities]);
+        return response()->json(['areas'=>$areas,'cases'=>$cases,'nationalities'=>$nationalities,'categories'=>$categories,
+        'services'=>$services, 'child_categories'=>$child_categories,  'hospitals'=>$Hospitals, 'treatments'=>$treatments,'insurances'=>$insurances,'cities'=>$cities,"message"=>"success"]);     
+      
     }
     public function store(Request $request)
     {  

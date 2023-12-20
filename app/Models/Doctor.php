@@ -16,10 +16,11 @@ Use App\Models\Hospital;
 use App\Models\Cases;
 use App\Models\Area;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-class Doctor extends User implements HasMedia 
+class Doctor extends Authenticatable implements HasMedia 
 {
     use HasApiTokens, Notifiable, HasRoles;
     use HasFactory ,HasTranslations ,  InteractsWithMedia;

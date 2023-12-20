@@ -188,6 +188,7 @@ Route::group(
 Route::middleware(['auth:doctor'])->prefix('doctor')->as('doctor.')->group(function () {   
     Route::get('/doctor/create', [DoctorDoctorController::class, 'create'])->name('test');
     Route::post('/doctor/store', [DoctorDoctorController::class, 'store'])->name('store');
+   // Route::get('display-user', [DoctorDoctorController::class, 'index']);
     // Route::get('/doctortest',function(){
     //     return view('doctorbackend.form');
     //     })->name('test');

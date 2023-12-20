@@ -1287,4 +1287,5 @@ return [
 'services'=>'خدمات',
 'waittime'=>'وقت انتظار',
 'contact_us'=>'تواصل معنا',
+'doctor'=>'طبيب',
 ];
