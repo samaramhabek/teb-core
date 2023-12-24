@@ -87,6 +87,7 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         $request = request();
+
         if ($request->is('admin') || $request->is('admin/*')) {
             Fortify::loginView(function () {
                 return view('backend.auth.login');

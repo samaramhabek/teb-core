@@ -1773,6 +1773,7 @@ console.log('lkj')
     })
     .then(response => response.json())
     .then(data => {
+        console.log('ppp',response.data);
         if (data.message === 'success') {
             // Redirect or show a message as needed
             alert(data.message);
