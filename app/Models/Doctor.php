@@ -61,7 +61,7 @@ public function category_child()
     }
     public function service()
     {
-        return $this->belongsToMany(Service::class)->withPivot('value');
+        return $this->belongsToMany(Service::class);
     }
     public function cases()
     {

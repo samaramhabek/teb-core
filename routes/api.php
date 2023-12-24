@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +24,7 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ], function () {
+       
 Route::middleware(['auth:doctor'])->prefix('doctor')->as('api.doctor.')->group(function () {   
    // Route::get('/doctor/create-api', [DoctorDoctorController::class, 'create_api'])->name('test');
     Route::post('/doctor/store', [DoctorDoctorController::class, 'store'])->name('store');
