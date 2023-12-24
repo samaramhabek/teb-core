@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Illuminate\Validation\ValidationException;
 use App\Models\Doctor;
+use Illuminate\Support\Facades\Route;
 
 class LoginController extends Controller
 {
@@ -18,27 +19,30 @@ class LoginController extends Controller
         return view('backend/auth/Loginnew');
     }
 
-    public function authenticate()
+    public function authenticate(Request $request)
     {
         //$credentials = Request::only('email');
       //  dd($credentials);
-      $credentials = Request::only('email');
+      $credentials = Request::only('phone');
 
     //   if (Auth::guard('doctor')->attempt($credentials)) {
     //       return redirect()->intended('/doctors/index');
     //   }
-    $user = Doctor::where('email', $credentials['email'])->first();
+    $user = Doctor::where('phone', $credentials['phone'])->first();
 
     if ($user) {
         // Log in the user without checking the password
         Auth::guard('doctor')->login($user);
-        
-        return redirect()->intended('doctor/doctor/create');
+        return response()->json(Request::only('phone'));      // return redirect()->intended('doctor/doctor/create');
     }
-
-      throw ValidationException::withMessages([
-          'email' => [trans('auth.failed')],
-      ]);
+    else{
+        return response()->json([
+            'phone' => [trans('auth.failed')],
+        ]);
+        }
+    //   throw ValidationException::withMessages([
+    //       'phone' => [trans('auth.failed')],
+    //   ]);
 
         // $fieldType = filter_var($credentials['email'], FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 

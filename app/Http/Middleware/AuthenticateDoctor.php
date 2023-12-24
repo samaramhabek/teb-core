@@ -23,6 +23,6 @@ class AuthenticateDoctor
          }
  
          // Redirect to the login page for doctors
-         return redirect()->route('admin.login'); // Adjust the route name accordingly
+         return redirect()->route('doctor.login'); // Adjust the route name accordingly
      }
 }
