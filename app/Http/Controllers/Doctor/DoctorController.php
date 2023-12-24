@@ -170,9 +170,8 @@ public function search(Request $request){
 //dd($request->all());
 
 
-
     // Start with a base query
-    $query = Doctor::query();
+    $query = Doctor::query()->with('insurances','treatments');
 
     // Filter by country (assuming you have a column named 'country_id' in Doctor model)
     // if ($request->has('country')) {
@@ -206,18 +205,39 @@ public function search(Request $request){
     }
 
     // Filter by name (assuming you're looking for a match in the 'first_name' or 'last_name' fields)
-    // if ($request->has('name')) {
-    //     $name = $request->input('name');
-    //     $query->where(function ($q) use ($name) {
-    //         $q->where('first_name', 'like', '%' . $name . '%')
-    //           ->orWhere('last_name', 'like', '%' . $name . '%');
-    //     });
-    // }
+    if ($request->has('name')) {
+        $name = $request->input('name');
+        $query->where(function ($q) use ($name) {
+            $q->where('first_name', 'like', '%' . $name . '%')
+              ->orWhere('last_name', 'like', '%' . $name . '%');
+        });
+    }
 
     // Fetch the doctors based on the constructed query
     try {
+        $data = [];
         $doctors = $query->get();
-        dd($doctors);
+        foreach ($doctors as $doctor) {
+            $doc['id'] = $doctor->id;
+            $doc['first_name'] = $doctor->getTranslation('first_name', app()->getLocale());
+            $doc['last_name'] = $doctor->getTranslation('last_name', app()->getLocale());
+            $doc['title'] = $doctor->getTranslation('title', app()->getLocale());
+            $doc['email'] = $doctor->email;
+            $doc['gender'] = $doctor->gender;
+            $doc['Phone'] = $doctor->Phone;
+            $doc['description'] = $doctor->getTranslation('description', app()->getLocale());
+            $doc['is_trainer'] = $doctor->is_trainer;
+            $doc['area_id'] = $doctor->area ? $doctor->area->getTranslation('name', app()->getLocale()) : '';
+            $doc['lat'] = $doctor->lat;
+            $doc['lang'] = $doctor->lang;
+            $doc['city_id'] = $doctor->city ? $doctor->city->getTranslation('name', app()->getLocale()) : '';
+            $data[] = $doc;
+
+        }
+        // dd($doctors);
+        return response()->json(['doctors'=>$data]);
+
+        return $data;
     } catch (\Exception $e) {
         dd($e->getMessage());
     }

@@ -35,3 +35,8 @@ Route::middleware(['auth:doctor'])->prefix('doctor')->as('api.doctor.')->group(f
 Route::get('/get-sub-category-by-category/{category}', [DoctorDoctorController::class, 'get_sub_categories'])->name('get_sub_categories');
 
 Route::get('/doctor/create-api', [DoctorDoctorController::class, 'create_api'])->name('test');
+
+Route::middleware(['changeLang'])->group(function () {   
+
+Route::get('doctor/search', [DoctorDoctorController::class, 'search'])->name('search');
+});

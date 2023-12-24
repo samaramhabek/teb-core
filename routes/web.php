@@ -190,7 +190,7 @@ Route::middleware(['auth:doctor'])->prefix('doctor')->as('doctor.')->group(funct
     Route::post('/doctor/store', [DoctorDoctorController::class, 'store'])->name('store');
     Route::get('/singledoctor', [DoctorDoctorController::class, 'singledoctor'])->name('singledoctor');
     Route::get('/index', [DoctorDoctorController::class, 'index'])->name('index');
-    Route::get('/search', [DoctorDoctorController::class, 'search'])->name('search');
+    // Route::get('/search', [DoctorDoctorController::class, 'search'])->name('search');
    // Route::get('display-user', [DoctorDoctorController::class, 'index']);
     // Route::get('/doctortest',function(){
     //     return view('doctorbackend.form');
