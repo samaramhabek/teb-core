@@ -175,7 +175,7 @@ Route::group(
 });
 Route::prefix('doctor')->group(function () {
     Route::get('/login', [LoginController::class, 'create']);
-    Route::post('/login', [LoginController::class, 'authenticate'])->name('loginnew');
+    // Route::post('/login', [LoginController::class, 'authenticate'])->name('loginnew');
     // Add other doctor routes...
 });
 

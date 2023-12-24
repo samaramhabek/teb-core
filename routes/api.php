@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
+use App\Http\Controllers\publicSite\CourseController as PublicSiteCourseController;
+use App\Http\Controllers\publicSite\ArticleController as PublicSiteArticleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,4 +42,7 @@ Route::get('/doctor/create-api', [DoctorDoctorController::class, 'create_api'])-
 Route::middleware(['changeLang'])->group(function () {   
 
 Route::get('doctor/search', [DoctorDoctorController::class, 'search'])->name('search');
+Route::post('/doctor/login', [LoginController::class, 'authenticate'])->name('doctor.login');
+Route::get('/course/get', [PublicSiteCourseController::class, 'index']);
+Route::get('/article/get', [PublicSiteArticleController::class, 'index']);
 });
