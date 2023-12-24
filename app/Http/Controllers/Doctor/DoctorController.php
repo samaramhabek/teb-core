@@ -156,5 +156,75 @@ class DoctorController extends Controller
 
         return response()->json(["message"=>"success"]);     
     }
+public function singledoctor(){
+    return view('doctorbackend.singledoctor');
+}
+public function index(){
+   $treatments= Treatment::get();
+   $Areas=Area::get();
+   $services=Service::get();
+   $insurances=Insurance::get();
+    return view('doctorbackend.index',['treatments'=>$treatments,'Areas'=>$Areas,'services'=>$services,'insurances'=>$insurances]);
+}
+public function search(Request $request){
+//dd($request->all());
+
+
+
+    // Start with a base query
+    $query = Doctor::query();
+
+    // Filter by country (assuming you have a column named 'country_id' in Doctor model)
+    // if ($request->has('country')) {
+    //     $query->where('country_id', $request->input('country'));
+    // }
+
+    // Filter by treatments
+    if ($request->has('treatments')) {
+        $query->whereHas('treatments', function ($q) use ($request) {
+            $q->where('treatment_id', $request->input('treatments'));
+        });
+    }
+
+    // Filter by areas
+    if ($request->has('Areas')) {
+        $query->where('area_id', $request->input('Areas'));
+    }
+
+    // Filter by insurances
+    if ($request->has('insurances')) {
+        $query->whereHas('insurances', function ($q) use ($request) {
+            $q->where('insurance_id', $request->input('insurances'));
+        });
+    }
+
+    // Filter by services
+    if ($request->has('services')) {
+        $query->whereHas('service', function ($q) use ($request) {
+            $q->where('service_id', $request->input('services'));
+        });
+    }
+
+    // Filter by name (assuming you're looking for a match in the 'first_name' or 'last_name' fields)
+    // if ($request->has('name')) {
+    //     $name = $request->input('name');
+    //     $query->where(function ($q) use ($name) {
+    //         $q->where('first_name', 'like', '%' . $name . '%')
+    //           ->orWhere('last_name', 'like', '%' . $name . '%');
+    //     });
+    // }
+
+    // Fetch the doctors based on the constructed query
+    try {
+        $doctors = $query->get();
+        dd($doctors);
+    } catch (\Exception $e) {
+        dd($e->getMessage());
+    }
+
+   // return view('your_view_name', ['doctors' => $doctors]);
+}
+
 
 }
+

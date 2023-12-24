@@ -565,7 +565,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                 placeholder="{{__('cp.address_ar')}}"
-                                                value="{{ optional($doctor)->getTranslation('address', 'ar') }}"      name="address_ar" required />
+                                                value="{{ optional($doctor)->getTranslation('address', 'ar') }}"  name="address_ar" required />
                                         </div>
                                     </div>
                                     <!-- /Col -->

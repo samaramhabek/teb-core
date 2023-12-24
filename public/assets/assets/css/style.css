@@ -1238,7 +1238,7 @@ header {
 
 .head-inner .nav-menu ul li {
     position: relative;
-    margin: 0 15px;
+    margin: 0 10px;
     color: #fff;
     padding: 20px 0;
 }
@@ -1247,7 +1247,7 @@ header {
     position: relative;
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--dark-color);
     /* opacity: 0.9; */
     line-height: 16px;
@@ -4659,7 +4659,7 @@ span.error-text {
 }
 
 .body-inner {
-    padding: 90px 0;
+    /* padding: 90px 0; */
 }
 
 .nav.nav-tabs {
@@ -4798,3 +4798,262 @@ span.error-text {
 }
 
 /* End Single-doctor */
+
+/* Start Modal */
+
+.loginModal {
+    /* display: flex; */
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+.loginModal.show {
+    /* display: flex !important; */
+}
+
+.loginModal .modal-dialog {
+    margin: 30vh auto;
+}
+
+button.btn-close {
+    position: absolute;
+    margin: 20px 15px;
+}
+
+.modaInner .modalTitle {
+    padding: 20px;
+    text-align: center;
+    background: var(--main-color);
+}
+
+.loginModal .modal-body {
+    padding: 0;
+}
+
+.loginModal .modal-content {
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.modaInner .modalTitle h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+}
+
+.modaInner .modalForm {
+    padding: 40px;
+}
+
+.modaInner .modalForm .form-group {
+    margin: 15px 0;
+    position: relative;
+}
+
+.modaInner .modalForm .form-group label {
+    font-size: 18px;
+    margin: 0 0 18px;
+}
+
+.modaInner .modalForm .form-group .form-control {
+    height: 60px;
+    padding: 0 15px;
+    border-radius: 10px;
+}
+
+.modaInner .modalForm .form-group .btn.btn-form {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    margin: 5px 0 0;
+    border-radius: 10px;
+}
+
+.modaInner .modalForm .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.loginModal button.btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modaInner .modalForm .form-group .toggle-password {
+    position: absolute;
+    left: 0;
+    top: 45px;
+    margin: 22px 16px;
+    font-size: 18px;
+    color: #777;
+}
+
+.choose-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.choose-group label input {
+    width: 20px;
+    height: 20px;
+    margin-inline-end: 10px;
+}
+
+.choose-group label {
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+@media (min-width: 576px) {
+    .chooseModal .modal-dialog {
+        max-width: 300px;
+    }
+}
+
+.chooseModal .modalForm {
+    padding: 20px;
+}
+
+.btns-account a {
+    cursor: pointer;
+    position: relative;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--dark-color);
+    /* opacity: 0.9; */
+    line-height: 16px;
+}
+
+.btns-account a i {
+    margin-inline-end: 6px;
+    color: var(--sec-color);
+    font-weight: bold;
+}
+
+.head-inner .menu-right .btns-account {
+    margin-inline-start: 20px;
+}
+
+/* End Modal */
+
+/* Start Profile-doctor */
+
+.profile-head ul {
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+.profile-head {
+    /* background: var(--main-color); */
+    /* padding: 20px; */
+}
+
+.profile-head ul li a {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    background: var(--main-color);
+    padding: 10px 25px;
+    width: 100%;
+}
+
+.profile-head ul li a.active {
+    background: #fff;
+    color: var(--sec-color);
+    box-shadow: inset 0px 0px 4px var(--sec-color);
+}
+
+.profile-head ul li {
+    flex: auto;
+}
+
+.profile-header.body-inner {
+    padding-bottom: 0;
+}
+
+.head-table {
+    display: flex;
+    justify-content: space-between;
+    background: var(--bg-color);
+    padding: 20px;
+    margin: 0 0 30px;
+}
+
+.head-table .item {
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+.head-table .item .item-inner {
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    border-inline-end: 1px #ccc solid;
+    padding: 0 10px;
+    appearance: auto;
+}
+
+.head-table .item .item-inner .form-control {
+    width: auto;
+    min-width: 90px;
+    appearance: auto;
+}
+
+.head-table .item .item-inner .form-control[type="number"] {
+    width: 70px;
+    min-width: 70px;
+}
+
+.head-table .item .item-inner:last-child {
+    border: none;
+}
+
+.head-table .item .item-inner label a i {
+    font-size: 20px;
+    margin-inline-start: 10px;
+    color: var(--sec-color);
+}
+
+.profile-table table {
+    width: 100%;
+    text-align: center;
+}
+
+.profile-table table th,
+.profile-table table td {
+    padding: 10px;
+    background: var(--bg-color);
+    border: 1px #ebebeb solid;
+    font-size: 13px;
+}
+
+.profile-table table td {
+    background: transparent;
+}
+
+.profile-table table td .form-control {
+    width: 100%;
+    min-width: 55px;
+    font-size: 13px;
+}
+
+.form-control {
+    box-shadow: none !important;
+}
+
+.flex-h {
+    display: flex;
+    gap: 6px;
+}
+
+.profile-table table td .form-control[type="text"],
+.profile-table table td .form-control[type="tel"] {
+    /* width: 100px; */
+    /* min-width: 100px; */
+}
+
+/* End Profile-doctor */

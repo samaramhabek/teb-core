@@ -104,3 +104,8 @@ form {
     left: auto;
     right: 0;
 }
+
+.modaInner .modalForm .form-group .toggle-password {
+    left: auto;
+    right: 0;
+}
