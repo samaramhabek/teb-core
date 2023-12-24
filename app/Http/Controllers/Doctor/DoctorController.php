@@ -171,8 +171,10 @@ public function search(Request $request){
 
 
     // Start with a base query
-    $query = Doctor::query()->with('insurances','treatments');
-
+    $query = Doctor::query()->with('service', 'insurances', 'treatments');
+    //$query = Doctor::with('service', 'insurances', 'treatments');
+    
+//dd($query);
     // Filter by country (assuming you have a column named 'country_id' in Doctor model)
     // if ($request->has('country')) {
     //     $query->where('country_id', $request->input('country'));
@@ -216,7 +218,12 @@ public function search(Request $request){
     // Fetch the doctors based on the constructed query
     try {
         $data = [];
+        
         $doctors = $query->get();
+//dd($doctors->first()->service, $doctors->first()->insurances);
+
+    //  dd($doctors);
+
         foreach ($doctors as $doctor) {
             $doc['id'] = $doctor->id;
             $doc['first_name'] = $doctor->getTranslation('first_name', app()->getLocale());
@@ -235,9 +242,10 @@ public function search(Request $request){
 
         }
         // dd($doctors);
+        //return $data;
         return response()->json(['doctors'=>$data]);
 
-        return $data;
+       // return $data;
     } catch (\Exception $e) {
         dd($e->getMessage());
     }
