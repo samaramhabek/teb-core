@@ -175,7 +175,7 @@ Route::group(
 });
 Route::prefix('doctor')->group(function () {
     Route::get('/login', [LoginController::class, 'create']);
-    // Route::post('/login', [LoginController::class, 'authenticate'])->name('loginnew');
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('loginnew');
     // Add other doctor routes...
 });
 
@@ -188,12 +188,14 @@ Route::group(
 Route::middleware(['auth:doctor'])->prefix('doctor')->as('doctor.')->group(function () {   
     Route::get('/doctor/create', [DoctorDoctorController::class, 'create'])->name('test');
     Route::post('/doctor/store', [DoctorDoctorController::class, 'store'])->name('store');
-    Route::get('/singledoctor', [DoctorDoctorController::class, 'singledoctor'])->name('singledoctor');
-    Route::get('/index', [DoctorDoctorController::class, 'index'])->name('index');
+  
     // Route::get('/search', [DoctorDoctorController::class, 'search'])->name('search');
    // Route::get('display-user', [DoctorDoctorController::class, 'index']);
     // Route::get('/doctortest',function(){
     //     return view('doctorbackend.form');
     //     })->name('test');
  });
+ Route::get('/singledoctor', [DoctorDoctorController::class, 'singledoctor'])->name('singledoctor');
+ Route::get('/index', [DoctorDoctorController::class, 'index'])->name('index');
+ Route::get('/search', [DoctorDoctorController::class, 'search'])->name('doctor.search');
 });

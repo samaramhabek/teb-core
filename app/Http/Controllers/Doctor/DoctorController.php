@@ -161,10 +161,11 @@ public function singledoctor(){
 }
 public function index(){
    $treatments= Treatment::get();
+   $categories=Category::get();
    $Areas=Area::get();
    $services=Service::get();
    $insurances=Insurance::get();
-    return view('doctorbackend.index',['treatments'=>$treatments,'Areas'=>$Areas,'services'=>$services,'insurances'=>$insurances]);
+    return view('doctorbackend.index',['categories'=>$categories,'treatments'=>$treatments,'Areas'=>$Areas,'services'=>$services,'insurances'=>$insurances]);
 }
 public function search(Request $request){
 //dd($request->all());
@@ -184,6 +185,11 @@ public function search(Request $request){
     if ($request->has('treatments')) {
         $query->whereHas('treatments', function ($q) use ($request) {
             $q->where('treatment_id', $request->input('treatments'));
+        });
+    }
+    if ($request->has('categories')) {
+        $query->whereHas('category_parent', function ($q) use ($request) {
+            $q->where('category_id', $request->input('categories'));
         });
     }
 
