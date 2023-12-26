@@ -44,7 +44,7 @@ Route::get('/doctor/create-api', [DoctorDoctorController::class, 'create_api'])-
 
 Route::middleware(['changeLang'])->group(function () {   
 
-Route::get('doctor/search', [DoctorController::class, 'search'])->name('search');
+Route::get('/doctor/search', [DoctorController::class, 'search'])->name('search');
 Route::post('/doctor/login', [LoginController::class, 'authenticate'])->name('doctor.login');
 Route::get('/course/get', [PublicSiteCourseController::class, 'index']);
 Route::get('/article/get', [PublicSiteArticleController::class, 'index']);
