@@ -195,7 +195,7 @@ Route::middleware(['auth:doctor'])->prefix('doctor')->as('doctor.')->group(funct
     //     return view('doctorbackend.form');
     //     })->name('test');
  });
- Route::get('/singledoctor', [DoctorDoctorController::class, 'singledoctor'])->name('singledoctor');
- Route::get('/index', [DoctorDoctorController::class, 'index'])->name('index');
- Route::get('/search', [DoctorDoctorController::class, 'search'])->name('doctor.search');
+//  Route::get('/singledoctor', [DoctorDoctorController::class, 'singledoctor'])->name('singledoctor');
+//  Route::get('/index', [DoctorDoctorController::class, 'index'])->name('index');
+//  Route::get('/search', [DoctorDoctorController::class, 'search'])->name('doctor.search');
 });
