@@ -22,7 +22,7 @@ class ServicesController extends Controller
         $columns = [
             1 => 'id',
             2 => 'name',
-            4 => 'created_at',
+            3 => 'created_at',
         ];
 
         $search = [];
@@ -74,6 +74,7 @@ class ServicesController extends Controller
             $ids = $start;
 
             foreach ($services as $service) {
+                if($service!=null){
                 $nestedData['id'] = $service->id;
                 $nestedData['fake_id'] = ++$ids;
                 $nestedData['name'] = $service->getTranslation('name', app()->getLocale(Config::get('app.locale')));
@@ -81,6 +82,7 @@ class ServicesController extends Controller
 
                 $data[] = $nestedData;
             }
+        }
         }
 
         if ($data) {

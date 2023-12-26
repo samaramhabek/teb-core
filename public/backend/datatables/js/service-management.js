@@ -30,19 +30,25 @@ $(function () {
     // Categories datatable
     if (dt_category_table.length) {
         var dt_category = dt_category_table.DataTable({
+
             processing: true,
             serverSide: true,
             ajax: {
                 url: baseUrl + '/admin/api-services'
             },
+            
             columns: [
+             
                 // columns according to JSON
+                //console.log(data),
                 { data: '' },
                 { data: 'id' },
                 { data: 'name'},
                 { data: 'created_at'},
-                { data: 'action' }
+                { data: 'action' },
+               
             ],
+    
             columnDefs: [
                 {
                     // For Responsive
@@ -60,7 +66,7 @@ $(function () {
                     orderable: false,
                     targets: 1,
                     render: function (data, type, full, meta) {
-                        return `<span>${full.fake_id}</span>`;
+                        return `<span>${full.id}</span>`;
                     }
                 },
                 {
@@ -71,40 +77,40 @@ $(function () {
                     //
                     //     return '<span class="category-name">' + $name + '</span>';
                     // }
-                    render: function (data, type, full, meta) {
-                        var $name = full['name'],
-                            $id = full['id'],
-                            $image = full['image'];
-                        // if ($image) {
-                        //     // For Product image
-                        //
-                        //     var $output = '<img src="' + $image + '" alt="Category-' + $id + '" class="rounded-2">';
-                        // }
-                        // Creates full output for Product name and product_brand
-                        var $row_output =
-                            '<div class="d-flex justify-content-start align-items-center product-name">' +
-                            '<div class="avatar-wrapper">' +
-                            // '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
-                            // $output +
-                            // '</div>' +
-                            '</div>' +
-                            '<div class="d-flex flex-column">' +
-                            '<h6 class="text-body text-nowrap mb-0">' +
-                            $name +
-                            '</h6>' +
-                            '</div>' +
-                            '</div>';
-                        return $row_output;
-                    }
+                    // render: function (data, type, full, meta) {
+                    //     var $name = full['name'],
+                    //         $id = full['id'],
+                    //         $image = full['image'];
+                    //     // if ($image) {
+                    //     //     // For Product image
+                    //     //
+                    //     //     var $output = '<img src="' + $image + '" alt="Category-' + $id + '" class="rounded-2">';
+                    //     // }
+                    //     // Creates full output for Product name and product_brand
+                    //     var $row_output =
+                    //         '<div class="d-flex justify-content-start align-items-center product-name">' +
+                    //         '<div class="avatar-wrapper">' +
+                    //         // '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
+                    //         // $output +
+                    //         // '</div>' +
+                    //         '</div>' +
+                    //         '<div class="d-flex flex-column">' +
+                    //         '<h6 class="text-body text-nowrap mb-0">' +
+                    //         $name +
+                    //         '</h6>' +
+                    //         '</div>' +
+                    //         '</div>';
+                    //     return $row_output;
+                    // }
                 },
                 {
                     // Created at
                     targets: 3,
-                    render: function (data, type, full, meta) {
-                        var $created_at = full['created_at'];
+                    // render: function (data, type, full, meta) {
+                    //     var $created_at = full['created_at'];
 
-                        return '<span class="category-created_at">' + $created_at + '</span>';
-                    }
+                    //     return '<span class="category-created_at">' + $created_at + '</span>';
+                    // }
                 },
                 {
                     // Actions
