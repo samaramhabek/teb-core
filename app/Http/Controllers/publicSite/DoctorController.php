@@ -19,7 +19,10 @@ class DoctorController extends Controller
         $name=$request->name;
         $hospitals=$request->hospitals;
         $gender=$request->gender;
-        $query = Doctor::with('service', 'insurances', 'treatments')
+        $min_price=$request->min_price;
+        $max_price=$request->max_price;
+
+        $query = Doctor::with('service', 'insurances', 'treatments','hospitals')
         ->when($treatments, function ($query, $treatments)
         {$query->whereHas('treatments', function ($q) use ($treatments) {
             $q->where('treatment_id', $treatments);});})
@@ -46,7 +49,7 @@ class DoctorController extends Controller
             $q->where('hospital_id', $hospitals);});})
         ->when($gender, function ($query, $gender)
         {$query->where(function ($q) use ($gender) {
-                $q->where('gender', 'like', '%' . $name . '%');});})
+                $q->where('gender', 'like', '%' . $gender . '%');});})
         ->when($min_price, function ($query, $min_price)
         {$query->where(function ($q) use ($min_price) {
            $q->whereHas('service', function ($q) use ($min_price) {
