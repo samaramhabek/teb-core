@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Models\Hospital;
+use App\Models\Service;
 use Illuminate\Support\Facades\Config;
 
 class HospitalController extends Controller
@@ -94,6 +95,10 @@ class HospitalController extends Controller
     public function store(Request $request)
     {   
         //dd($request->all());
+        $service_id = Service::whereRaw('(JSON_EXTRACT(name, "$.en") IS NULL OR JSON_EXTRACT(name, "$.en") = "Consultation in a clinic")')
+        ->whereRaw('(JSON_EXTRACT(name, "$.ar") IS NULL OR JSON_EXTRACT(name, "$.ar") = "استشارة في عيادة")')
+        ->first()->id;
+
         $hospitalId = $request->id;
 
         $request->validate([
@@ -107,7 +112,7 @@ class HospitalController extends Controller
         $data['price'] =  $request->price;
         $data['address'] =  $request->address;
         $data['waittime'] =  $request->waittime;
-        $data['service_id']=4;
+        $data['service_id']=$service_id;
        
         if ($hospitalId) {
             // update the value

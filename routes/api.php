@@ -48,4 +48,7 @@ Route::get('/doctor/search', [DoctorController::class, 'search'])->name('search'
 Route::post('/doctor/login', [LoginController::class, 'authenticate'])->name('doctor.login');
 Route::get('/course/get', [PublicSiteCourseController::class, 'index']);
 Route::get('/article/get', [PublicSiteArticleController::class, 'index']);
+Route::get('/doctor/create', [DoctorController::class, 'create']);
+Route::post('/doctor/store', [DoctorController::class, 'store'])->name('store');
+Route::get('/doctor/get', [DoctorController::class, 'singleDoctor'])->name('doctor.get');
 });
