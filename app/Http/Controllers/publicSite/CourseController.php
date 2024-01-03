@@ -21,25 +21,28 @@ use Stevebauman\Location\Facades\Location;
 
 class CourseController extends Controller
 {
-
     public function index(Request $request)
     {
         $courses = Course::with('trainer')->get();
-
         $data = [];
-
         if (!empty($courses)) {
             foreach ($courses as $course) {
-                $nestedData['id'] = $course->id;
-                $nestedData['name'] = $course->getTranslation('name', app()->getLocale());
-                $nestedData['description'] = $course->getTranslation('description', app()->getLocale());
-                $nestedData['category_text'] = $course->getTranslation('category_text', app()->getLocale());
-                // $nestedData['category'] = $course->category_parent ? $course->category_parent->getTranslation('name', app()->getLocale()) : '';
-                // $nestedData['sub_category'] = $course->category_child ? $course->category_child->getTranslation('name', app()->getLocale()) : '';
-                $nestedData['trainer'] = $course->trainer ? $course->trainer->getTranslation('first_name', app()->getLocale()) : '';
-                $nestedData['hours'] = $course->hours;
-                $nestedData['online'] = $course->online;
-                // $nestedData['created_at'] = $treatment->created_at->format('M Y');
+                $courseKeys = array_keys($course->getAttributes());
+                foreach ($courseKeys as $attribute)
+                {
+                    if($attribute=='trainer')
+                    {
+                        $trainerKeys = array_keys($attribute->getAttributes());
+                        foreach ($trainerKeys as $key)
+                        {
+                            $nestedData['trainer'][$key]=$course->trainer->$attribute;
+                        }
+                    }
+                    else
+                    {
+                        $nestedData[$attribute]=$course->$attribute;
+                    }
+                }
                 $data[] = $nestedData;
             }
         }
