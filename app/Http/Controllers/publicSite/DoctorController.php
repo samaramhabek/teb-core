@@ -271,7 +271,7 @@ $data8[]='';
                 ->when($min_price, function ($query, $min_price)
         {$query->where(function ($q) use ($min_price) {
            $q->whereHas('service', function ($q) use ($min_price) {
-            $q->where('value', '<=', $min_price);});});})
+            $q->where('value', '>=', $min_price);});});})
         ->when($max_price, function ($query, $max_price)
         {$query->where(function ($q) use ($max_price) {
            $q->whereHas('service', function ($q) use ($max_price) {
