@@ -10,7 +10,6 @@
            <!-- Categories List Table -->
            <div class="card">
                <div class="card-header">
-{{--                   <h5 class="card-title mb-0">Search Filter</h5>--}}
                </div>
                <input type="hidden" value="{{ $lesson_id }}" name="lesson_id_filtering" id="lesson_id_filtering">
                <div class="card-datatable table-responsive">

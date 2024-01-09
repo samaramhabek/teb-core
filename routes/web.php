@@ -81,7 +81,7 @@ Route::group(
 
 
     Route::middleware(['auth:admin'])->prefix('admin')->as('admin.')->group(function () {
-        Route::get('/api-projects',[DoctorController::class,'project'])->name('project.api');
+        // Route::get('/api-projects',[DoctorController::class,'project'])->name('project.api');
         Route::get('/', [AdminController::class, 'index'])->name('dashboard');
         Route::resource('/users', UserController::class);
         Route::get('/api-users', [UserController::class, 'users_api'])->name('users.api');

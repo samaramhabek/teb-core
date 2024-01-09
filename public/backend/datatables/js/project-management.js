@@ -28,9 +28,10 @@ const oky = validationMessages.data('oky');
 const delete_done = validationMessages.data('delete_done');
 // Datatable (jquery)
 $(function () {
+    console.log('asasas')
     // Variable declaration for table
-    var dt_country_table = $('.datatables-projects'),
-        countryView = baseUrl + '/admin/api-countries',
+    var dt_project_table = $('.datatables-doctors'),
+        projectView = baseUrl + '/admin/api-countries',
         offCanvasForm = $('#offcanvasAddCountry');
 
     // ajax setup
@@ -41,21 +42,37 @@ $(function () {
     });
 
     // countries datatable
-    if (dt_country_table.length) {
-        var dt_country = dt_country_table.DataTable({
+    if (dt_project_table.length) {
+        var dt_country = dt_project_table.DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseUrl + '/admin/api-projects'
+                url: baseUrl + '/admin/api-doctors?dashboard=1'
             },
             columns: [
+               
                 // columns according to JSON
                 { data: '' },
+                // { data: 'fake_id' },
                 { data: 'id' },
-                { data: 'name'},
+                { data: 'first_name'},
+                { data: 'last_name'},
                 { data: 'email'},
-                { data: 'phone'},
-                { data: 'action' }
+                { data: 'city_id'},
+               
+                { data: 'Phone'},
+                { data: 'gender'},
+                
+                { data: 'title'},
+                { data: 'area_id'},
+                { data: 'description'},
+              
+                { data: 'is_trainer'},
+                { data: 'lat'},
+                { data: 'lang'},
+                // { data: 'created_at'},
+                { data: 'action' },
+               
             ],
             columnDefs: [
                 {
@@ -78,68 +95,148 @@ $(function () {
                     }
                 },
                 {
-                    // country name
+                    // Category name
                     targets: 2,
                     // render: function (data, type, full, meta) {
                     //     var $name = full['name'];
                     //
-                    //     return '<span class="country-name">' + $name + '</span>';
+                    //     return '<span class="category-name">' + $name + '</span>';
                     // }
-                    // render: function (data, type, full, meta) {
-                    //     var $name = full['name'],
-                    //         $id = full['id'],
-                    //         $image = full['image'];
-                    //     // if ($image) {
-                    //     //     // For Product image
-                    //     //
-                    //     //     var $output = '<img src="' + $image + '" alt="country-' + $id + '" class="rounded-2">';
-                    //     // }
-                    //     // Creates full output for Product name and product_brand
-                    //     var $row_output =
-                    //         '<div class="d-flex justify-content-start align-items-center product-name">' +
-                    //         '<div class="avatar-wrapper">' +
-                    //         // '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
-                    //         // $output +
-                    //         // '</div>' +
-                    //         '</div>' +
-                    //         '<div class="d-flex flex-column">' +
-                    //         '<h6 class="text-body text-nowrap mb-0">' +
-                    //         $name +
-                    //         '</h6>' +
-                    //         '</div>' +
-                    //         '</div>';
-                    //     return $row_output;
-                    // }
+                    render: function (data, type, full, meta) {
+                        var $first_name = full['first_name'],
+                        
+                            $id = full['id'],
+                            $image = full['image'];
+                        // if ($image) {
+                        //     // For Product image
+                        //
+                        //     var $output = '<img src="' + $image + '" alt="Category-' + $id + '" class="rounded-2">';
+                        // }
+                        // Creates full output for Product name and product_brand
+                        var $row_output =
+                            '<div class="d-flex justify-content-start align-items-center product-name">' +
+                            '<div class="avatar-wrapper">' +
+                            // '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
+                            // $output +
+                            // '</div>' +
+                            '</div>' +
+                            '<div class="d-flex flex-column">' +
+                            '<h6 class="text-body text-nowrap mb-0">' +
+                            $first_name +
+                            // $last_name +
+                            '</h6>' +
+                            '</div>' +
+                            '</div>';
+                        return $row_output;
+                    }
                 },
                 {
-                    // Created at
+                    // Slug
                     targets: 3,
                     // render: function (data, type, full, meta) {
-                    //     var $country_key = full['country_key'];
-
-                    //     return '<span class="country-country_key">' + $country_key + '</span>';
+                    //     $last_name = full['last_name']
+                    //     $id = full['id'],
+                    //     $image = full['image'];
+                    //     var $row_output =
+                    //     '<div class="d-flex justify-content-start align-items-center product-name">' +
+                    //     '<div class="avatar-wrapper">' +
+                    //     // '<div class="avatar avatar me-2 rounded-2 bg-label-secondary">' +
+                    //     // $output +
+                    //     // '</div>' +
+                    //     '</div>' +
+                    //     '<div class="d-flex flex-column">' +
+                    //     '<h6 class="text-body text-nowrap mb-0">' +
+                    //     $last_name +
+                    //     // $last_name +
+                    //     '</h6>' +
+                    //     '</div>' +
+                    //     '</div>';
+                    // return $row_output;
                     // }
                 },
                 {
+                    // Slug
+                    targets: 5,
+                    render: function (data, type, full, meta) {
+                        var $city = full['city_id'];
+
+                        return '<span class="category-slug">' + $city + '</span>';
+                    }
+                    // render: function (data, type, full, meta) {
+                    //     var $sub_category = full['sub_category'];
+
+                    //     return '<span class="category-slug">' + $sub_category + '</span>';
+                    // }
+                },
+
+             
+                {
                     // Created at
-                    targets: 4,
+                    targets: 7,
+                    render: function (data, type, full, meta) {
+                        var $gender = full['gender'];
+                        if($gender == 0){
+                            return '<span class="category-slug">' + 'male' + '</span>'; 
+                        }
+                        else($gender == 1)
+                        
+
+                        return '<span class="category-slug">' + 'famle' + '</span>';
+                    
+                    },
+                }, 
+                {
+                    targets: 11,
+                    render: function (data, type, full, meta) {
+                        var $is_trainer = full['is_trainer'];
+                        // var stateNum = Math.floor(Math.random() * 6);
+                         var states = ['success', 'danger'];
+                        // var $state = states[stateNum],
+                        //     $name = full['username'],
+                        //     $initials = $name.match(/\b\w/g) || [],
+                        //     $output;
+                        // $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+                        if($is_trainer == 0 ){
+                            states='danger'
+                       return  '<span class="avatar-initial rounded-circle bg-label-'+states+'">' +  'NO'  + '</span>';
+
+                        }else{
+                            states='success'
+                            return  '<span class="avatar-initial rounded-circle bg-label-'+states+'">' +  'yes'  + '</span>';
+     
+                        }
+
+                        // return '<span class="category-slug">' + 'yes' + '</span>';
+                    
+                    }
                     // render: function (data, type, full, meta) {
                     //     var $created_at = full['created_at'];
 
-                    //     return '<span class="country-created_at">' + $created_at + '</span>';
+                    //     return '<span class="category-created_at">' + $created_at + '</span>';
                     // }
                 },
                 {
                     // Actions
                     targets: -1,
                     title: actions,
+                    
                     searchable: false,
                     orderable: false,
                     render: function (data, type, full, meta) {
                         return (
                             '<div class="d-inline-block text-nowrap">' +
-                            `<button class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddCountry"><i class="ti ti-edit"></i></button>` +
+                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddHospitals"><i class="ti ti-edit"></i></button>` +
                             `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
+                            '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
+                            '<div class="dropdown-menu dropdown-menu-end m-0">' +
+                            '<a href="' +
+                            baseUrl+'/'+lang+'/admin/doctors/gallery?doctor_id='+full['id']+
+                            '" class="dropdown-item">gallery</a>' +
+                            // '<a href="'+
+                            // baseUrl+'/'+lang+'/admin/exam_questions?course_id='+full['id']+
+                            // '"javascript:;" class="dropdown-item">Final Exam</a>' +
+                            // '</div>' +
+                            // '</div>'
                             // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
                             // '<div class="dropdown-menu dropdown-menu-end m-0">' +
                             // '<a href="' +
@@ -149,7 +246,8 @@ $(function () {
                             // '</div>' +
                             '</div>'
                         );
-                    }
+                    },
+                 
                 }
             ],
             order: [[2, 'desc']],

@@ -96,7 +96,16 @@ class DoctorController extends Controller
         $totalFiltered = $query->count();
         $limit = $request->input('length');
         $start = $request->input('start');
-        $doctors= $query->skip($start)->take($limit)->get();
+        if($request->has('dashboard'))
+        {
+            $doctors= $query->skip($start)->take($limit)->latest()->take(10)->get();
+
+        }
+        else
+        {
+            $doctors= $query->skip($start)->take($limit)->latest()->get();
+
+        }
 
         $data = [];
 
