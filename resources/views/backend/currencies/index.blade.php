@@ -19,7 +19,7 @@
         <!-- Product List Table -->
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Filter</h5>
+                <h5 class="card-title mb-0">{{  __('cp.filter') }}</h5>
                 {{--                <form>--}}
                 <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
 

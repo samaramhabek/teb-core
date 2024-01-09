@@ -185,7 +185,7 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ], function () {
-        Route::get('/doctor/create', [DoctorDoctorController::class, 'create'])->name('test');
+        // Route::get('/doctor/create', [DoctorDoctorController::class, 'create'])->name('test');
 Route::middleware(['auth:doctor'])->prefix('doctor')->as('doctor.')->group(function () {   
  
     Route::post('/doctor/store', [DoctorDoctorController::class, 'store'])->name('store');

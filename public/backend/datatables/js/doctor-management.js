@@ -570,7 +570,7 @@ $(function () {
 //         const locale = window.locale;
 
 // // Now you can use the 'locale' variable in your JavaScript code
-const route = `/en/admin/modal-example`;
+const route = `/`+lang+`/admin/modal-example`;
         document.location.href =route;
 
     });
@@ -578,7 +578,7 @@ const route = `/en/admin/modal-example`;
 $(document).on('click', '#editButton', function () {
     var doctorId = $(this).data('id');
 
-  const route='/en/admin/modal-example?id='+doctorId;
+  const route=`/`+lang+'/admin/modal-example?id='+doctorId;
   document.location.href=route;
   console.log(doctorId);
 });

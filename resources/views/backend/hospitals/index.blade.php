@@ -10,7 +10,7 @@
            <!-- Categories List Table -->
            <div class="card">
                <div class="card-header">
-                   <h5 class="card-title mb-0">Search Filter</h5>
+                   <h5 class="card-title mb-0">{{  __('cp.filter') }}</h5>
                </div>
                <div class="card-datatable table-responsive">
                    <table class="datatables-hospitals table">
