@@ -5,8 +5,30 @@
 
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
+             <!-- Line Chart -->
+             <div class="col-12 mb-4">
+                <div class="card">
+                  <div class="card-header d-flex justify-content-between">
+                    <div>
+                      <h5 class="card-title mb-0">Balance</h5>
+                      <small class="text-muted">Commercial networks & enterprises</small>
+                    </div>
+                    <div class="d-sm-flex d-none align-items-center">
+                      <h5 class="mb-0 me-3">$ 100,000</h5>
+                      <span class="badge bg-label-secondary">
+                        <i class="ti ti-arrow-big-down ti-xs text-danger"></i>
+                        <span class="align-middle">20%</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div id="lineChart"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Line Chart -->
             <!-- Website Analytics -->
-            <div class="col-lg-6 mb-4">
+            {{-- <div class="col-lg-6 mb-4">
                 <div
                     class="swiper-container swiper-container-horizontal swiper swiper-card-advance-bg"
                     id="swiper-with-pagination-cards">
@@ -148,11 +170,11 @@
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
-            </div>
+            </div> --}}
             <!--/ Website Analytics -->
 
             <!-- Sales Overview -->
-            <div class="col-lg-3 col-sm-6 mb-4">
+            {{-- <div class="col-lg-3 col-sm-6 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
@@ -209,11 +231,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--/ Sales Overview -->
 
             <!-- Revenue Generated -->
-            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
+            {{-- <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
                 <div class="card">
                     <div class="card-body pb-0">
                         <div class="card-icon">
@@ -226,11 +248,11 @@
                     </div>
                     <div id="revenueGenerated"></div>
                 </div>
-            </div>
+            </div> --}}
             <!--/ Revenue Generated -->
 
             <!-- Earning Reports -->
-            <div class="col-lg-6 mb-4">
+            {{-- <div class="col-lg-6 mb-4">
                 <div class="card h-100">
                     <div class="card-header pb-0 d-flex justify-content-between mb-lg-n4">
                         <div class="card-title mb-0">
@@ -813,22 +835,23 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--/ Source Visit -->
 
             <!-- Projects table -->
-            <div class="col-12 col-xl-8 col-sm-12 order-1 order-lg-2 mb-4 mb-lg-0">
+            <div class="">
                 <div class="card">
                     <div class="card-datatable table-responsive">
                         <table class="datatables-projects table border-top">
                             <thead>
                             <tr>
+                            
                                 <th></th>
-                                <th></th>
+                                <th>id</th>
                                 <th>Name</th>
-                                <th>Leader</th>
-                                <th>Team</th>
-                                <th class="w-px-200">Status</th>
+                                <th>email</th>
+                                <th>phone</th>
+                               
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -839,4 +862,45 @@
             <!--/ Projects table -->
         </div>
     </div>
+        <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+
+    {{-- <script src="../../assets/vendor/libs/jquery/jquery.js"></script> --}}
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    {{-- <script src="../../assets/vendor/js/bootstrap.js"></script> --}}
+    <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../../assets/js/charts-apex.js"></script>
+
 @endsection
+@push('js')
+    <script src="{{asset('backend/datatables/js/project-management.js')}}"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
+            }
+        });
+        var csrf = "{{csrf_token()}}";
+        var DATA_URL = "{{ route('admin.project.api') }}";
+        var baseUrl = '{{URL::to('')}}';
+    </script>
+
+    <script>
+
+    </script>
+@endpush

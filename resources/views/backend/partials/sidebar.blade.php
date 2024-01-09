@@ -54,7 +54,7 @@
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-id"></i>
                 <div>{{__('cp.categories')}}</div>
-                <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                <div class="badge bg-primary rounded-pill ms-auto"></div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->is(app()->getLocale().'/admin/categories*') ? 'active' : '' }}">
@@ -76,7 +76,7 @@
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-id"></i>
                     <div>{{__('cp.doctors')}}</div>
-                    <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                    {{-- <div class="badge bg-primary rounded-pill ms-auto"></div> --}}
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->is(app()->getLocale().'/admin/doctors/index') ? 'active' : '' }}">
@@ -107,7 +107,7 @@
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-id"></i>
                     <div>{{__('cp.hospitals')}}</div>
-                    <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                    {{-- <div class="badge bg-primary rounded-pill ms-auto">3</div> --}}
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->is(app()->getLocale().'/admin/hospitals/index') ? 'active' : '' }}">
@@ -131,7 +131,7 @@
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-id"></i>
                     <div>{{__('cp.courses')}}</div>
-                    <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                    {{-- <div class="badge bg-primary rounded-pill ms-auto"></div> --}}
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item {{ request()->is(app()->getLocale().'/admin/courses/index') ? 'active' : '' }}">
@@ -165,7 +165,7 @@
     <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons ti ti-id"></i>
         <div>{{__('cp.articles')}}</div>
-        <div class="badge bg-primary rounded-pill ms-auto">3</div>
+        {{-- <div class="badge bg-primary rounded-pill ms-auto"></div> --}}
     </a>
     <ul class="menu-sub">
         <li class="menu-item {{ request()->is(app()->getLocale().'/admin/articles/index') ? 'active' : '' }}">
@@ -192,7 +192,7 @@ request()->is(app()->getLocale().'/admin/areas*') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-id"></i>
                 <div>{{__('cp.location')}}</div>
-                <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                {{-- <div class="badge bg-primary rounded-pill ms-auto"></div> --}}
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->is(app()->getLocale().'/admin/countries*') ? 'active' : '' }}">
@@ -219,7 +219,7 @@ request()->is(app()->getLocale().'/admin/areas*') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-id"></i>
                 <div>{{__('cp.treatments')}}</div>
-                <div class="badge bg-primary rounded-pill ms-auto">3</div>
+                {{-- <div class="badge bg-primary rounded-pill ms-auto"></div> --}}
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->is(app()->getLocale().'/admin/treatments*') ? 'active' : '' }}">

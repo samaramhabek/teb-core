@@ -81,7 +81,7 @@ Route::group(
 
 
     Route::middleware(['auth:admin'])->prefix('admin')->as('admin.')->group(function () {
-
+        Route::get('/api-projects',[DoctorController::class,'project'])->name('project.api');
         Route::get('/', [AdminController::class, 'index'])->name('dashboard');
         Route::resource('/users', UserController::class);
         Route::get('/api-users', [UserController::class, 'users_api'])->name('users.api');
@@ -134,6 +134,8 @@ Route::group(
         Route::Delete('/doctors/{id}', [DoctorController::class, 'deletedoctor'])->name('deletedoctor');
         Route::get('/api_doctors/edit/{id}', [DoctorController::class, 'showdoctor'])->name('showdoctor.api');
         Route::get('/modal-example', [DoctorController::class, 'create'])->name('form');
+        Route::get('/doctors/gallery', [DoctorController::class, 'gallery']);
+        Route::post('/doctors/gallery/store', [DoctorController::class, 'storegallery'])->name('storegallery');
 
         Route::get('/modal-example/article', [ArticleController::class, 'create'])->name('formarticle');
         Route::get('/articles/index', [ArticleController::class, 'index'])->name('article.index');
