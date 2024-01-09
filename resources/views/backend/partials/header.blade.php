@@ -69,7 +69,7 @@
             <!-- / Style Switcher-->
 
             <!-- Quick links  -->
-            <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
+            {{-- <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
                 <a
                     class="nav-link dropdown-toggle hide-arrow"
                     href="javascript:void(0);"
@@ -159,11 +159,11 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> --}}
             <!-- Quick links -->
 
             <!-- Notification -->
-            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+            {{-- <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                 <a
                     class="nav-link dropdown-toggle hide-arrow"
                     href="javascript:void(0);"
@@ -403,7 +403,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <!--/ Notification -->
 
             <!-- User -->
@@ -415,7 +415,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                        <a class="dropdown-item" href="#">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
@@ -438,12 +438,12 @@
                             <span class="align-middle">{{__('cp.Profile')}}</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="dropdown-item" href="">
                             <i class="ti ti-settings me-2 ti-sm"></i>
                             <span class="align-middle">{{__('cp.settings')}}</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>

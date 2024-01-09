@@ -329,4 +329,119 @@ class DoctorController extends Controller
         return response()->json(__('cp.create'));
 
     }
+    public function gallery(Request $request){
+        $doctor_id=$request->doctor_id;
+        return view('backend.doctors.gallery',['doctor_id'=>$doctor_id]);
+    }
+    public function storegallery(Request $request){
+//dd($request->all());
+if ($request->hasFile('imageUpload')) {
+    foreach ($request->file('imageUpload') as $file) {
+        $filename = $file->getClientOriginalName();
+        // You can now use $filename for whatever you need, like storing in a database, moving to a directory, etc.
+     Log::info($filename); // Logging the filename for demonstration
+    }
+}
+
+
+    }
+    public function project(Request $request){
+        $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
+        $columns = [
+            1 => 'id',
+            2 => 'first_name',
+            3=>'last_name',
+            4=>'description',
+            5=>'gender',
+            6 => 'email',
+            7 => 'phone',
+            8=>'is_trainer',
+            9=>'city_id',
+            10=>'region',
+            11=>'title',
+            12=>'lat',
+            13=>'lang',
+            // 12 => 'created_at',
+        ];
+
+        $search = $request->input('search.value');
+        $categoryId = $request->input('category_id');
+        $hospitalId = $request->hospital_id;
+
+
+        $totalData = Doctor::count();
+
+        // $query = Doctor::with('service','insurances','treatments','cases','city','hospitals')
+        //     ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
+        $query = Doctor::with('service', 'insurances', 'treatments', 'cases', 'city', 'hospitals')
+        ->orderBy($columns[$request->input('order.0.column')], $request->input('order.0.dir'));
+    
+    if ($hospitalId != 0) {
+        $query->whereHas('hospitals', function ($subQuery) use ($hospitalId) {
+            $subQuery->where('hospital_id', $hospitalId);
+        });
+    }
+    
+    // $result = $query->get();
+    
+    // ->get();
+
+
+        // Filter by category if a category ID is provided
+        if (!empty($categoryId)) {
+            $query->where('category_id', $categoryId);
+        }
+        // if ($hospitalId!=0) {
+        //     $query->where('hospital_id', $hospitalId);
+        // }
+
+        $totalFiltered = $query->count();
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $doctors= $query->skip($start)->take($limit)->get();
+
+        $data = [];
+
+        if (!empty($doctors)) {
+            $ids = $start;
+
+            log::info($doctors);
+            foreach ($doctors as $doctor) {
+                $nestedData['id'] = $doctor->id;
+                $nestedData['fake_id'] = ++$ids;
+                $nestedData['lang'] = app()->getLocale(Config::get('app.locale'));
+                $nestedData['first_name'] = $doctor->first_name;
+                $nestedData['last_name'] = $doctor->getTranslation('last_name', app()->getLocale(Config::get('app.locale')));
+                $nestedData['title'] = $doctor->getTranslation('title', app()->getLocale(Config::get('app.locale')));
+                $nestedData['email'] = $doctor->email;
+                $nestedData['gender'] = $doctor->gender;
+                $nestedData['Phone'] = $doctor->Phone;
+                $nestedData['description'] = $doctor->description;
+                $nestedData['is_trainer'] = $doctor->is_trainer;
+                $nestedData['area_id'] = $doctor->area ? $doctor->area->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
+                $nestedData['lat'] = $doctor->lat;
+                $nestedData['lang'] = $doctor->lang;
+                // $nestedData['city_id'] = $doctor->city->name;
+                $nestedData['city_id'] = $doctor->city ? $doctor->city->getTranslation('name', app()->getLocale(Config::get('app.locale'))) : '';
+                $data[] = $nestedData;
+            }
+        }
+
+        if ($data) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => intval($totalData),
+                'recordsFiltered' => intval($totalFiltered),
+                'code' => 200,
+                'data' => $data,
+                'parent_categories'=>$parent_categories,
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Internal Server Error',
+                'code' => 500,
+                'data' => [],
+            ]);
+        }
+    }
 }

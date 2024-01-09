@@ -220,7 +220,7 @@
                             <!-- / Style Switcher-->
 
                             <!-- Quick links  -->
-                            <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
+                            {{-- <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                     <i class="ti ti-layout-grid-add ti-md"></i>
@@ -276,14 +276,14 @@
                                                 <a href="{{route('index')}}" class="stretched-link">Dashboard</a>
                                                 <small class="text-muted mb-0">User Profile</small>
                                             </div>
-                                            <div class="dropdown-shortcuts-item col">
+                                            {{-- <div class="dropdown-shortcuts-item col">
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-settings fs-4"></i>
                                                 </span>
                                                 <a href="pages-account-settings-account.html"
                                                     class="stretched-link">Setting</a>
                                                 <small class="text-muted mb-0">Account Settings</small>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="row row-bordered overflow-visible g-0">
                                             <div class="dropdown-shortcuts-item col">
@@ -303,11 +303,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> --}}
                             <!-- Quick links -->
 
                             <!-- Notification -->
-                            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+                            {{-- <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                     <i class="ti ti-bell ti-md"></i>
@@ -555,7 +555,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <!--/ Notification -->
+                            <!--/ Notification --> --}}
 
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">

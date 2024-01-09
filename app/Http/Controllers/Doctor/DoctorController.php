@@ -17,6 +17,7 @@ use App\Models\Hospital;
 use App\Models\Service;
 use App\Models\Doctor;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Support\Composer;
 use Stevebauman\Location\Facades\Location;
 
 class DoctorController extends Controller
