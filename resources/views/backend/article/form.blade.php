@@ -43,7 +43,7 @@
                                 </span>
                             </button>
                         </div>
-                        <div class="line">
+                        {{-- <div class="line">
                             <i class="ti ti-chevron-right"></i>
                         </div>
                         <div class="step" data-target="#personal-info-validation">
@@ -54,8 +54,8 @@
                                     <span class="bs-stepper-subtitle">Add personal info</span>
                                 </span>
                             </button>
-                        </div>
-                        <div class="line">
+                        </div> --}}
+                        {{-- <div class="line">
                             <i class="ti ti-chevron-right"></i>
                         </div>
                         <div class="step" data-target="#social-links-validation">
@@ -66,7 +66,7 @@
                                     <span class="bs-stepper-subtitle">Add social links</span>
                                 </span>
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
 {{-- 
                     <div id="map" style="height: 50vh;"></div>
@@ -209,48 +209,31 @@
                                   
 
                                     <!-- Col -->
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="form-group">
                                             <button class="btn btn-default btn-next" type="button"
                                                 aria-controls="step-2">
                                                 <span>المرحلة التاليه</span>
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!-- /Col -->
-                                </div>
+                                {{-- </div>
                             </fieldset>
 
                             <fieldset aria-label="Step Two" id="step-2">
-                                <div class="title-step">
-                                    <h3>details Article </h3>
+                                <div class="title-step"> --}}
+                                    {{-- <h3>details Article </h3> --}}
                                 </div>
 
                                 <div class="form-h row">
                                     <!-- Col -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <div class="avatar-upload">
-                                                <div class="avatar-edit">
-                                                    <input type='file' id="imageUpload"
-                                                        accept=".png, .jpg, .jpeg" name="image" />
-                                                    <label for="imageUpload"></label>
-                                                </div>
-                                                <div class="avatar-preview">
-                                                    <div id="imagePreview" style="background-image: url('{{ optional($article)->image->original_url ?? asset('assets/img/avatar.jpg') }}')">
-                                                    </div>
-                                                </div>
-                                                
-                                                
-                                                 
-                                                    
-                                                    {{-- @if($item->hasMedia())
-                                        <img src="{{ $item->getFirstMediaUrl() }}" alt="Image">
-                                                      @else
-                                                       <p>No image available</p >
-                                                           @endif --}}
-                                               
-                                            </div>
+                                            <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="image" />
+                                        </div>
+                                        <div id="imagePreviewContainer">
+                                            <img  id="imagePreview" src="{{ optional($article)->image->original_url ?? asset('assets/img/logo.png') }}" alt="Image Preview" style="max-width: 100%; max-height: 300px;">
                                         </div>
                                     </div>
                                     <!-- /Col -->
@@ -391,22 +374,24 @@
     
     <script>
   
- 
-  function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-                $('#imagePreview').hide();
-                $('#imagePreview').fadeIn(650);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $("#imageUpload").change(function () {
+  $(document).ready(function() {
+    $("#imageUpload").change(function() {
         readURL(this);
     });
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            $('#imagePreview').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+    }
+}
+  
 
     //     document.getElementById('addNewDoctorForm').addEventListener('submit', function (event) {
     //     event.preventDefault();
