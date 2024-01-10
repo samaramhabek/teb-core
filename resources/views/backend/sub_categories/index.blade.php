@@ -19,11 +19,11 @@
         <!-- Product List Table -->
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">{{__('cp.filter')}}</h5>
+                {{-- <h5 class="card-title mb-0">{{__('cp.filter')}}</h5> --}}
 {{--                <form>--}}
                     <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
 
-                        <div class="col-md-4 product_category">
+                        {{-- <div class="col-md-4 product_category"> --}}
 {{--                            <select class="form-select text-capitalize" name="filter_1"--}}
 {{--                                    id="filter_1">--}}
 {{--                                <option value="">Category</option>--}}
@@ -31,8 +31,8 @@
 {{--                                    <option value="{{$category->id}}">{{$category->name}}</option>--}}
 {{--                                @endforeach--}}
 {{--                            </select>--}}
-                        </div>
-                        <div class="col-md-2 product_status">
+                        {{-- </div> --}}
+                        {{-- <div class="col-md-2 product_status">
                             <button type="button" class="btn btn-primary" name="filter"
                                     id="filterByCategoryBtn">
                                         <span>
@@ -40,7 +40,7 @@
                                             <span>{{__('cp.filter')}}</span>
                                         </span>
                             </button>
-                        </div>
+                        </div> --}}
 
                     </div>
 {{--                </form>--}}

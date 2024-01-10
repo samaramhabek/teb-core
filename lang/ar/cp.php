@@ -1288,4 +1288,7 @@ return [
 'waittime'=>'وقت انتظار',
 'contact_us'=>'تواصل معنا',
 'doctor'=>'طبيب',
+'upload_your_files'=>'تحميل الملفات',
+'services_and_price'=>'الخدمات و الاسعار',
+'No_matching_records_found'=>' لا يوجد بيانات للعرض',
 ];

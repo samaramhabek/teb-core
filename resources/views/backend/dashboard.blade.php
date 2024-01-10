@@ -49,7 +49,7 @@
                         <th>{{__('cp.is_trainer')}}</th>
                         <th>{{__('cp.lat')}}</th>
                         <th>{{__('cp.lang')}}</th>
-                        <th data-priority="1">{{__('cp.action')}}</th>
+                        {{-- <th data-priority="1">{{__('cp.action')}}</th> --}}
                       </tr>
                     </thead>
                     <tfoot>
@@ -68,7 +68,7 @@
                         <th>{{__('cp.is_trainer')}}</th>
                         <th>{{__('cp.lat')}}</th>
                         <th>{{__('cp.lang')}}</th>
-                        <th data-priority="1">{{__('cp.action')}}</th>
+                        {{-- <th data-priority="1">{{__('cp.action')}}</th> --}}
                       </tr>
                     </tfoot>
                   </table>

@@ -60,6 +60,30 @@
                                 </span>
                             </button>
                         </div>
+                        <div class="line">
+                            <i class="ti ti-chevron-right"></i>
+                        </div>
+                        <div class="step" data-target="#social-links-validation">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-circle">4</span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">{{__('cp.upload_your_files')}}</span>
+                                    <span class="bs-stepper-subtitle">{{__('cp.upload_your_files')}}</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="line">
+                            <i class="ti ti-chevron-right"></i>
+                        </div>
+                        <div class="step" data-target="#social-links-validation">
+                            <button type="button" class="step-trigger">
+                                <span class="bs-stepper-circle">5</span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">{{__('cp.services_and_price')}}</span>
+                                    <span class="bs-stepper-subtitle">{{__('cp.services_and_price')}}</span>
+                                </span>
+                            </button>
+                        </div>
                     </div>
 {{--
                     <div id="map" style="height: 50vh;"></div>
@@ -119,11 +143,11 @@
                                         <!-- /Col -->
                                     </div>
 
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <button type="button" class="btn extra-fields-customer">
                                             Add <i class="fa fa-plus"></i>
                                         </button>
-                                    </div>
+                                    </div> --}}
                                     {{-- /Append --}}
 
                                     <!-- Col -->
@@ -313,12 +337,13 @@
 
                                     </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <label>trainer :</label>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="check">
                                                 <input type="checkbox" name="is_trainer" {{ optional($doctor)->is_trainer ? 'checked' : '' }} />
 
-                                                {{__('cp.trainer')}}:
+                                                {{__('cp.trainer')}}
                                             </label>
                                         </div>
                                     </div>
@@ -929,7 +954,9 @@ var formData = new FormData(document.getElementById("addNewDoctorForm"));
 
 // window.initMap = initMap;
 //
+
 </script>
+
 {{-- <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmbQF5P5h2VjGRv01mgsfS7RnOAMBhIDs&callback=initMap">
 </script> --}}
@@ -951,6 +978,8 @@ src="https://maps.googleapis.com/maps/api/js?key=75168e1133a999ceb6837e318fd2ad8
 
 
 <style>
+    /* Default button style */
+
     /*
 * demo.css
 * File include item demo only specific css only

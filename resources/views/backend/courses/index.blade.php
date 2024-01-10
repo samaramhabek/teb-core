@@ -82,7 +82,8 @@
                             <label class="form-label" for="add-course-hours">{{__('cp.hours')}}</label>
                             <input type="nunber" class="form-control" id="add-course-hours" placeholder="{{__('cp.hours')}}" name="hours" aria-label="{{__('cp.hours')}}" />
                         </div>
-                        <div class="col-md-2">
+                        <label>online course:</label>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="is_online">
                                     <input type="checkbox" id="is_online" name="is_online" />

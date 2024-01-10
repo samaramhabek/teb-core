@@ -27,7 +27,7 @@
                       fill="#7367F0" />
                 </svg>
               </span>
-            <span class="app-brand-text demo menu-text fw-bold">{{ env('APP_NAME') }}</span>
+            <span class="app-brand-text demo menu-text fw-bold">{{ ('Teb Core')}}</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -48,7 +48,7 @@
 
         <!-- Dashboards -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Shop</span>
+            <span class="menu-header-text">Categories</span>
         </li>
         <li class="menu-item {{ request()->is(app()->getLocale().'/admin/categories*') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -68,11 +68,12 @@
                     </a>
                 </li>
             </ul>
+           
             <!--    doctor -->
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Doctors</span>
             </li>
-            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/doctors/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
+            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/doctors/index') }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-id"></i>
                     <div>{{__('cp.doctors')}}</div>
@@ -103,7 +104,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Hospital</span>
             </li>
-            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/hospitals/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
+            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/hospitals/index') }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-id"></i>
                     <div>{{__('cp.hospitals')}}</div>
@@ -127,7 +128,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Courses</span>
             </li>
-            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/courses/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
+            <li class="menu-item {{ request()->is(app()->getLocale().'/admin/courses/index')}}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-id"></i>
                     <div>{{__('cp.courses')}}</div>
@@ -161,7 +162,7 @@
 <li class="menu-header small text-uppercase">
     <span class="menu-header-text">Article</span>
 </li>
-<li class="menu-item {{ request()->is(app()->getLocale().'/admin/articles/index') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
+<li class="menu-item {{ request()->is(app()->getLocale().'/admin/articles/index') }}">
     <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons ti ti-id"></i>
         <div>{{__('cp.articles')}}</div>

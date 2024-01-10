@@ -71,7 +71,7 @@ $(function () {
                 { data: 'lat'},
                 { data: 'lang'},
                 // { data: 'created_at'},
-                { data: 'action' },
+                // { data: 'action' },
                
             ],
             columnDefs: [
@@ -222,31 +222,31 @@ $(function () {
                     
                     searchable: false,
                     orderable: false,
-                    render: function (data, type, full, meta) {
-                        return (
-                            '<div class="d-inline-block text-nowrap">' +
-                            `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddHospitals"><i class="ti ti-edit"></i></button>` +
-                            `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
-                            '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
-                            '<div class="dropdown-menu dropdown-menu-end m-0">' +
-                            '<a href="' +
-                            baseUrl+'/'+lang+'/admin/doctors/gallery?doctor_id='+full['id']+
-                            '" class="dropdown-item">gallery</a>' +
-                            // '<a href="'+
-                            // baseUrl+'/'+lang+'/admin/exam_questions?course_id='+full['id']+
-                            // '"javascript:;" class="dropdown-item">Final Exam</a>' +
-                            // '</div>' +
-                            // '</div>'
-                            // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
-                            // '<div class="dropdown-menu dropdown-menu-end m-0">' +
-                            // '<a href="' +
-                            // userView +
-                            // '" class="dropdown-item">View</a>' +
-                            // '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
-                            // '</div>' +
-                            '</div>'
-                        );
-                    },
+                    // render: function (data, type, full, meta) {
+                    //     return (
+                    //         '<div class="d-inline-block text-nowrap">' +
+                    //         `<button id="editButton" class="btn btn-sm btn-icon edit-record" data-id="${full['id']}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddHospitals"><i class="ti ti-edit"></i></button>` +
+                    //         `<button class="btn btn-sm btn-icon delete-record" data-id="${full['id']}"><i class="ti ti-trash"></i></button>` +
+                    //         '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
+                    //         '<div class="dropdown-menu dropdown-menu-end m-0">' +
+                    //         '<a href="' +
+                    //         baseUrl+'/'+lang+'/admin/doctors/gallery?doctor_id='+full['id']+
+                    //         '" class="dropdown-item">gallery</a>' +
+                    //         // '<a href="'+
+                    //         // baseUrl+'/'+lang+'/admin/exam_questions?course_id='+full['id']+
+                    //         // '"javascript:;" class="dropdown-item">Final Exam</a>' +
+                    //         // '</div>' +
+                    //         // '</div>'
+                    //         // '<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>' +
+                    //         // '<div class="dropdown-menu dropdown-menu-end m-0">' +
+                    //         // '<a href="' +
+                    //         // userView +
+                    //         // '" class="dropdown-item">View</a>' +
+                    //         // '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
+                    //         // '</div>' +
+                    //         '</div>'
+                    //     );
+                    // },
                  
                 }
             ],
@@ -272,166 +272,166 @@ $(function () {
                 info: showing +' _START_ ' + to + ' _END_ ' + of + ' _TOTAL_ ' + entries
             },
             // Buttons with Dropdown
-            buttons: [
-                {
-                    extend: 'collection',
-                    className: 'btn btn-label-primary dropdown-toggle mx-3',
-                    text: '<i class="ti ti-logout rotate-n90 me-2"></i>' + exportFile,
-                    buttons: [
-                        {
-                            extend: 'print',
-                            title: 'countries',
-                            text: '<i class="ti ti-printer me-2" ></i>Print',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4],
-                                // prevent avatar to be print
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            // if (item.classList !== undefined && item.classList.contains('user-name')) {
-                                            //     result = result + item.lastChild.textContent;
-                                            // } else result = result + item.innerText;
-                                            if (item && item.classList && item.classList.contains('country-name')) {
-                                                result = result + item.lastChild.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            },
-                            customize: function (win) {
-                                //customize print view for dark
-                                $(win.document.body)
-                                    .css('color', config.colors.headingColor)
-                                    .css('border-color', config.colors.borderColor)
-                                    .css('background-color', config.colors.body);
-                                $(win.document.body)
-                                    .find('table')
-                                    .addClass('compact')
-                                    .css('color', 'inherit')
-                                    .css('border-color', 'inherit')
-                                    .css('background-color', 'inherit');
-                            }
-                        },
-                        {
-                            extend: 'csv',
-                            title: 'countries',
-                            text: '<i class="ti ti-file-text me-2" ></i>Csv',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4],
-                                // prevent avatar to be print
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            // if (item.classList.contains('user-name')) {
-                                            //     result = result + item.lastChild.textContent;
-                                            // } else result = result + item.innerText;
-                                            if (item && item.classList && item.classList.contains('country-name')) {
-                                                result = result + item.lastChild.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            extend: 'excel',
-                            title: 'countries',
-                            text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4],
-                                // prevent avatar to be display
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            // if (item.classList.contains('user-name')) {
-                                            //     result = result + item.lastChild.textContent;
-                                            // } else result = result + item.innerText;
-                                            if (item && item.classList && item.classList.contains('country-name')) {
-                                                result = result + item.lastChild.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            extend: 'pdf',
-                            title: 'countries',
-                            text: '<i class="ti ti-file-text me-2"></i>Pdf',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4],
-                                // prevent avatar to be display
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            // if (item.classList.contains('user-name')) {
-                                            //     result = result + item.lastChild.textContent;
-                                            // } else result = result + item.innerText;
-                                            if (item && item.classList && item.classList.contains('country-name')) {
-                                                result = result + item.lastChild.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            extend: 'copy',
-                            title: 'countries',
-                            text: '<i class="ti ti-copy me-1" ></i>Copy',
-                            className: 'dropdown-item',
-                            exportOptions: {
-                                columns: [1, 2, 3, 4],
-                                // prevent avatar to be copy
-                                format: {
-                                    body: function (inner, coldex, rowdex) {
-                                        if (inner.length <= 0) return inner;
-                                        var el = $.parseHTML(inner);
-                                        var result = '';
-                                        $.each(el, function (index, item) {
-                                            // if (item.classList.contains('user-name')) {
-                                            //     result = result + item.lastChild.textContent;
-                                            // } else result = result + item.innerText;
-                                            if (item && item.classList && item.classList.contains('country-name')) {
-                                                result = result + item.lastChild.textContent;
-                                            } else result = result + item.innerText;
-                                        });
-                                        return result;
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    text: '<i class="ti ti-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">' + addNewTranslation + '</span>',
-                    className: 'add-new btn btn-primary',
-                    attr: {
-                        'data-bs-toggle': 'offcanvas',
-                        'data-bs-target': '#offcanvasAddCountry'
-                    }
-                }
-            ],
+            // buttons: [
+            //     {
+            //         extend: 'collection',
+            //         className: 'btn btn-label-primary dropdown-toggle mx-3',
+            //         text: '<i class="ti ti-logout rotate-n90 me-2"></i>' + exportFile,
+            //         buttons: [
+            //             {
+            //                 extend: 'print',
+            //                 title: 'countries',
+            //                 text: '<i class="ti ti-printer me-2" ></i>Print',
+            //                 className: 'dropdown-item',
+            //                 exportOptions: {
+            //                     columns: [1, 2, 3, 4],
+            //                     // prevent avatar to be print
+            //                     format: {
+            //                         body: function (inner, coldex, rowdex) {
+            //                             if (inner.length <= 0) return inner;
+            //                             var el = $.parseHTML(inner);
+            //                             var result = '';
+            //                             $.each(el, function (index, item) {
+            //                                 // if (item.classList !== undefined && item.classList.contains('user-name')) {
+            //                                 //     result = result + item.lastChild.textContent;
+            //                                 // } else result = result + item.innerText;
+            //                                 if (item && item.classList && item.classList.contains('country-name')) {
+            //                                     result = result + item.lastChild.textContent;
+            //                                 } else result = result + item.innerText;
+            //                             });
+            //                             return result;
+            //                         }
+            //                     }
+            //                 },
+            //                 customize: function (win) {
+            //                     //customize print view for dark
+            //                     $(win.document.body)
+            //                         .css('color', config.colors.headingColor)
+            //                         .css('border-color', config.colors.borderColor)
+            //                         .css('background-color', config.colors.body);
+            //                     $(win.document.body)
+            //                         .find('table')
+            //                         .addClass('compact')
+            //                         .css('color', 'inherit')
+            //                         .css('border-color', 'inherit')
+            //                         .css('background-color', 'inherit');
+            //                 }
+            //             },
+            //             {
+            //                 extend: 'csv',
+            //                 title: 'countries',
+            //                 text: '<i class="ti ti-file-text me-2" ></i>Csv',
+            //                 className: 'dropdown-item',
+            //                 exportOptions: {
+            //                     columns: [1, 2, 3, 4],
+            //                     // prevent avatar to be print
+            //                     format: {
+            //                         body: function (inner, coldex, rowdex) {
+            //                             if (inner.length <= 0) return inner;
+            //                             var el = $.parseHTML(inner);
+            //                             var result = '';
+            //                             $.each(el, function (index, item) {
+            //                                 // if (item.classList.contains('user-name')) {
+            //                                 //     result = result + item.lastChild.textContent;
+            //                                 // } else result = result + item.innerText;
+            //                                 if (item && item.classList && item.classList.contains('country-name')) {
+            //                                     result = result + item.lastChild.textContent;
+            //                                 } else result = result + item.innerText;
+            //                             });
+            //                             return result;
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 extend: 'excel',
+            //                 title: 'countries',
+            //                 text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
+            //                 className: 'dropdown-item',
+            //                 exportOptions: {
+            //                     columns: [1, 2, 3, 4],
+            //                     // prevent avatar to be display
+            //                     format: {
+            //                         body: function (inner, coldex, rowdex) {
+            //                             if (inner.length <= 0) return inner;
+            //                             var el = $.parseHTML(inner);
+            //                             var result = '';
+            //                             $.each(el, function (index, item) {
+            //                                 // if (item.classList.contains('user-name')) {
+            //                                 //     result = result + item.lastChild.textContent;
+            //                                 // } else result = result + item.innerText;
+            //                                 if (item && item.classList && item.classList.contains('country-name')) {
+            //                                     result = result + item.lastChild.textContent;
+            //                                 } else result = result + item.innerText;
+            //                             });
+            //                             return result;
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 extend: 'pdf',
+            //                 title: 'countries',
+            //                 text: '<i class="ti ti-file-text me-2"></i>Pdf',
+            //                 className: 'dropdown-item',
+            //                 exportOptions: {
+            //                     columns: [1, 2, 3, 4],
+            //                     // prevent avatar to be display
+            //                     format: {
+            //                         body: function (inner, coldex, rowdex) {
+            //                             if (inner.length <= 0) return inner;
+            //                             var el = $.parseHTML(inner);
+            //                             var result = '';
+            //                             $.each(el, function (index, item) {
+            //                                 // if (item.classList.contains('user-name')) {
+            //                                 //     result = result + item.lastChild.textContent;
+            //                                 // } else result = result + item.innerText;
+            //                                 if (item && item.classList && item.classList.contains('country-name')) {
+            //                                     result = result + item.lastChild.textContent;
+            //                                 } else result = result + item.innerText;
+            //                             });
+            //                             return result;
+            //                         }
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 extend: 'copy',
+            //                 title: 'countries',
+            //                 text: '<i class="ti ti-copy me-1" ></i>Copy',
+            //                 className: 'dropdown-item',
+            //                 exportOptions: {
+            //                     columns: [1, 2, 3, 4],
+            //                     // prevent avatar to be copy
+            //                     format: {
+            //                         body: function (inner, coldex, rowdex) {
+            //                             if (inner.length <= 0) return inner;
+            //                             var el = $.parseHTML(inner);
+            //                             var result = '';
+            //                             $.each(el, function (index, item) {
+            //                                 // if (item.classList.contains('user-name')) {
+            //                                 //     result = result + item.lastChild.textContent;
+            //                                 // } else result = result + item.innerText;
+            //                                 if (item && item.classList && item.classList.contains('country-name')) {
+            //                                     result = result + item.lastChild.textContent;
+            //                                 } else result = result + item.innerText;
+            //                             });
+            //                             return result;
+            //                         }
+            //                     }
+            //                 }
+            //             }
+            //         ]
+            //     },
+            //     {
+            //         text: '<i class="ti ti-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">' + addNewTranslation + '</span>',
+            //         className: 'add-new btn btn-primary',
+            //         attr: {
+            //             'data-bs-toggle': 'offcanvas',
+            //             'data-bs-target': '#offcanvasAddCountry'
+            //         }
+            //     }
+            // ],
             // For responsive popup
             responsive: {
                 details: {
@@ -541,32 +541,32 @@ $(function () {
     });
 
     // edit record
-    $(document).on('click', '.edit-record', function () {
-        var country_id = $(this).data('id'),
-            dtrModal = $('.dtr-bs-modal.show');
+    // $(document).on('click', '.edit-record', function () {
+    //     var country_id = $(this).data('id'),
+    //         dtrModal = $('.dtr-bs-modal.show');
 
-        // hide responsive modal in small screen
-        if (dtrModal.length) {
-            dtrModal.modal('hide');
-        }
+    //     // hide responsive modal in small screen
+    //     if (dtrModal.length) {
+    //         dtrModal.modal('hide');
+    //     }
 
-        // changing the title of offcanvas
-        $('#offcanvasAddCountryLabel').html(edit);
+    //     // changing the title of offcanvas
+    //     $('#offcanvasAddCountryLabel').html(edit);
 
-        // get data
-        $.get(`${baseUrl}/admin/countries\/${country_id}\/edit`, function (data) {
-            $('#country_id').val(data.id);
-            $('#add-country-name-ar').val(data.name.ar);
-            $('#add-country-name-en').val(data.name.en);
-            $('#add-country-key').val(data.country_key);
-        });
-    });
+    //     // get data
+    //     $.get(`${baseUrl}/admin/countries\/${country_id}\/edit`, function (data) {
+    //         $('#country_id').val(data.id);
+    //         $('#add-country-name-ar').val(data.name.ar);
+    //         $('#add-country-name-en').val(data.name.en);
+    //         $('#add-country-key').val(data.country_key);
+    //     });
+    // });
 
     // changing the title
-    $('.add-new').on('click', function () {
-        $('#country_id').val(''); //reseting input field
-        $('#offcanvasAddCountryLabel').html(addNewTranslation);
-    });
+    // $('.add-new').on('click', function () {
+    //     $('#country_id').val(''); //reseting input field
+    //     $('#offcanvasAddCountryLabel').html(addNewTranslation);
+    // });
 
     // Filter form control to default size
     // ? setTimeout used for multilingual table initialization

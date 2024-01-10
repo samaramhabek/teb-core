@@ -5,7 +5,7 @@
 
     <div class="container-xxl flex-grow-1 container-p-y">
        <div class="row">
-           <div class="row g-4 mb-4">
+           {{-- <div class="row g-4 mb-4">
                <div class="col-sm-6 col-xl-3">
                    <div class="card">
                        <div class="card-body">
@@ -80,9 +80,9 @@
           </span>
                            </div>
                        </div>
-                   </div>
-               </div>
-           </div>
+                   </div> --}}
+               {{-- </div>
+           </div> --}}
            <!-- Users List Table -->
            <div class="card">
                <div class="card-header">

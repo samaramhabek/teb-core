@@ -19,14 +19,14 @@
         <!-- Product List Table -->
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">{{__('cp.filter')}}</h5>
+                {{-- <h5 class="card-title mb-0">{{__('cp.filter')}}</h5> --}}
                 {{--                <form>--}}
-                <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
+                {{-- <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
 
                     <div class="col-md-4 filter_country">
 
-                    </div>
-                    <div class="col-md-2 product_status">
+                    </div> --}}
+                    {{-- <div class="col-md-2 product_status">
                         <button type="button" class="btn btn-primary" name="filter"
                                 id="filterByCountryBtn">
                                         <span>
@@ -34,11 +34,11 @@
                                             <span>{{__('cp.filter')}}</span>
                                         </span>
                         </button>
-                    </div>
-
-                </div>
+                    </div> --}}
+{{-- 
+                </div> --}}
                 {{--                </form>--}}
-            </div>
+            {{-- </div> --}}
             <div class="card-datatable table-responsive">
                 <table class="datatables-cities table">
                     <thead class="border-top">

@@ -1108,6 +1108,9 @@ return [
     'waittime'=>'wait time',
     'contact_us'=>'Contact US ',
     'doctor'=>'doctor',
+    'upload_your_files'=>'upload your files',
+    'services_and_price'=>'services and price',
+    'No_matching_records_found'=>'No matching records found',
 ];
 
 
