@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Fortify;
+use Illuminate\Support\Facades\Log;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -38,6 +39,7 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(LoginResponse::class, new class implements LoginResponse {
             public function toResponse($request)
             {
+                log::info($request);
                 if ($request->user('admin')) {
                     return redirect()->intended('/admin');
                 }
@@ -53,14 +55,17 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(LogoutResponse::class, new class implements LogoutResponse {
             public function toResponse($request)
             {
-                //dd($request);
-                if ($request->is('admin') || $request->is('admin/*')) {
+                log::info($request);
+                if (Auth::guard('admin')) {
+                    log::info('kk');
+                    Auth::guard('admin')->logout();
                     return redirect('/admin/login');
-                }elseif($request->is('doctor') || $request->is('doctor/*')){
+                }elseif(Auth::guard('doctor')){
                     return redirect('/doctor/login');
                 }
-                 else {
-                    return redirect('admin/login');
+                else {
+                    log::info('bbv');
+                    return redirect('/login');
                 }
 
             }
