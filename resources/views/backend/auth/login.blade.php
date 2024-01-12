@@ -147,6 +147,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary d-grid w-100">Sign in</button>
+                    <a href="{{route('forget.password.get')}}">forget password</a>
                 </form>
 
 

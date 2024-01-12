@@ -33,6 +33,7 @@ use App\Models\City;
 use App\Models\Hospital;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,10 @@ use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
 //     return view('backend.doctors.formEdit',['cases'=>Cases::get(),'nationalities'=>Nationality::get(),'categories'=>Category::get(),
 //                                         'treatments'=>Treatment::get(),'insurances'=>Insurance::get(),'cities'=>City::get()]);
 //     })->name('formEdit');
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 Route::get('/modal-example/index',function(){
     return view('index');
     })->name('index');
