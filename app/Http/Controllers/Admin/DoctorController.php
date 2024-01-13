@@ -217,7 +217,7 @@ class DoctorController extends Controller
         $data['title'] = ['en' => $request->title_en, 'ar' => $request->title_ar];
         // $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];
         $data['address'] = ['en' => $request->address_en, 'ar' => $request->address_ar];
-        $data['email'] = "ss@dd.com";
+        $data['email'] = $request->email;
         $data['gender'] = $request->gender;
         $data['lat'] = (float) $request->lat;
         $data['lang'] = (float) $request->lang;
