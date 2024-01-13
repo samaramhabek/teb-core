@@ -76,7 +76,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="city_id">{{__('cp.city')}}</label>
                             <select id="city_id" name="city_id" class="form-select">
-                                <option value="">Select</option>
+                                <option value="">{{__('cp.select_city')}}</option>
                                 @foreach($cities as $city)
                                     <option value="{{$city->id}}">{{$city->name}}</option>
                                 @endforeach

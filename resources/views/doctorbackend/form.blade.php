@@ -1171,7 +1171,7 @@ $(document).ready(function() {
                 // Populate Categories dropdown
                 var categoriesDropdown = $('select[name="categories[]"]');
                 categoriesDropdown.empty();
-                categoriesDropdown.append('<option value="disabled">{{__('cp.select_category')}}</option>');
+                categoriesDropdown.append('<option value="disabled">{{__('cp.select_categories')}}</option>');
 
                 if (data.categories && data.categories.length > 0) {
                     $.each(data.categories, function(index, category) {

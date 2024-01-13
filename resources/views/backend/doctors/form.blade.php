@@ -268,7 +268,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control" name="gender" required>
-
+                                                    <option>{{__('cp.select_gender')}}</option>
 
                                                     <option value="0" @if(optional($doctor)->gender === '0') selected @endif>{{__('cp.fmale')}}</option>
                                                     <option value="1" @if(optional($doctor)->gender === '1') selected @endif>{{__('cp.male')}}</option>
@@ -282,6 +282,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select  class="form-control multiSelect2 for" name="nationality_id">
+                                                <option> {{__('cp.select_nationality')}}</option>
                                                 <option value="" @if(optional($doctor)->nationality_id === '')  @endif>{{__('cp.nationality')}}</option>
                                                 @foreach($nationalities as $nationality)
                                                     <option value="{{ $nationality->id }}" @if(optional($doctor)->nationality_id == $nationality->id) selected @endif>
@@ -337,7 +338,7 @@
 
                                     </div>
                                     </div>
-                                    <label>trainer :</label>
+                                    <label> {{__('cp.trainer')}} :</label>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="check">
@@ -365,6 +366,7 @@
                                             <div class="form-group">
                                                 <label for="categories"> {{__('cp.main_categories')}}</label>
                                                 <select class="form-control multiSelect2 for" name="categories[]" multiple>
+                                                    <option>{{__('cp.select_categories')}}</option>
                                                     @foreach($categories as $category)
                                                         <option value="{{ $category->id }}"
                                                             @if(optional($doctor)->category_parent && $doctor->category_parent->contains('id', $category->id)) selected @endif>
@@ -382,6 +384,7 @@
                                             <div class="form-group">
                                                 <label for="child_categories"> {{__('cp.sub_categories')}} </label>
                                                 <select class="form-control multiSelect2 for" name="child_categories[]" multiple>
+                                                    <option>{{__('cp.select_sub_categories')}}</option>
                                                     @foreach($child_categories as $child_category)
                                                     <option value="{{ $category->id }}"
                                                         @if(optional($doctor)->category_child && $doctor->category_child->contains('id', $category->id)) selected @endif>
@@ -415,6 +418,7 @@
                                             <div class="form-group">
                                                 <label for="treatments">{{__('cp.treatments')}}</label>
                                                 <select class="form-control multiSelect2 for" name="treatments[]" multiple>
+                                                    <option>{{__('cp.select_treatments')}}</option>
                                                     @foreach($treatments as $treatment)
                                                     <option value="{{ $treatment->id }}"
 
@@ -489,7 +493,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <select class="form-control multiSelect2 for" name="cases[]" multiple>
-                                                    <option value="disabled">{{__('cp.select_case')}}</option>
+                                                    <option value="disabled">{{__('cp.select_cases')}}</option>
                                                     @foreach($cases as $case)
                                                     <option value="{{ $case->id }}"
 
@@ -508,7 +512,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <select class="form-control multiSelect2 for" name="insurances[]" multiple>
-                                                    <option value="disabled">{{__('cp.select_insurance')}}</option>
+                                                    <option value="disabled">{{__('cp.select_insurances')}}</option>
                                                     @foreach($insurances as $insurance)
                                                     <option value="{{ $insurance->id }}"
 
@@ -530,7 +534,7 @@
                                             </button>
                                             <button class="btn btn-default btn-prev" type="button"
                                                 aria-controls="step-2">
-                                                <span>Prev Step </span>
+                                                <span>{{__('cp.prev_step')}} </span>
                                             </button>
                                         </div>
                                     </div>
@@ -548,7 +552,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select class="form-control multiSelect2 for" name="city_id">
-                                                <option value="" disabled>{{__('cp.select_city')}} </option>
+                                                <option >{{__('cp.select_city')}} </option>
                                                 @foreach($cities as $city)
                                                 <option value="{{ $city->id }}" @if(optional($doctor)->city_id == $city->id) selected @endif>
                                                     {{ $city->name }}
@@ -563,7 +567,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <select class="form-control multiSelect2 for" name="area_id">
-                                                <option value="" disabled>{{__('cp.region_en')}} </option>
+                                                <option value="" disabled>{{__('cp.region')}} </option>
                                                 @foreach($areas as $area)
                                                 <option value="{{ $area->id }}" @if(optional($doctor)->area_id == $area->id) selected @endif>
                                                     {{ $area->name }}
@@ -657,7 +661,7 @@
                                             </button>
                                             <button class="btn btn-default btn-prev" type="button"
                                                 aria-controls="step-3">
-                                                <span>Prev Step </span>
+                                                <span>{{__('cp.prev_step')}}</span>
                                             </button>
                                         </div>
                                     </div>
@@ -724,7 +728,7 @@
                                         </button>
                                         <button class="btn btn-default btn-prev" type="button"
                                             aria-controls="step-4">
-                                            <span>Prev Step </span>
+                                            <span>{{__('cp.prev_step')}}</span>
                                         </button>
                                     </div>
                                 </div>
@@ -800,7 +804,7 @@
                                             </button>
                                             <button class="btn btn-default btn-prev" type="button"
                                                 aria-controls="step-5">
-                                                <span>Prev Step </span>
+                                                <span>{{__('cp.prev_step')}} </span>
                                             </button>
                                         </div>
                                     </div>

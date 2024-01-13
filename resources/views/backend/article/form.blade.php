@@ -242,7 +242,7 @@
                                     @if(optional($article))
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span>{{__('cp.select_Category')}}:</span>
+                                            <span>{{__('cp.select_Categories')}}:</span>
                                         
                                            
                                             <select class="form-control" name="category_id" id="category_id" required>
@@ -262,6 +262,7 @@
                                         <div class="form-group">
                                             <span>{{__('cp.select_SubCategory')}}:</span>
                                             <select class="form-control" name="child_category_id" id="child_category_id" required>
+                                               <option>{{__('cp.select_sub_category')}}</option>
                                                 @foreach($child_categories as $category)
                                                     <option value="{{ $category->id }}" 
                                                         @if(($article->category_child->id ?? null) == $category->id) selected @endif>
@@ -294,6 +295,7 @@
                                             </select> --}} 
                                            
                                             <select class="form-control" name="category" id="category_id" required>
+                                                <option>{{__('cp.select_categories')}}</option>
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}" 
                                                       >

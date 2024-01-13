@@ -832,7 +832,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <select class="form-control" name="type" required>
-                                                            <option value="" disabled>الجنس</option>
+                                                            <option value="" disabled>{{__('cp.choose_gender')}} </option>
                                                             <option value="female">انثي</option>
                                                             <option value="male">ذكر</option>
                                                         </select>
@@ -844,7 +844,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <select class="form-control" name="ent" required>
-                                                            <option value="" disabled>الجنسيه</option>
+                                                            <option value="" disabled>{{__('cp.select_nationality')}}</option>
                                                             <option value="1">الجنسيه </option>
                                                             <option value="2">الجنسيه </option>
                                                         </select>

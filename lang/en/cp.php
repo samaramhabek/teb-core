@@ -1141,6 +1141,21 @@ return [
     'tactic'=>'Tactic ',
     'Support'=>'Support',
     'Documentation'=>'Documentation',
+    'Select'=>'Select',
+    'select_category'=>' select category',
+    'select_categories'=>'select categories',
+    'select_treatments'=>'select treatments',
+    'select_cases'=>'select cases',
+    'select_gender'=>' select gender',
+    'select_nationality'=>'select nationality ',
+    'select_sub_category'=>'select sub category',
+    'select_sub_categories'=>'select sub categories',
+    'select_city'=>'select_city',
+    'select_hospitals'=>'select hospitals',
+    'select_country'=>' select country',
+    'select_insurances'=>'select insurances',
+    'prev_step'=>'prev step',
+    'trainer'=>'Trainer',
 ];
 
 
