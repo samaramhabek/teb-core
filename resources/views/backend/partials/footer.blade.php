@@ -7,7 +7,7 @@
                 <script>
                     document.write(new Date().getFullYear());
                 </script>
-                , made with ❤️ by <a href="#" target="_blank" class="fw-medium">Tactic</a>
+                , {{__('cp.made_with')}} ❤️ {{__('cp.by')}} <a href="#" target="_blank" class="fw-medium">{{__('cp.tactic')}}</a>
             </div>
         </div>
     </div>

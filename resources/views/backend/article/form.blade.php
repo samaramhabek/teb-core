@@ -27,19 +27,19 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="py-3 mb-4"><span class="text-muted fw-light">write Article/</span> Numbered</h4>
+            <h4 class="py-3 mb-4"><span class="text-muted fw-light">{{__('cp.write_Article')}}/</span> {{__('cp.Numbered')}}</h4>
 
             <!-- Validation Wizard -->
             <div class="col-12 mb-4">
-                <small class="text-light fw-medium">Validation</small>
+                {{-- <small class="text-light fw-medium">Validation</small> --}}
                 <div id="wizard-validation" class="bs-stepper mt-2">
                     <div class="bs-stepper-header">
                         <div class="step" data-target="#account-details-validation">
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-circle">1</span>
                                 <span class="bs-stepper-label mt-1">
-                                    <span class="bs-stepper-title">Post Details</span>
-                                    <span class="bs-stepper-subtitle">Setup Article Details</span>
+                                    <span class="bs-stepper-title">{{__('cp.Post_Details')}}</span>
+                                    <span class="bs-stepper-subtitle">{{__('cp.Setup_Article_Details')}}</span>
                                 </span>
                             </button>
                         </div>
@@ -81,7 +81,7 @@
                   
                             <fieldset aria-label="Step One" id="step-1">
                                 <div class="title-step">
-                                    <h3>Details Article</h3>
+                                    <h3>{{__('cp.Details_Article')}}</h3>
                                 </div>
 
                                 <div class="form-h row">
@@ -94,18 +94,18 @@
                                     @if(optional($article))
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Article name :</label>
+                                            <label for="">{{__('cp.Article_name')}} :</label>
                                             <input type="text" class="form-control"
-                                                placeholder="article name"
+                                                placeholder="{{__('cp.Article_name')}}"
                                                 name="article_name"  required value="{{optional($article)->article_name}}" />
                                         </div>
                                     </div>
                                     @else
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Article name :</label>
+                                            <label for="">{{__('cp.Article_name')}} :</label>
                                             <input type="text" class="form-control"
-                                                placeholder="article name"
+                                                placeholder="{{__('cp.Article_name')}}"
                                                 name="article_name"  required  />
                                         </div>
                                     </div>
@@ -113,9 +113,9 @@
                                     <!-- /Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">writer name :</label>
+                                            <label for="">{{__('cp.writer_name')}} :</label>
                                             <input type="text" class="form-control"
-                                                placeholder="writer name"
+                                                placeholder="{{__('cp.writer_name')}}"
                                                 name="Nameofthewriter"  required  value="{{optional($article)->Nameofthewriter}}" />
                                         </div>
                                     </div>
@@ -123,16 +123,16 @@
                                 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">reviewer name :</label>
+                                            <label for="">{{__('cp.reviewer_name')}} :</label>
                                             <input type="text" class="form-control"
-                                                placeholder="reviewer name"
+                                                placeholder="{{__('cp.reviewer_name')}}"
                                                 name="reviewerofthearticle"  required  value="{{optional($article)->reviewerofthearticle}}" />
                                         </div>
                                     </div>
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="published_at">Publication Date and Time:</label>
+                                            <label for="published_at">{{__('cp.Publication_Date_and_Time')}}:</label>
                                             <input type="datetime-local" name="published_at" id="published_at" class="form-control"
                                                    value="{{ optional($article)->published_at ? $article->published_at->format('Y-m-d\TH:i') : '' }}">
                                         </div>
@@ -140,9 +140,9 @@
                                     <!--col-->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Meta Tags :</label>
+                                            <label for="">{{__('cp.Meta_Tags')}} :</label>
                                             <input type="text" class="form-control" id="test1"
-                                                placeholder="meta tags" value="{{optional($article)->meta_tags}}"
+                                                placeholder="{{__('cp.meta_tags')}}" value="{{optional($article)->meta_tags}}"
                                                  name="meta_tags" required />
                                                  
 
@@ -164,8 +164,8 @@
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="multilineInput">Meta Description:</label>
-                                            <textarea id="multilineInput" name="meta_description" class="form-control" placeholder="Enter your meta description here..." style="height: 75%">
+                                            <label for="multilineInput">{{__('cp.Meta_Description')}}:</label>
+                                            <textarea id="multilineInput" name="meta_description" class="form-control" placeholder="{{__('cp.Enter_your_meta_description_here...')}}" style="height: 75%">
                                                 {{ optional($article)->meta_description }}
                                             </textarea>
                                         </div>
@@ -191,7 +191,7 @@
                                       <input type="hidden" name="description" id="editorContent" />
                                       <div class="col-md-6">
                                         <div class="form-group">
-                                        <label for="multilineInput">Description:</label>
+                                        <label for="multilineInput">{{__('cp.Description')}}:</label>
                                       <div id="editor" class="form-control custom-editor"  ></div>
                                     </div>
                                 </div>
@@ -242,7 +242,7 @@
                                     @if(optional($article))
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span>select Category:</span>
+                                            <span>{{__('cp.select_Category')}}:</span>
                                         
                                            
                                             <select class="form-control" name="category_id" id="category_id" required>
@@ -260,7 +260,7 @@
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span>select SubCategory:</span>
+                                            <span>{{__('cp.select_SubCategory')}}:</span>
                                             <select class="form-control" name="child_category_id" id="child_category_id" required>
                                                 @foreach($child_categories as $category)
                                                     <option value="{{ $category->id }}" 
@@ -279,7 +279,7 @@
                                     <!-- /Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span>select Category:</span>
+                                            <span>{{__('cp.select_Category')}}:</span>
                                             {{-- uu{{$article}} --}}
                                             {{-- <select class="form-control" name="category" id="category_id" required>
                                                
@@ -308,7 +308,7 @@
                                     <!-- Col -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span>select SubCategory:</span>
+                                            <span>{{__('cp.select_SubCategory')}}:</span>
                                             <select class="form-control" name="category" id="category_id" required>
                                                 @foreach($child_categories as $category)
                                                     <option value="{{ $category->id }}" 

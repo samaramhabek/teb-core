@@ -27,7 +27,7 @@
 
         <!-- Dashboards -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Categories</span>
+            <span class="menu-header-text">{{__('cp.categories')}}</span>
         </li>
         <li class="menu-item {{ request()->is(app()->getLocale().'/admin/categories*') || request()->is(app()->getLocale().'/admin/sub-categories*') ? 'open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -50,7 +50,7 @@
            
             <!--    doctor -->
             <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Doctors</span>
+                <span class="menu-header-text">{{__('cp.doctors')}}</span>
             </li>
             <li class="menu-item {{ request()->is(app()->getLocale().'/admin/doctors/index') }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -81,7 +81,7 @@
 
                   <!--    hospital -->
             <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Hospital</span>
+                <span class="menu-header-text">{{__('cp.hospitals')}}</span>
             </li>
             <li class="menu-item {{ request()->is(app()->getLocale().'/admin/hospitals/index') }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -105,7 +105,7 @@
                 <!-- end hospital-->
                   <!--    courses -->
             <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">Courses</span>
+                <span class="menu-header-text">{{__('cp.courses')}}</span>
             </li>
             <li class="menu-item {{ request()->is(app()->getLocale().'/admin/courses/index')}}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -139,7 +139,7 @@
                 <!-- end courses-->
 <!--article-->
 <li class="menu-header small text-uppercase">
-    <span class="menu-header-text">Article</span>
+    <span class="menu-header-text">{{__('cp.articles')}}</span>
 </li>
 <li class="menu-item {{ request()->is(app()->getLocale().'/admin/articles/index') }}">
     <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -239,7 +239,7 @@ request()->is(app()->getLocale().'/admin/areas*') ? 'open' : '' }}">
         </li>
             <!-- Apps & Pages -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Members</span>
+            <span class="menu-header-text">{{__('cp.Members')}}</span>
         </li>
 
         <li class="menu-item {{ request()->is(app()->getLocale().'/admin/users*') ? 'active' : '' }}">
@@ -250,7 +250,7 @@ request()->is(app()->getLocale().'/admin/areas*') ? 'open' : '' }}">
         </li>
 
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Logout</span>
+            <span class="menu-header-text">{{__('cp.Logout')}}</span>
         </li>
 
         <li class="menu-item">
@@ -266,3 +266,8 @@ request()->is(app()->getLocale().'/admin/areas*') ? 'open' : '' }}">
         </li>
     </ul>
 </aside>
+<style>
+    .app-brand-logo.demo{
+        width:67px;
+    }
+</style>

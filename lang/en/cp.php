@@ -1111,6 +1111,36 @@ return [
     'upload_your_files'=>'upload your files',
     'services_and_price'=>'services and price',
     'No_matching_records_found'=>'No matching records found',
+
+
+
+    'write_Article'=>'writeArticle',
+    'articles'=>'articles',
+    'Numbered'=>'Numbered',
+    'Post_Details'=>'Post Details',
+    'Setup_Article_Details'=>'Setup Article Details',
+    'Details_Article'=>'Details Article',
+    'Article_name'=>'Article name',
+    'writer_name'=>'writer name',
+    'reviewer_name'=>'reviewer name',
+    'Publication_Date_and_Time'=>'Publication Date and Time',
+    'Meta_Tags'=>'Meta Tags',
+    'meta_tags'=>'meta tags',
+    'Meta_Description'=>'Meta Description',
+    'Meta_Description'=>'meta description',
+    'Enter_your_meta_description_here...'=>'Enter your meta description here ...',
+    'select_Category'=>'Select Category',
+    'select_SubCategory'=>'Select Sub Category',
+    'publish_at'=>'publish at',
+    'meta_tags'=>'Meta Tags',
+'meta_descrption'=>'meta descrption',    
+'Members'=>'Members',
+    'Logout'=>'Logout',
+    'made_with'=>'Made With',
+    'by'=>'By',
+    'tactic'=>'Tactic ',
+    'Support'=>'Support',
+    'Documentation'=>'Documentation',
 ];
 
 

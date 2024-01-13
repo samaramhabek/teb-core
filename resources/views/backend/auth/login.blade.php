@@ -74,11 +74,11 @@
         <div class="d-none d-lg-flex col-lg-7 p-0">
             <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
                 <img
-                    src="{{asset('backend')}}/img/illustrations/auth-login-illustration-light.png"
+                    src="{{asset('backend')}}/img/pexels-karolina-grabowska-4021775 (1).jpg"
                     alt="auth-login-cover"
                     class="img-fluid my-5 auth-illustration"
-                    data-app-light-img="illustrations/auth-login-illustration-light.png"
-                    data-app-dark-img="illustrations/auth-login-illustration-dark.png" />
+                    data-app-light-img="download (3).jpg"
+                    data-app-dark-img="download (3).jpg" />
 
                 <img
                     src="{{asset('backend')}}/img/illustrations/bg-shape-image-light.png"
@@ -187,3 +187,13 @@
 
 </body>
 </html>
+<style>
+    .img-fluid{
+        width: inherit;
+        height: 700px;
+    }
+    .app-brand-logo.demo{
+width:314px;
+height: 119px;
+    }
+    </style>

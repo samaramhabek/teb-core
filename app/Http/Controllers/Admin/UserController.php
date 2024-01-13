@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
@@ -140,7 +143,8 @@ class UserController extends Controller
                         'last_name' => $request->last_name,
                         'phone' => $request->phone,
                         'email' => $request->email,
-                        'password' => bcrypt(Str::random(10))
+                        // 'password' => bcrypt(Str::random(10))
+                        'password'=>bcrypt('12345678')
                     ]
                 );
 
@@ -205,8 +209,8 @@ class UserController extends Controller
             $dataToUpdate['avatar'] = $newAvatarPath;
         }
 
-        $user->update($dataToUpdate);
-        $user->refresh();
+        $user->DB::update($dataToUpdate);
+        $user->Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
 
         return response()->json([
             'message' => 'Profile updated successfully',
@@ -221,19 +225,19 @@ class UserController extends Controller
         ]);
     }
 
-    public function update_security(Request $request)
-    {
-        $request->validate([
-            'currentPassword' => ['required', new PasswordChangeValidationRule],
-            'newPassword' => 'required|min:8|confirmed',
-        ]);
+    // public function update_security(Request $request)
+    // {
+    //     $request->validate([
+    //         'currentPassword' => ['required', new PasswordChangeValidationRule],
+    //         'newPassword' => 'required|min:8|confirmed',
+    //     ]);
 
-        $user = Auth::user();
-        $user->update([
-            'password' => Hash::make($request->newPassword)
-        ]);
-        return response()->json([
-            'message' => 'Password updated successfully'
-        ]);
-    }
+    //     $user = Auth::user();
+    //     $user->update([
+    //         'password' => Hash::make($request->newPassword)
+    //     ]);
+    //     return response()->json([
+    //         'message' => 'Password updated successfully'
+    //     ]);
+    // }
 }

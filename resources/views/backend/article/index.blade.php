@@ -309,11 +309,11 @@
                         <th>{{__('cp.writer_name')}}</th>
                         <th>{{__('cp.reviewer_name')}}</th>
                         <th>{{__('cp.publish_at')}}</th>
-                        <th>{{__('cp.meta tags')}}</th>
+                        <th>{{__('cp.meta_tags')}}</th>
                         <th>{{__('cp.description')}}</th>
                         <th>{{__('cp.meta_descrption')}}</th>
                         <th>{{__('cp.category')}}</th>
-                        <th>{{__('cp.child Categor')}}</th>
+                        <th>{{__('cp.sub_category')}}</th>
                         {{-- <th>{{__('cp.gender')}}</th>
                         <th>{{__('cp.title')}}</th>
                         <th>{{__('cp.region')}}</th>
@@ -337,7 +337,7 @@
                         <th>{{__('cp.description')}}</th>
                         <th>{{__('cp.meta_descrption')}}</th>
                         <th>{{__('cp.category')}}</th>
-                        <th>{{__('cp.child Categor')}}</th>
+                        <th>{{__('cp.sub_category')}}</th>
                         {{-- <th>{{__('cp.last_name')}}</th>
                         <th>{{__('cp.email')}}</th>
                         <th>{{__('cp.city')}}</th>
@@ -399,24 +399,24 @@
                     </script>
                     , made with ❤️ by <a href="https://pixinvent.com" target="_blank" class="fw-medium">Pixinvent</a>
                   </div> --}}
-                  <div class="d-none d-lg-inline-block">
+                  {{-- <div class="d-none d-lg-inline-block">
                     <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank"
                       >License</a
-                    >
-                    <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4"
+                    > --}}
+                    {{-- <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4"
                       >More Themes</a
-                    >
+                    > --}}
 
-                    <a
+                    {{-- <a
                       href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation/"
                       target="_blank"
                       class="footer-link me-4"
-                      >Documentation</a
+                      >{{__('cp.Documentation')}}</a
                     >
 
                     <a href="https://pixinvent.ticksy.com/" target="_blank" class="footer-link d-none d-sm-inline-block"
-                      >Support</a
-                    >
+                      >{{__('cp.Support')}}</a
+                    > --}}
                   </div>
                 </div>
               </div>
