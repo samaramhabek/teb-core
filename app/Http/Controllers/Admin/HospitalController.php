@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Models\Service;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
 
 class HospitalController extends Controller
@@ -94,11 +95,11 @@ class HospitalController extends Controller
 
     public function store(Request $request)
     {   
-        //dd($request->all());
+      //  log::info($request->all());
         $service_id = Service::whereRaw('(JSON_EXTRACT(name, "$.en") IS NULL OR JSON_EXTRACT(name, "$.en") = "Consultation in a clinic")')
         ->whereRaw('(JSON_EXTRACT(name, "$.ar") IS NULL OR JSON_EXTRACT(name, "$.ar") = "استشارة في عيادة")')
         ->first()->id;
-
+log::info($service_id);
         $hospitalId = $request->id;
 
         $request->validate([
@@ -119,6 +120,7 @@ class HospitalController extends Controller
             $hospital = Hospital::with('doctors')->whereId($hospitalId)->firstOrFail();
             $hospital->update($data);
             if($request->doctors){
+                log::info($request->doctors);
                 $hospitals = $request->doctors;
                // dd($request->doctors);
                 $hospital->doctors()->sync($hospitals);

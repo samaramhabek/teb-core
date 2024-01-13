@@ -40,11 +40,11 @@ class DoctorController extends Controller
     public function create(){
         // $categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
         // $child_categories = CategoryResource::collection(Category::whereNotNull('parent_id')->latest()->get());
-        $ip = '162.159.24.227'; /* Static IP address */
- $ip='212.47.230.124';
+//         $ip = '162.159.24.227'; /* Static IP address */
+//  $ip='212.47.230.124';
 //  $ip = request()->ip();
 //  dd($ip);
-        $currentUserInfo = Location::get($ip);
+        // $currentUserInfo = Location::get($ip);
         $cases=Cases::get();
         $nationalities=Nationality::get();
         $categories=Category::get();
@@ -57,7 +57,7 @@ class DoctorController extends Controller
         $services=Service::get();
         return view('doctorbackend.form'
         ,[
-            'currentUserInfo'=>$currentUserInfo,'areas'=>$areas,'cases'=>$cases,'nationalities'=>$nationalities,
+            'areas'=>$areas,'cases'=>$cases,'nationalities'=>$nationalities,
         'services'=>$services, 'child_categories'=>$child_categories,  'hospitals'=>$Hospitals, 'treatments'=>$treatments,'insurances'=>$insurances,'cities'=>$cities]
     );
     }
