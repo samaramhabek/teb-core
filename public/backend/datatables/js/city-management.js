@@ -464,7 +464,8 @@ $(function () {
                     icon: 'error',
                     customClass: {
                         confirmButton: 'btn btn-success'
-                    }
+                    },
+                    confirmButtonText: oky
                 });
             }
         });
