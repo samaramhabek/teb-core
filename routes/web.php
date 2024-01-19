@@ -131,7 +131,7 @@ Route::group(
         Route::get('/api-exam_questions', [ExamQuestionsController::class, 'exam_questions_api'])->name('exam_questions.api');
 
 
-        Route::get('/doctors/index', [DoctorController::class, 'index2'])->name('tables');
+        Route::get('/doctors/index', [DoctorController::class, 'index2'])->name('tables')->middleware('auth:admin');
         Route::get('/api-doctors', [DoctorController::class, 'doctors_api'])->name('doctors.api');
         Route::post('/api-createDoctor', [DoctorController::class, 'store'])->name('createDoctor');
         Route::post('/assignArticle', [DoctorController::class, 'assignArticle'])->name('assignArticle');

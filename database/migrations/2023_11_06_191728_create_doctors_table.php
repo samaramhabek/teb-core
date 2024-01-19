@@ -40,7 +40,7 @@ return new class extends Migration
             
             $table->string('address')->nullable();
            $table->string('Phone')->nullable();
-
+           $table->string('video_url')->nullable();
 
             $table->timestamps();
         });

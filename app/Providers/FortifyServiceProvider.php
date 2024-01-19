@@ -17,6 +17,7 @@ use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Fortify;
 use Illuminate\Support\Facades\Log;
+use Laravel\Fortify\Contracts\RegisterViewResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+       
         $request = request();
         if ($request->is('admin') || $request->is('admin/*')) {
             Config::set('fortify.guard', 'admin');
@@ -70,6 +72,8 @@ class FortifyServiceProvider extends ServiceProvider
 
             }
         });
+      
+        
     }
 
     /**
@@ -81,7 +85,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-
+      
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 

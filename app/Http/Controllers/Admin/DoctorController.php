@@ -340,20 +340,31 @@ class DoctorController extends Controller
     }
     public function gallery(Request $request){
         $doctor_id=$request->doctor_id;
-        return view('backend.doctors.gallery',['doctor_id'=>$doctor_id]);
+       $doctor= Doctor::with('media')->where('id',$doctor_id)->first();
+        return view('backend.doctors.gallery',['doctor_id'=>$doctor_id,'doctor'=>$doctor]);
     }
     public function storegallery(Request $request){
-//dd($request->all());
+log::info($request->all());
+$doctor=Doctor::whereId($request->id)->with('media')->first();
+if($request->video_url){
+    $data['video_url']=$request->video_url;
+    $doctor->update($data);
+}
 if ($request->hasFile('imageUpload')) {
+    $doctor->clearMediaCollection('gallery_image');
     foreach ($request->file('imageUpload') as $file) {
-        $filename = $file->getClientOriginalName();
-        // You can now use $filename for whatever you need, like storing in a database, moving to a directory, etc.
-     Log::info($filename); // Logging the filename for demonstration
+        if ($file && $file->isValid()) {
+           
+            $doctor->addMedia($file)->toMediaCollection('gallery_image');
+            Log::info($file->getClientOriginalName());
+        }
     }
 }
 
+return response()->json(["message"=>"success"]);    
+ }
 
-    }
+
     public function project(Request $request){
         $parent_categories = CategoryResource::collection(Category::whereNull('parent_id')->latest()->get());
         $columns = [

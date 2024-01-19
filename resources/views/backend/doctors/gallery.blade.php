@@ -14,6 +14,7 @@
 
 
 <body>
+    {{$doctor}}
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
     <div class="content-wrapper">
@@ -31,15 +32,15 @@
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-circle">1</span>
                                 <span class="bs-stepper-label mt-1">
-                                    <span class="bs-stepper-title">{{__('cp.account_details')}}</span>
-                                    <span class="bs-stepper-subtitle">{{__('cp.setup_account_details')}}</span>
+                                    <span class="bs-stepper-title">{{__('cp.doctor_gellary')}}</span>
+                                    <span class="bs-stepper-subtitle">{{__('cp.doctor_gellary')}}</span>
                                 </span>
                             </button>
                         </div>
-                        <div class="line">
+                        {{-- <div class="line">
                             <i class="ti ti-chevron-right"></i>
-                        </div>
-                        <div class="step" data-target="#personal-info-validation">
+                        </div> --}}
+                        {{-- <div class="step" data-target="#personal-info-validation">
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-circle">2</span>
                                 <span class="bs-stepper-label">
@@ -47,11 +48,11 @@
                                     <span class="bs-stepper-subtitle">{{__('cp.add_personal_info')}}</span>
                                 </span>
                             </button>
-                        </div>
-                        <div class="line">
+                        </div> --}}
+                        {{-- <div class="line">
                             <i class="ti ti-chevron-right"></i>
-                        </div>
-                        <div class="step" data-target="#social-links-validation">
+                        </div> --}}
+                        {{-- <div class="step" data-target="#social-links-validation">
                             <button type="button" class="step-trigger">
                                 <span class="bs-stepper-circle">3</span>
                                 <span class="bs-stepper-label">
@@ -59,7 +60,7 @@
                                     <span class="bs-stepper-subtitle">{{__('cp.add_social_links')}}</span>
                                 </span>
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
 {{--
                     <div id="map" style="height: 50vh;"></div>
@@ -79,7 +80,7 @@
                         
                                 <div class="form-h row">
                                     <!-- Video Upload -->
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="upload1">{{__('cp.Download_video')}}</label>
                                             <input type="file" class="form-control" name="video" id="videoUpload" />
@@ -90,17 +91,26 @@
                                             <source src="path_to_your_uploaded_video.mp4" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>
+                                    </div> --}}
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                        <label class="form-label" for="add-lesson-video_url">{{__('cp.video_url')}}</label>
+                                        <input type="url" value= "{{ old('video_url', $doctor->video_url) }}" class="form-control" id="add-lessonvideo_url" placeholder="{{__('cp.video_url')}}" name="video_url" aria-label="{{__('cp.video_url')}}" />
+                                        </div>
                                     </div>
                         
                                     <!-- Image Upload -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="imageUpload">{{__('cp.download__images')}}</label>
+                                            <label for="imageUpload">{{__('cp.download_images')}}</label>
                                             <input type="file" class="form-control" name="imageUpload[]" id="imageUpload" multiple />
                                         </div>
                                     </div>
                                     <div class="col-md-12" id="imageContainer">
                                         <!-- Images will be displayed here -->
+                                        @foreach($doctor->media as $media)
+                                        <img src="{{ $media->getUrl() }}" alt="Image">
+                                    @endforeach
                                     </div>
                         
                                     <!-- Buttons -->

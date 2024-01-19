@@ -1156,6 +1156,8 @@ return [
     'select_insurances'=>'select insurances',
     'prev_step'=>'prev step',
     'trainer'=>'Trainer',
+    'download_images'=>'download images',
+    'doctor_gellary'=>'doctor gellary',
 ];
 
 

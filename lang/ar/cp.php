@@ -1335,4 +1335,6 @@ return [
     'select_insurances'=>'اختر التأمينات',
     'prev_step'=>'المرحلة السابقة ',
     'trainer'=>'مدرب',
+    'download_images'=>'تحميل صور',
+    'doctor_gellary'=>'معرض الطبيب',
 ];
