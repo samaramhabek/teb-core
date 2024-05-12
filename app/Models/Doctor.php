@@ -83,5 +83,13 @@ public function category_child()
             return 'https://ui-avatars.com/api/?name='. $this->name. '&background=random';
         }
     }
+    public function doctorAppointments()
+    {
+        return $this->hasMany(DoctorAppointment::class);
+    }
+    public function AppointmentSetting()
+    {
+        return $this->hasMany(AppointmentSetting::class);
+    }
 
 }

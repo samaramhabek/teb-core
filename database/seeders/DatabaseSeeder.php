@@ -29,5 +29,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => Hash::make('123456'),
         ]);
+        \App\Models\Service::create([
+            'name' => 'en":"Consultation in a clinic","ar":"موعد في عيادة',
+            'created_at' => '2024-05-22 17:04:16',
+           
+        ]);
     }
 }
