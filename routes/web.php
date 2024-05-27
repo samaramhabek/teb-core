@@ -34,6 +34,7 @@ use App\Models\Hospital;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Doctor\DoctorController as DoctorDoctorController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -206,4 +207,18 @@ Route::middleware(['auth:doctor'])->prefix('doctor')->as('doctor.')->group(funct
 //  Route::get('/singledoctor', [DoctorDoctorController::class, 'singledoctor'])->name('singledoctor');
 //  Route::get('/index', [DoctorDoctorController::class, 'index'])->name('index');
 //  Route::get('/search', [DoctorDoctorController::class, 'search'])->name('doctor.search');
+});
+Route::get('/run-clear-commands', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('view:cache');
+    Artisan::call('view:clear');
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+    Artisan::call('route:cache');
+    Artisan::call('route:clear');
+    Artisan::call('event:cache');
+    Artisan::call('event:clear');
+    Artisan::call('optimize:clear');
+    Artisan::call('optimize');
+    return 'Caches Is Ready';
 });

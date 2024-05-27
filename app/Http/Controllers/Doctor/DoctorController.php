@@ -91,6 +91,7 @@ class DoctorController extends Controller
         $doctorId = $request->id;
         $data['first_name'] = ['en' => $request->first_name_en, 'ar' => $request->first_name_ar];
         $data['last_name'] = ['en' => $request->last_name_en, 'ar' => $request->last_name_ar];
+        
         $data['description'] = ['en' => $request->description_en, 'ar' => $request->description_ar];
         $data['title'] = ['en' => $request->title_en, 'ar' => $request->title_ar];
         // $data['region'] = ['en' => $request->region_en, 'ar' => $request->region_ar];

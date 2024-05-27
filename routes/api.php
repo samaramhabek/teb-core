@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -43,7 +44,8 @@ Route::get('/get-sub-category-by-category/{category}', [DoctorDoctorController::
 Route::get('/doctor/create-api', [DoctorDoctorController::class, 'create_api'])->name('test');
 
 Route::middleware(['changeLang'])->group(function () {   
-
+Route::post('/account/login', [AuthController::class, 'login']);
+Route::post('/verifyCode/login', [AuthController::class, 'verifyCode']);
 Route::get('/doctor/search', [DoctorController::class, 'search'])->name('search');
 Route::post('/doctor/login', [LoginController::class, 'authenticate'])->name('doctor.login');
 Route::get('/course/get', [PublicSiteCourseController::class, 'index']);

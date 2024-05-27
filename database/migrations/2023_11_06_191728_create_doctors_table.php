@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('username')->nullable();
             $table->string('description')->nullable();
             $table->string('title')->nullable();
             $table->string('email')->nullable();
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->string('address')->nullable();
            $table->string('Phone')->nullable();
            $table->string('video_url')->nullable();
+           $table->text('verification_code')->nullable();
 
             $table->timestamps();
         });

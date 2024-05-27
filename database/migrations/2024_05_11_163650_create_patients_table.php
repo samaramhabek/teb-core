@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('username')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->foreignId('city_id')->nullable()->constrained();
+            $table->text('verification_code')->nullable();
             $table->timestamps();
         });
     }
